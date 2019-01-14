@@ -1,6 +1,8 @@
 Multi Signature Transaction in Lightning Pyment Channels
 ========================================================
 
+These are possible soltuion approaches to the problem.
+
 Change funding transaction script
 ---------------------------------
 
@@ -13,4 +15,4 @@ Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[
 Stop HTLC before route
 ----------------------
 
-Hold onto the HTLCs and don’t let them route unless they pass a sign-offfootnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
+Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is reveiled/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
