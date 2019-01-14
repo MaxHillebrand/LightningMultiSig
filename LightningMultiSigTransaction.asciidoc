@@ -1,10 +1,16 @@
 Multi Signature Transaction in Lightning Pyment Channels
 ========================================================
 
+Change funding transaction script
+---------------------------------
+
 Input script: `[0 sigAlice sigBob 2 pubkeyAlice pubkeyBob 3 sigDave pubkeyDave]` 
 
 Output script: `[checksigverify checkmultisig]`
 
-// Is this the correct script?!
+Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[James C. https://twitter.com/digi_james/status/1083403533230198784]
 
-Now each channel state update requires 2/3 sigs from ABC + sig from D.
+Stop HTLC before route
+----------------------
+
+Hold onto the HTLCs and don’t let them route unless they pass a sign-offfootnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
