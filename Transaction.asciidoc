@@ -1,4 +1,3 @@
-
 Types of Transaction
 ====================
 
@@ -22,4 +21,4 @@ Segregated witnessfootnote:[BIP141] **P2WPKH** transactions remove the signature
 Pay to Witness Script Hash
 --------------------------
 
-Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The witness part contains for example `0 <signature1> <1 <PubKey1> <PubKey2> 2 CHECKMULTISIG>` and the ScriptPubKey of `0 <ScriptHash>`.
+Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The witness part contains for example `0 <signature1> <1 <PubKey1> <PubKey2> 2 CHECKMULTISIG>` and the ScriptPubKey of `0 <ScriptHash>`. The main difference to P2PKH is thus the location of the signature part.
