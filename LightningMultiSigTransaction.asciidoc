@@ -12,6 +12,11 @@ Output script: `[checksigverify checkmultisig]`
 
 Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[James C. https://twitter.com/digi_james/status/1083403533230198784]
 
+Key aggregation
+---------------
+
+Aggregated Schnorr signaturesfootnote:[Simple Schnorr Multi-Signatures with Applications to Bitcoin, Gregory Maxwell and Andrew Poelstra and Yannick Seurin and Pieter Wuille, https://eprint.iacr.org/2018/068] to one key of the 2-of-2 lightning payment channel. 
+
 Stop HTLC before route
 ----------------------
 
