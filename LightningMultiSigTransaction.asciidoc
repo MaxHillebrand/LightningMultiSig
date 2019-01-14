@@ -1,0 +1,10 @@
+Multi Signature Transaction in Lightning Pyment Channels
+========================================================
+
+Input script: `[0 sigAlice sigBob 2 pubkeyAlice pubkeyBob 3 sigDave pubkeyDave]` 
+
+Output script: `[checksigverify checkmultisig]`
+
+// Is this the correct script?!
+
+Now each channel state update requires 2/3 sigs from ABC + sig from D.
