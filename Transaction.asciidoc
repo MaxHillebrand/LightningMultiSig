@@ -59,7 +59,7 @@ Multi Signature in P2WSH
 
 Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
 
-Witness Script `0 <signature1> <1 <PubKey1> <PubKey2> 2 CHECKMULTISIG>` 
+Witness Script `0 <signature 1> 1 <Public Key 1> <Public Key 2> 2 CHECKMULTISIG` 
 
 ScriptPubKey: `0 SHA256(<witnessScript>)`
 
