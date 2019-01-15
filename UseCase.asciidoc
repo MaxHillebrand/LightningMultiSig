@@ -1,0 +1,20 @@
+Possible Use Case
+=================
+
+Multi signature transactions are an integral part to Bitcoin script since it's beginning, and there are many proven and theoretical problems that can be solved with this technology. This is a critical theoretical analysis of these proposed use cases.
+
+Security
+--------
+
+2-of-3 or 4-of-5 multisig, with one key controlled by the security speciallistfootnote:[See BitGo and Casa], and all others by clients. Approval / 2FA for each spend, but no full custody and risk of loss of keys.
+
+Group Fund Management
+---------------------
+
+Business partners share access to funds in a n-of-n multi sig, so that all peers need to agree on the allocation of funds. Potentially improved with optional time locks. [2-of-2 always, 1-of-2 after 1000 blocks]
+
+Escrow
+------
+
+Upfront security deposit for a market place / exchange, with semi-trusted third party arbitrator to sign in case of dispute.footnote:[See Bisq 2-of-3 & HodlHodl 2-of-2]
+
