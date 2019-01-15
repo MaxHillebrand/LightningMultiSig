@@ -17,4 +17,4 @@ This thesis is in the early stages of research and writing, there are many topic
 * [HTLC and Routing](/Routing.asciidoc)
 * [Possible Option 1: m-of-n + 1 commitment transaction](/LightningMultiSigTransaction.asciidoc)
 * [Possible Option 2: 2-of-2 + with Shamir's secret sharing or aggregated Schnorr [likely nonsensical]](/LightningMultiSigTransaction.asciidoc)
-* Usecases of multi signature both on- and off-chain
+* [Usecases of multi signature both on- and off-chain](/UseCase.asciidoc)
