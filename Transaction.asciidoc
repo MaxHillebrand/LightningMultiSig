@@ -38,6 +38,17 @@ Pay to Witness Public Key Hash
 
 Segregated witnessfootnote:[BIP141] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
 
+Single Signature in P2WPKH
+++++++++++++++++++++++++++
+
+Redeem Script: `<Public Key> CHECKSIG`
+
+Witness Script: `0 <Public Key Hash>` 
+
+ScriptPubKey: `0 SHA256(<witness Script>)`
+
+Address: `RIPEMD160(SHA256(<witnessScript>))`
+
 Pay to Witness Script Hash
 --------------------------
 
