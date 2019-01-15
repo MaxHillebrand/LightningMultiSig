@@ -8,10 +8,30 @@ Pay to Public Key Hash
 
 A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the commited public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed.
 
+Multi Signature in P2PKH
+++++++++++++++++++++++++
+
+ScriptPubKey: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+SignatureScript: `<Signature 1> <Signature 2> ... <Signature M>`
+
+Validation Script: `<Signature 1> <Signature M> M <Public Key 1> <Public Key 2> <Public Key N> N CHECKMULTISIG`
+
 Pay to Script Hash
 ------------------
 
-The ScriptPubkey of a **P2SH** transaction contains a hash of a redeem script, which can be any script whatsoever.footnote:[BIP16] The conditions to redeem the transaction are with the redeemer, not the sender of the transaction. To spend the UTXO, Bob needs to provide the signature with the full redeem script in the signature script. It is only valid, when the redeem script hashes to the same value as the script hash Alice put in the output. The redeem script has the same attributes as a pubkey hash, thus the follow up process is identical to a P2PKH script.
+The ScriptPubKey of a **P2SH** transaction contains a hash of a redeem script, which can be any script whatsoever.footnote:[BIP16] The conditions to redeem the transaction are with the redeemer, not the sender of the transaction. To spend the UTXO, Bob needs to provide the signature with the full redeem script in the signature script. It is only valid, when the redeem script hashes to the same value as the script hash Alice put in the output. The redeem script has the same attributes as a pubkey hash, thus the follow up process is identical to a P2PKH script. This gives the benefit of removing complex scripts from block space and shifting the burdon of key storage to the future spending time. The majority of fees are paid not when receiving to a complex P2SH, but when spending the P2SH UTXO where the redeem script and signatures are reveiled.
+
+Multi Signature in P2SH
++++++++++++++++++++++++
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
+
+SignatureScript: `<Signature 1> <Signature M> <redeem script>`
+
+Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
 Pay to Witness Public Key Hash
 ------------------------------
@@ -22,3 +42,4 @@ Pay to Witness Script Hash
 --------------------------
 
 Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The witness part contains for example `0 <signature1> <1 <PubKey1> <PubKey2> 2 CHECKMULTISIG>` and the ScriptPubKey of `0 <ScriptHash>`. The main difference to P2PKH is thus the location of the signature part.
+
