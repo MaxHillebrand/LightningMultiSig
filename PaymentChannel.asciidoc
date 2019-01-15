@@ -27,11 +27,6 @@ Bob has a different transaction with one Input: `2-of-2 funding output, signed b
 
 The revocable key is split in two secrets, similar to 2-of-2 multi signature based on elyptical curve arithmetics. When Bob sends funds to Alice, Alice has to revoke the old commitment transaction by reveiling her secret to Bob, before Bob agrees to sign the new state. If Alice would try to cheat and broadcast an old state, Bob can become active and use both paths of the revokation key to redeem Alice's delayed output. Alice only has one half of the revocation key and can only redeem her output after the 4320 blocks. With each state update, both exchange the new commitment transactions, and the revocation secret. 
 
-Hash Time Lock Contracts
-++++++++++++++++++++++++
-
-With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preiamge is not reveiled within the dedicated time, the funds go back to the payer.
-
 Closing Transaction
 --------------------
 
