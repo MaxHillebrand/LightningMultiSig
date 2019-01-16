@@ -64,3 +64,10 @@ Witness Script `0 <signature 1> 1 <Public Key 1> <Public Key 2> 2 CHECKMULTISIG`
 ScriptPubKey: `0 SHA256(<witnessScript>)`
 
 Address: checksume base32footnote:[BIP173] encoded
+
+Possible scripts for multi sig
+------------------------------
+
+Redeem script: `IF <Public Key 1> CHECKSIG ELSE <Public Key 2> CHECKSIG ENDIF`
+
+Signature script: `<signature 1> TRUE` or `<signature 2> FALSE`

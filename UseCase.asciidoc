@@ -18,3 +18,22 @@ Escrow
 
 Upfront security deposit for a market place / exchange, with semi-trusted third party arbitrator to sign in case of dispute.footnote:[See Bisq 2-of-3 & HodlHodl 2-of-2]
 
+2-of-3 [Alice, Bob, Charlie] can always sprend from this script, after 1000 blocks, 
+
+Redeem Script for time locked escrow: 
+----
+
+    IF 
+      IF 
+        2 
+      ELSE 
+        <1000 blocks> CHECKSEQUENCEVERIFY DROP 
+        <Public Key 1> CHECKSIGVERIFY 
+        1
+      ENDIF 
+      <Public Key 2> <Public Key 3> <Public Key 4> 3 CHECKMULTISIG 
+    ELSE 
+      <3000 blocks> CHECKSEQUENCEVERIFY DRPO 
+      <Public Key 1> CHECKSIGVERIFY 
+    ENDIF
+----
