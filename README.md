@@ -17,7 +17,7 @@ I have no clue how to best do this. As far as I know, there is no proposal or im
 * M-of-n key aggregation ontop of a regular 2-of-2 lightning payment channel
 * Commitment transaction redeem script `m-of-n + 1`
 * M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...
-* Hindering the pre image of a 2-of-2 payment channel route with a m-of-n unlock script
+* Hindering the pre image release of a 2-of-2 payment channel route with a m-of-n unlock script
 
 ## ToDo
 
