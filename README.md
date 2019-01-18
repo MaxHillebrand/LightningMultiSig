@@ -8,6 +8,15 @@ This thesis explains how multi sig is used on the first layer block chain; how l
 
 The paper is written in an open source process, and published under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by/4.0/legalcode). If you'd like to contribute to the research and writing, please submit an issue, fork the repository, commit the changes on your own branch, and issue a pull request when you're satisfied with your work. Thank you for your support!
 
+## Possible Approaches
+
+I have no clue how to do this. As far as I know, there is no proposal or implementation in existense yet. However, there are several approaches that might lead to the desired outcome and evolve into a suitable solution. All this is very much subject to change, new approaches will be discovered, and wrong ideas discarted. See the [Research file](/Research.asciidoc) for prerequisite work. 
+
+* M-of-n key aggregation ontop of a regular 2-of-2 lightning payment channel
+* Commitment transaction redeem script `m-of-n + 1`
+* M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...
+* Hindering the pre image of a 2-of-2 payment channel route with a m-of-n unlock script
+
 ## ToDo
 
 This thesis is in the early stages of research and writing, there are many topics that require further insight and clear explanation. Here is a list of rough ToDo's and the process plus notes to them.
