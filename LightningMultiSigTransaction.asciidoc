@@ -1,10 +1,10 @@
-Multi Signature Transaction in Lightning Pyment Channels
-========================================================
+= Multi Signature Transaction in Lightning Pyment Channels
+
 
 These are several possible approaches to solve the problem. Maybe changing the commitment transaction scrip, or enforcing the  multi sig on a higher wallet level, not on the blockchain directly.
 
-Commitment transaction script
------------------------------
+== Commitment transaction script
+
 
 Redeem Script: `0 sigAlice sigBob 2 pubkeyAlice pubkeyBob 3 sigDave pubkeyDave` 
 
@@ -14,12 +14,11 @@ ScriptPubKey: `0 SHA256(<witnessScript>)`
 
 Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[James C. https://twitter.com/digi_james/status/1083403533230198784]
 
-Key aggregation
----------------
+== Key aggregation
 
-Aggregated Schnorr signaturesfootnote:[Simple Schnorr Multi-Signatures with Applications to Bitcoin, Gregory Maxwell and Andrew Poelstra and Yannick Seurin and Pieter Wuille, https://eprint.iacr.org/2018/068] to one key of the 2-of-2 lightning payment channel. 
 
-Stop HTLC before route
-----------------------
+Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of the 2-of-2 lightning payment channel.
+
+== Stop HTLC before route
 
 Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is reveiled/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]

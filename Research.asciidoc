@@ -1,11 +1,9 @@
-Research
-========
+= Research
 
 Here is a some what random list of interesting papers, articles, tweetstorms, memes, whatever is of interest. 
 
 
-Multiparty ECDSA
-----------------
+== Multiparty ECDSA
 
 Fast Multiparty Treshold ECDSA, Rosario Gennaro & Steven Goldfeder: https://dl.acm.org/citation.cfm?id=3243859
 
@@ -20,8 +18,7 @@ Scriptless Scripts with ECDSA, Pedro Moreno-Sanchez & Aniket Kate: https://lists
 Signature aggregation, Greg Maxwell: https://bitcointalk.org/index.php?topic=1377298.0
 
 
-Schnorr
--------
+== Schnorr
 
 Schnorr Multi Signatures, Gregory Maxwell & Andrew Poelstra & Yannick Seurin & Pieter Wuille: https://eprint.iacr.org/2018/068.pdf
 
@@ -49,7 +46,7 @@ Schnorr BLS ECDSA, CoreDev.tech: https://bitcoincore.org/logs/2016-05-zurich-mee
 
 Schnorr Signatures, Patrick Strateman: https://elementsproject.org/features/schnorr-signatures
 
-Schnorr, Bitcoin OpTech #3: https://bitcoinops.org/en/newsletters/2018/07/10/
+Schnorr, Bitcoin OpTech # 3: https://bitcoinops.org/en/newsletters/2018/07/10/
 
 Schnorr vs ECDSA, Q&A Pieter Wuille: https://bitcoin.stackexchange.com/questions/77234/schnorr-vs-ecdsa/77235#77235
 
@@ -58,20 +55,19 @@ Schnorr batch validation: Q&A Pieter Wuille: https://bitcoin.stackexchange.com/q
 Implications of Schnorr, Q&A GMax & Murch & Adam Back: https://bitcoin.stackexchange.com/questions/34288/what-are-the-implications-of-schnorr-signatures/35351#35351
 
 
-BLS
----
+== BLS
 
 Short signatures from the Weil pairing, Dan Boneh Ben Lynn Hovav Shacham: https://www.iacr.org/archive/asiacrypt2001/22480516.pdf
 
 BLS better than Schnorr, Stepan Snigirev: https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716
 
-Lightning Routing
------------------
+
+== Lightning Routing
 
 Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability, Giulio Malavolta & Pedro Moreno-Sanchez & Clara Schneidewind & Aniket Kate & Matteo Maffei: https://lists.linuxfoundation.org/pipermail/lightning-dev/attachments/20180426/fe978423/attachment-0001.pdf
 
-MimbleWimble
-------------
+
+== MimbleWimble
 
 Mimblewimble, Tom Elvis Jedusor: https://scalingbitcoin.org/papers/mimblewimble.txt
 

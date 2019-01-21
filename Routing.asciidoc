@@ -1,16 +1,13 @@
-Routing
-=======
+= Routing
 
-Hash Time Lock Contracts
-------------------------
+== Hash Time Lock Contracts
 
 With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preiamge is not reveiled within the dedicated time, the funds go back to the payer.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 4 HTLC]footnote:[Rusty Russell 2015, Hashed Timelock Contracts https://rusty.ozlabs.org/?p=462]
 
-Network Topology
-----------------
+== Network Topology
 
 The Lightning network consists of several nodes who have bidirectional payment channels open between each other. Alice has three channels with other nodes:`Alice==Bob Alice==Satoshi Alice==Hal`. Each payment channel can be used for individual payments with updating commitment transactions as described earlier. Further, some nodes are indirectly connected with each other: `Alice==Bob==Carol==David==Eric` These nodes may communicate a trustless route of the bitcoin from Alice to Eric without the need for a direct payment channel.
 
-Step by Step Route
-------------------
+== Step by Step Route
+
 The receiver Eric generates a random number R and sends the hash of it H to the sender Alice. Alice constructs a routefootnote:[BOLT 7] starting with a HTLC worth 1.003 bitcoin, payable to the H with a 10 block refund timeout. Further, Alice deductes 1.003 bitcoin from her payment channel and offers the HTLC to Bob. Bob can redeem this payment when he reveals R to Alice. The payment channel is now expressed by three outputs, two corresponding to the private keys of Alice and Bob respectively, the third to the HTLC. The same commitment is constructed between Bob and Carol of 1.002 bitcoin for 9 blocks, Carol and David of 1.001 bitcoin for 8 blocks, and David and Eric of 1.000 bitcoin for 7 blocks.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 8.1 Decrementing Timelocks] Eric can now release R to David in return for 1.0000, Dave can release R to Carol in return for 1.0001 bitcoin, Carol can sell R to Bob for 1.0002 bitcoin, and finally Bob can give R to Alice in return for 1.0003 bitcoin.
