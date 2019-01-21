@@ -31,3 +31,4 @@ This thesis is in the early stages of research and writing, there are many topic
 * Option 3: m-of-n access rights to node with 2-of-2 payment channel
 * Option 4: Preimage locked with m-of-n
 * [Usecases of multi signature both on- and off-chain](/UseCase.asciidoc)
+* Punishment mechanism and game theory
