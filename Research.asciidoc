@@ -72,3 +72,22 @@ Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability, Giuli
 Mimblewimble, Tom Elvis Jedusor: https://scalingbitcoin.org/papers/mimblewimble.txt
 
 Mimblewimble team mailing list: https://lists.launchpad.net/mimblewimble/msg00086.html
+
+
+= Support
+
+I especially thank the many peers that have supported me in my path towards understanding this complex topic.
+
+Adam Fiscor
+Andreas Antonopolous
+Alex Brosworth
+Gregory Maxwell
+Jeff Gallas
+Justin Carter
+Jonas Nick
+Konstantin Nick
+Murch
+Nicolas Dorier
+Pieter Wullie
+Rene Pickhardt
+Olaoluwa Osuntokun
