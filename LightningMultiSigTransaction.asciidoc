@@ -29,4 +29,6 @@ HODL-HTLC:footnote:[Joost Jager Pull Request #2022] Instead of immediately settl
 
 Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administor right and hardware access are not trustless, maybe read only HSM,
 
+== Submarine Swap to On Chain MultiSig
 
+An atomic swap where Alice is selling lightning liquidity and buys on chain capacity, which is locked in a m-of-n multisig redeem script. Regular instant funding of on chain multisig, but not the desired shared ownership of a lightning multi sig to spend. Probably not of interest.
