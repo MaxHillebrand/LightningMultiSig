@@ -18,11 +18,20 @@ There is no need to organize the structure of production with these non-scarce g
 
 Because there is no need to ration the allocation of non-scarce goods, property rights do not emerge. There is no individual ownership of ideas, recipes or music, rather, anyone who is interested can acquire and use this information without taking it from some one else. Information belongs in the universal field of knowledge from where any individual can draw everything needed to understand the truth and apply it in ones life. 
 
+=== Non-Scarcity in Cryptography and Bitcoin
+
+A cryptographic private key is a very large random number, a piece of non-scarce information which can be copied endlessly. The potential number field is so large that when one sufficiently random number is picked, it can be assumed that nobody else has knowledge of this specific information. Whoever has the knowledge of this private key can easily compute a corresponding public key and signature. But with only the public key, it is computationally infeasible to calculate the private key. Asymmetric cryptography assumes that the creator of the private key bits can keep them hidden and occulted from anyone else. Only when this knowledge is exclusively available to the original creator is the identity prove with the signature conclusive.
+
+Bitcoin utilizes a plethora of different tools like cryptography, economics and game theory. A UTXO can only be spent when the corresponding redeem script is returned valid, these conditions are expressed in the non-Turing-complete Bitcoin script language. For example a P2WPKH UTXO can only be spent by he who has the knowledge of the private key and proves this with a valid signature. Possession of the non-scarce information is sufficient to use the very scarce bitcoin. Although nobody owns the private key, its knowledge is the right to own and use this specific coin. Because the private key can be shared with others without taking the knowledge from someone else, the access rights to the bitcoin can be shared as well. However, with the P2WPKH script, only the first individual to broadcast a valid transaction has full control over the bitcoin on chain. 
+
+P2WSH transactions can commit to more advanced scripts that can add complexity to the conditions that the spender needs to prove. Such a script could be a multi signature scheme, where n private keys are generated and the public keys are included in the redeem script. Only with signature prove of knowledge of m private keys can the UTXO be spent. N individuals can create their own unique private keys, however, this piece of information alone is worthless, as it cannot be used by it self. Only with the coordination of m individuals can the chain of digital signatures be advanced. This is shared ownership of the scarce bitcoin which is cryptographically proven and cannot be broken.
 
 
-xxxxxxxxxxxxxxxxxxxxxxxxxx
+```console
+xxxxxxxxxxxxxxxxxxxx
 **shared ownership** should be first, otherwise it's just a "simulation", which might be an ok thread model
 scaling needs software
 **bitcoin is first time that shared ownership is not just a simulation!!!**
 shared ownership is voluntary opt in
 `M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...` -- is a simulation
+```
