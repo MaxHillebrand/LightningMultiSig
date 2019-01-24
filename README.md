@@ -32,3 +32,9 @@ This thesis is in the early stages of research and writing, there are many topic
 * Option 4: Preimage locked with m-of-n
 * [Usecases of multi signature both on- and off-chain](/UseCase.asciidoc)
 * Punishment mechanism and game theory
+
+## Support
+
+If you think that this research paper is of importance to you, your company and the Bitcoin network in general, please consider supporting this project. Mainly, contemplate the problem and share your ideas on how a solution can be implemented. If you know someone who is interesting in this subject, feel free to share the link and all the information contained in the repository. If you'd like to give financial support, I'd very much appreciate every Satoshi you can spare to [donate](/https://tallyco.in/HillebrandMax)!
+
+[3GB2fALwyWpcBY98svyDfX6fVQp4rNfoQ5](/bitcoin:3GB2fALwyWpcBY98svyDfX6fVQp4rNfoQ5)
