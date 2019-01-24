@@ -66,6 +66,7 @@ BLS better than Schnorr, Stepan Snigirev: https://medium.com/cryptoadvance/bls-s
 
 Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability, Giulio Malavolta & Pedro Moreno-Sanchez & Clara Schneidewind & Aniket Kate & Matteo Maffei: https://lists.linuxfoundation.org/pipermail/lightning-dev/attachments/20180426/fe978423/attachment-0001.pdf
 
+2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning, Joseph Poon: https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html
 
 == MimbleWimble
 
