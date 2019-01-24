@@ -17,3 +17,14 @@ When based on her previous experiences Alice formulates a thought, and speaks th
 There is no need to organize the structure of production with these non-scarce goods, because any entrepreneur who would need the good to advance the process could simply copy it. There does not need to be a direct exchange, because the original creator does not give up anything, he still retains his version. _“These  designs – the  recipes, the formulas, the ideologies – are the primary thing; they transform the original factors – both human and nonhuman – into means.”_ footnote:[Mises, (1949) Human Action, p. 142.]
 
 Only those blinded by greed will deny a truth seeking friend to make a copy.
+
+
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxx
+**shared ownership** should be first, otherwise it's just a "simulation", which might be an ok thread model
+scaling needs software
+**bitcoin is first time that shared ownership is not just a simulation!!!**
+shared ownership is voluntary opt in
+`M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...` -- is a simulation
