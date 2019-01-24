@@ -23,7 +23,7 @@ Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of th
 
 Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is reveiled/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
 
-HODL-HTLC: Instead of immediately settle the HTLC, the receiver waits for a time period or until he has access to some secret information. Receiver can check conditions, sender security deposit, Preimage is set by sender and only revealed to receiver when action is performed [atomic swap]
+HODL-HTLC:footnote:[Joost Jager Pull Request #2022] Instead of immediately settle the HTLC, the receiver waits for a time period or until he has access to some secret information. Receiver can check conditions, sender security deposit, Preimage is set by sender and only revealed to receiver when action is performed [atomic swap]
 
 == M-of-n RPC access rights to node with 2-of-2 payment channels
 
