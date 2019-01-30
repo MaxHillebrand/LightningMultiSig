@@ -24,6 +24,8 @@ Schnorr Multi Signatures, Gregory Maxwell & Andrew Poelstra & Yannick Seurin & P
 
 Taproot Schnorr SIGHASH_NOINPUT, Pieter Wuille: https://www.youtube.com/watch?v=YSUVRj8iznU
 
+Taproot: Privacy preserving switchable scripting, Gregory Maxwell: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-January/015614.html
+
 Schnorr signatures for Bitcoin, Pieter Wuille: https://www.youtube.com/watch?v=_Z0ID-0DOnc&feature=youtu.be&t=2297
 
 Future multisignatures, Greg Maxwell: https://www.youtube.com/watch?v=TYQ-3VvNCHE
