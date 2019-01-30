@@ -1,6 +1,6 @@
 = Scarcity
 
-This chapter explains the fundamental reason Why multi signature transactions are one of the breathtaking innovations in Bitcoin. The holistic combination of all the nuances in this consensus network emerge a good which has properties like we have never seen before. Bitcoin brilliantly intermingles attributes of both scarcity and non-scarcity to emerge true shared ownership of a good. footnote:[See my Paper on https://towardsliberty.com/videos/anarchy/[Anarchy in Money] https://github.com/MaxHillebrand/Anarchy-in-Money/blob/master/Scarcity.asciidoc[Chapter 9 on Scarcity]]
+This chapter explains the fundamental reason Why multi signature transactions are one of the breathtaking innovations in Bitcoin. The holistic combination of all the nuances in this consensus network emerge a good which has properties like we have never seen before. Bitcoin brilliantly intermingles attributes of both scarcity and non-scarcity to emerge true shared ownership of a good. footnote:[See my Paper on https://towardsliberty.com/videos/anarchy/[Anarchy in Money] https://github.com/MaxHillebrand/Anarchy-in-Money/blob/master/Scarcity.asciidoc[Chapter 9 on Scarcity].]
 
 == Scarcity
 
