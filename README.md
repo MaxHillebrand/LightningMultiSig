@@ -1,4 +1,4 @@
-# Lightning Multi Signatures
+# Non-Simulated Shared Ownership of bitcoin with Multi Signatures in the Lightning Network
 
 ## Abstract
 
