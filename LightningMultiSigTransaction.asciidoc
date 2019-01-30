@@ -3,8 +3,8 @@
 
 These are several possible approaches to solve the problem. Maybe changing the commitment transaction scrip, or enforcing the  multi sig on a higher wallet level, not on the blockchain directly.
 
-== Commitment transaction script
 
+== Commitment transaction script
 
 Redeem Script: `0 sigAlice sigBob 2 pubkeyAlice pubkeyBob 3 sigDave pubkeyDave` 
 
@@ -14,10 +14,11 @@ ScriptPubKey: `0 SHA256(<witnessScript>)`
 
 Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[James C. https://twitter.com/digi_james/status/1083403533230198784]
 
+
 == Key aggregation
 
+Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of the 2-of-2 lightning payment channel. The aggregation of m-of-n keys compute to the key pair which is referred in the funding transaction. Only with m-of-n signatures of the individual keys, can a valid aggregated signature be computed, with which a valid commitment transaction update can be committed to. The blockchain cannot tell the difference between a regular 2-of-2, and an aggregated 2-of-2 payment channel, thus, the aggregation should [?] be "backwards compatible". 
 
-Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of the 2-of-2 lightning payment channel.
 
 == Stop HTLC before / during route
 
@@ -29,6 +30,7 @@ M-of-n hash preimages are required for the HTLC to be fulfilled. Timeouts are at
 
 ```console
 ### This is a complete copy of Joseph's proposal in mail - need to verify and check for optimization ###
+
 Assume the order in the stack is Sender, Escrow, Recipient.
 
 For PAID 2-of-3 Escrow+Recipient, the HTLC stack is:
