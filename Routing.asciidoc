@@ -6,7 +6,7 @@ With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY 
 
 == Network Topology
 
-The Lightning network consists of several nodes who have bidirectional payment channels open between each other. Alice has three channels with other nodes:`Alice==Bob Alice==Satoshi Alice==Hal`. Each payment channel can be used for individual payments with updating commitment transactions as described earlier. Further, some nodes are indirectly connected with each other: `Alice==Bob==Carol==David==Eric` These nodes may communicate a trustless route of the bitcoin from Alice to Eric without the need for a direct payment channel.
+The Lightning network consists of several nodes who have bidirectional payment channels open between each other. Alice has three channels with other nodes: `Alice==Bob Alice==Satoshi Alice==Hal`. Each payment channel can be used for individual payments with updating commitment transactions as described earlier. Further, some nodes are indirectly connected with each other: `Alice==Bob==Carol==David==Eric` These nodes may communicate a trustless route of the bitcoin from Alice to Eric without the need for a direct payment channel.
 
 == Step by Step Route
 
