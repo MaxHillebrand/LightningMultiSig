@@ -10,6 +10,8 @@ This thesis explains how multi sig is used on the first layer block chain; how l
 
 The paper is written in an open source process, and published under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by/4.0/legalcode). If you'd like to contribute to the research and writing, please submit an issue, fork the repository, commit the changes on your own branch, and issue a pull request when you're satisfied with your work. I have 1001 questions and thank all the peers whom I can bather to ask them. If you have a proposal, feedback or question, don't hesitate to [reach out](/https://towardsliberty.com/contact)! Thank you very much for your support!
 
+The thesis is due on July 1st 2019 and written under the direction of [Prof. Dr. Bernd Kaltenhaeuser](https://www.dhbw-vs.de/hochschule/mitarbeitende/bernd-kaltenhaeuser.html).
+
 ## Possible Approaches
 
 I have no clue how to best do this. As far as I know, there is no proposal or implementation in existence yet. However, there are several approaches that might lead to the desired outcome and evolve into a suitable solution. All this is very much subject to change, new approaches will be discovered, and wrong ideas discarded. See the [Research file](/Research.asciidoc) for prerequisite work.
@@ -30,6 +32,7 @@ This thesis is in the early stages of research and writing, there are many topic
 * [Option 2: 2-of-2 + with Shamir's secret sharing or aggregated ECDSA/Schnorr](/LightningMultiSigTransaction.asciidoc)
 * Option 3: m-of-n access rights to node with 2-of-2 payment channel
 * Option 4: Preimage locked with m-of-n
+* Option 5: split `revocation_basepoint_secret` into m-of-n, with 2-of-2 payment channel
 * [Usecases of multi signature both on- and off-chain](/UseCase.asciidoc)
 * Punishment mechanism and game theory
 
