@@ -20,9 +20,14 @@ Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[
 Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of the 2-of-2 lightning payment channel. The aggregation of m-of-n keys compute to the key pair which is referred in the funding transaction. Only with m-of-n signatures of the individual keys, can a valid aggregated signature be computed, with which a valid commitment transaction update can be committed to. The blockchain cannot tell the difference between a regular 2-of-2, and an aggregated 2-of-2 payment channel, thus, the aggregation should [?] be "backwards compatible". 
 
 
+== Split Revocation Basepoint Secret
+
+The `revocation_basepoint_secret` is splitted into m-of-n parts, so that the counterparty will only release pre-image when the `per_commitment_secret` is fully transmitted. Schnorr aggregation or some other threshold signature type should work, but Shamir's secret sharing not. When David receives the revocation basepoint, A,B,C no longer claim the previous state of the channel. Current script could be tweaked with 2 checks so that there are 2 revocation points required. footnote:[Slack conversation with Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1548846901024100]
+
+
 == Stop HTLC before / during route
 
-Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is reveiled/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
+Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is revealed/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
 
 HODL-HTLC:footnote:[Joost Jager Pull Request #2022] Instead of immediately settle the HTLC, the receiver waits for a time period or until he has access to some secret information. Receiver can check conditions, sender security deposit, Preimage is set by sender and only revealed to receiver when action is performed [atomic swap]
 
@@ -87,7 +92,7 @@ OP_CHECKSIG
 
 == M-of-n RPC access rights to node with 2-of-2 payment channels
 
-Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administor right and hardware access are not trustless, maybe read only HSM,
+Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administer right and hardware access are not trustless, maybe read only HSM,
 
 == Submarine Swap to On Chain MultiSig
 
