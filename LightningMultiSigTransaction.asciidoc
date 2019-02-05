@@ -24,6 +24,19 @@ Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of th
 
 The `revocation_basepoint_secret` is splitted into m-of-n parts, so that the counterparty will only release pre-image when the `per_commitment_secret` is fully transmitted. Schnorr aggregation or some other threshold signature type should work, but Shamir's secret sharing not. When David receives the revocation basepoint, A,B,C no longer claim the previous state of the channel. Current script could be tweaked with 2 checks so that there are 2 revocation points required. footnote:[Slack conversation with Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1548846901024100]
 
+**Revocation Transaction**
+
+```console
+OP_IF
+  <revocation_key>
+OP_ELSE
+ `to_self_delay`
+  OP_CSV
+  OP_DROP
+  <local_delayedkey>
+OP_ENDIF
+OP_CHECKSIG
+```
 
 == Stop HTLC before / during route
 
