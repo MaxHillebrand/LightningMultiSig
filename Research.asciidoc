@@ -5,92 +5,136 @@ Here is a some what random list of interesting papers, articles, tweetstorms, me
 
 == Multiparty ECDSA
 
-Fast Multiparty Treshold ECDSA, Rosario Gennaro & Steven Goldfeder: https://dl.acm.org/citation.cfm?id=3243859
+Gennaro, R., Goldfeder S., (2018). Fast Multiparty Treshold ECDSA. Toronto: Computer and Communications Security. https://dl.acm.org/citation.cfm?id=3243859
 
-Fast Secure Multiparty ECDSA, Yehuda Lindell & Ariel Nof & Samuel Ranellucci: https://eprint.iacr.org/2018/987.pdf
+Lindell, Y., Nof, A., Ranellucci, S. (2018). Fast Secure Multiparty ECDSA. Toronto: Computer and Communications Security. https://eprint.iacr.org/2018/987.pdf
 
-Fast Multiparty Threshold ECDSA, Rosario Gennaro & Steven Goldfeder: https://eprint.iacr.org/2018/987.pdf
+Snigirev, S. (2018). Two party signing ECDSA. https://medium.com/cryptoadvance/ecdsa-is-not-that-bad-two-party-signing-without-schnorr-or-bls-1941806ec36f
 
-Two party signing ECDSA, Stepan Snigirev: https://medium.com/cryptoadvance/ecdsa-is-not-that-bad-two-party-signing-without-schnorr-or-bls-1941806ec36f
+Kate, A., Moreno-Sanchez, P. (2018) Scriptless Scripts with ECDSA. San Diego: Network and Distributed System Security. https://lists.linuxfoundation.org/pipermail/lightning-dev/attachments/20180426/fe978423/attachment-0001.pdf
 
-Scriptless Scripts with ECDSA, Pedro Moreno-Sanchez & Aniket Kate: https://lists.linuxfoundation.org/pipermail/lightning-dev/attachments/20180426/fe978423/attachment-0001.pdf
-
-Signature aggregation, Greg Maxwell: https://bitcointalk.org/index.php?topic=1377298.0
+Maxwell, G. (2016) Signature Aggregation for Improved Scalability. Bitcoin Talk Forum. https://bitcointalk.org/index.php?topic=1377298.0
 
 
 == Schnorr
 
-Schnorr Multi Signatures, Gregory Maxwell & Andrew Poelstra & Yannick Seurin & Pieter Wuille: https://eprint.iacr.org/2018/068.pdf
+Maxwell, G., Poelstra, A., Seurin, Y., Wuille, P. (2018) Schnorr Multi-Signatures with Applications to Bitcoin. https://eprint.iacr.org/2018/068.pdf
 
-Taproot Schnorr SIGHASH_NOINPUT, Pieter Wuille: https://www.youtube.com/watch?v=YSUVRj8iznU
+Wuille, P. (2018) Taproot, and Schnorr, and SIGHASH_NOINPUT. San Francisco: Bitcoin Developers Meetup. https://www.youtube.com/watch?v=YSUVRj8iznU
 
-Taproot: Privacy preserving switchable scripting, Gregory Maxwell: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-January/015614.html
+Maxwell, G. (2018) Taproot: Privacy preserving switchable scripting. Bitcoin Mailing List. https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-January/015614.html
 
-Schnorr signatures for Bitcoin, Pieter Wuille: https://www.youtube.com/watch?v=_Z0ID-0DOnc&feature=youtu.be&t=2297
+Wuille, P. (2016) Schnorr signatures for Bitcoin. Milan: Scaling Bitcoin. https://www.youtube.com/watch?v=_Z0ID-0DOnc&feature=youtu.be&t=2297_ 
 
-Future multisignatures, Greg Maxwell: https://www.youtube.com/watch?v=TYQ-3VvNCHE
 
-BIP Schnorr: https://github.com/sipa/bips/blob/bip-schnorr/bip-schnorr.mediawiki
+Maxwell, G. (2015) A Deep Dive with Bitcoin Core Developer Greg Maxwell. San Francisco: Bitcoin Devs Seminar. https://www.youtube.com/watch?v=TYQ-3VvNCHE
 
-Schnorr implementation, Pieter Wuille: https://github.com/sipa/secp256k1/blob/968e2f415a5e764d159ee03e95815ea11460854e/src/modules/schnorr/schnorr.md
+Casatta, R., Nick, J., Troelsen, J., Turner-Arthur, J., Ruffing, T., Provoost, S., Virial, V., Wuille, P., Williams, A. (2018) BIP Schnorr. https://github.com/sipa/bips/blob/bip-schnorr/bip-schnorr.mediawiki
 
-Schnorr improvement to Bitcoin, Stepan Snigirev: https://medium.com/cryptoadvance/how-schnorr-signatures-may-improve-bitcoin-91655bcb4744
+Wuille, P. (2018) Schnorr implementation. https://github.com/sipa/secp256k1/blob/968e2f415a5e764d159ee03e95815ea11460854e/src/modules/schnorr/schnorr.md
 
-Schnorr signatures BIP, mailing list: https://github.com/sipa/secp256k1/blob/968e2f415a5e764d159ee03e95815ea11460854e/src/modules/schnorr/schnorr.md
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-July/016211.html
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-July/016215.html
+Snigirev, S. (2018) How Schnorr Signatures may improve Bitcoin. https://medium.com/cryptoadvance/how-schnorr-signatures-may-improve-bitcoin-91655bcb4744
 
-Schnorr BLS ECDSA, Dan Boneh: http://diyhpl.us/wiki/transcripts/2016-july-bitcoin-developers-miners-meeting/dan-boneh/
+O'Conner R. (2018) Schnorr signatures BIP. bitcoin-dev mailing list: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-July/016211.html
 
-Schnorr technology roadmap, Bitcoin Core: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/
+Aronesty, E. (2018) Multiparty signatures. bitcoin-dev mailing list: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-July/016215.html
 
-Schnorr BLS ECDSA, CoreDev.tech: https://bitcoincore.org/logs/2016-05-zurich-meeting-notes.html
+Boneh, D. (2016) A Conversation with Dan Boneh about Schnorr, BLS, & ECDSA. Stanford: Bitcoin Developers Miners Meeting. http://diyhpl.us/wiki/transcripts/2016-july-bitcoin-developers-miners-meeting/dan-boneh/
 
-Schnorr Signatures, Patrick Strateman: https://elementsproject.org/features/schnorr-signatures
+Bitcoin Core (2017) Technology Roadmap - Schnorr Signatures and Signature Aggregation. https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/
 
-Schnorr, Bitcoin OpTech # 3: https://bitcoinops.org/en/newsletters/2018/07/10/
+Bitcoin Core (2016) Schnorr BLS ECDSA. Zurich: CoreDev.tech Meeting: https://bitcoincore.org/logs/2016-05-zurich-meeting-notes.html
 
-Schnorr vs ECDSA, Q&A Pieter Wuille: https://bitcoin.stackexchange.com/questions/77234/schnorr-vs-ecdsa/77235#77235
+Strateman, P. (2018) Schnorr Signatures. Elements Project. https://elementsproject.org/features/schnorr-signatures
 
-Schnorr batch validation: Q&A Pieter Wuille: https://bitcoin.stackexchange.com/questions/80698/schnorrs-batch-validation/80702#80702
+Harding, D., Lee, S., Jachymiak, M., O'Beirne, J., Newbery, J. Schmidt, M. (2018) Schnorr Signature. Bitcoin Operations Technology Group: https://bitcoinops.org/en/newsletters/2018/07/10/
 
-Implications of Schnorr, Q&A GMax & Murch & Adam Back: https://bitcoin.stackexchange.com/questions/34288/what-are-the-implications-of-schnorr-signatures/35351#35351
+Knoblock, L., Wuille, P. (2018) Schnorr vs ECDSA. Bitcoin Stack Exchange. https://bitcoin.stackexchange.com/questions/77234/schnorr-vs-ecdsa/77235#77235
+
+Wuille, P., Jon (2018) Schnorr Batch Validation. Bitcoin Stack Exchange. https://bitcoin.stackexchange.com/questions/80698/schnorrs-batch-validation/80702#80702
+
+Back, A., Friedenbach, M., Harding, D., Troelsen, J. (2015) What are the Implications of Schnorr Signatures. Bitcoin Stack Exchange. https://bitcoin.stackexchange.com/questions/34288/what-are-the-implications-of-schnorr-signatures/35351#35351
 
 
 == BLS
 
-Short signatures from the Weil pairing, Dan Boneh Ben Lynn Hovav Shacham: https://www.iacr.org/archive/asiacrypt2001/22480516.pdf
+Boneh, D., Lynn, B., Shacham, H. (2017) Short signatures from the Weil pairing. Standford: Computer Science Department. https://www.iacr.org/archive/asiacrypt2001/22480516.pdf
 
-BLS better than Schnorr, Stepan Snigirev: https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716
+Snigirev, S. (2018) BLS Signatures: Better than Schnorr. https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716
 
 
-== Lightning Routing
+== Lightning Network
 
-Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability, Giulio Malavolta & Pedro Moreno-Sanchez & Clara Schneidewind & Aniket Kate & Matteo Maffei: https://lists.linuxfoundation.org/pipermail/lightning-dev/attachments/20180426/fe978423/attachment-0001.pdf
+Poon, J., Dryja, T. (2016) The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. https://lightning.network/lightning-network-paper.pdf
 
-2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning, Joseph Poon: https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html
+Decker, C., Russel, R., Osuntokun, O. (2017) Eltoo: A Simple Layer 2 Protocol for Bitcoin. https://blockstream.com/eltoo.pdf
+
+Burchert, C., Decker, C., Wattenhofer, R. (2017) Scalable Funding of Bitcoin Micropayment Channel Networks. Boston: 19th International Symposium on Stabilization, Safety, and Security of Distributed Systems. https://www.tik.ee.ethz.ch/file/a20a865ce40d40c8f942cf206a7cba96/Scalable_Funding_Of_Blockchain_Micropayment_Networks%20(1).pdf
+
+Malavolta, G., Moreno-Sanchez, P., Schneidewind, C., Kate, A., Maffei, M. (2019) Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability. San Diego: Network and Distributed System Security.  https://eprint.iacr.org/2018/472.pdf
+
+Poon, J. (2016) 2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning. Lightning-dev Mailing List. https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html
+
+Lightning Network Specifications (BOLT). https://github.com/lightningnetwork/lightning-rfc
+
+BitcoinJ (2017) Working with Micropayment Channels. https://bitcoinj.github.io/working-with-micropayments
+
+Friedenbach, M. BtcDrak, Dorier, N., Kinoshitajona (2015) BIP 68: Relative Lock-Time Using Consensus-Enforced Sequence Numbers (OP_CSV). https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki
+
+Friedenbach, M., BtcDrak, Lombrozo, E. (2015) BIP 112: CHECKSEQUENCEVERIFY. 
+https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki
+
+Friedenbach, M., O'Dell, N., Schnelli, J. (2015) What does OP_CHECKSEQUENCEVERIFY Do? Bitcoin Stack Exchange. https://bitcoin.stackexchange.com/questions/38845/what-does-op-checksequenceverify-op-csv-do/38846#38846
+
+
+== Overall
+
+Nakamoto, S. (2008) Bitcoin: A Peer-to-Peer Electronic Cash System. https://bitcoin.org/bitcoin.pdf
+
+Antonopoulos, A. (2018) Mastering Bitcoin. 2nd ed. Sebastopol: O'Reilly. https://github.com/bitcoinbook/bitcoinbook
+
+Dorier, N., Fiscor, A. (2016) Programming The Blockchain in C#.
+
+Andresen, G., (2012) BIP 16: Pay to Script Hash. https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki 
+
 
 == Mimblewimble
 
-Mimblewimble, Tom Elvis Jedusor: https://scalingbitcoin.org/papers/mimblewimble.txt
+Jedusor, T. (2016) Mimblewimble.  https://scalingbitcoin.org/papers/mimblewimble.txt
 
-Mimblewimble team mailing list: https://lists.launchpad.net/mimblewimble/msg00086.html
+Poelstra, A. (2017) Lightning in Scriptless Scripts. Mimblewimble Team Mailing List. https://lists.launchpad.net/mimblewimble/msg00086.html
 
 
-= Support
+== Support
 
 I especially thank the many peers that have supported me in my path towards understanding this complex topic.
 
 Adam Fiscor
+
 Andreas Antonopolous
+
+Andrew Poelstra
+
 Alex Brosworth
+
 Gregory Maxwell
+
 Jeff Gallas
+
 Justin Carter
+
 Jonas Nick
+
+Joseph Poon
+
 Konstantin Nick
-Murch
+
+Mark Friedenbach
+
 Nicolas Dorier
+
 Pieter Wullie
+
 Rene Pickhardt
+
 Olaoluwa Osuntokun
