@@ -38,6 +38,25 @@ OP_ENDIF
 OP_CHECKSIG
 ```
 
+**Potential MultiSig Revocation Transaction** [Does this actually work?!] Revocation keys would be signatures.
+
+```console
+OP_IF
+  2
+  <revocation_key_A>
+  <revocation_key_B> 
+  <revocation_key_C>
+  3
+  OP_CHECKMULTISIG
+OP_ELSE
+ `to_self_delay`
+  OP_CSV
+  OP_DROP
+  <local_delayedkey>
+OP_ENDIF
+OP_CHECKSIG
+```
+
 == Stop HTLC before / during route
 
 Regular 2-of-2 payment channel, but hold the HTLCs and only release for route until a threshold of m-of-n secrets is revealed/action is taken. Possibly with macaroons, but how do you make the software reliant?footnote:[Alex Bosworth https://lightningcommunity.slack.com/archives/C6WS7BEDV/p1547489731016500?thread_ts=1547150765.007200&cid=C6WS7BEDV]
