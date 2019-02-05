@@ -124,7 +124,7 @@ OP_CHECKSIG
 
 == M-of-n RPC access rights to node with 2-of-2 payment channels
 
-Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administer right and hardware access are not trustless, maybe read only HSM,
+Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administer right and hardware access are not trustless, maybe read only hardware secure module.
 
 == Submarine Swap to On Chain MultiSig
 

@@ -70,7 +70,7 @@ Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability, Giuli
 
 2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning, Joseph Poon: https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html
 
-== MimbleWimble
+== Mimblewimble
 
 Mimblewimble, Tom Elvis Jedusor: https://scalingbitcoin.org/papers/mimblewimble.txt
 

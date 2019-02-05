@@ -2,7 +2,7 @@
 
 == Hash Time Lock Contracts
 
-With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preiamge is not reveiled within the dedicated time, the funds go back to the payer.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 4 HTLC]footnote:[Rusty Russell 2015, Hashed Timelock Contracts https://rusty.ozlabs.org/?p=462]
+With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preimage is not reviled within the dedicated time, the funds go back to the payer.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 4 HTLC]footnote:[Rusty Russell 2015, Hashed Timelock Contracts https://rusty.ozlabs.org/?p=462]
 
 == Network Topology
 
