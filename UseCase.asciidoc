@@ -2,6 +2,8 @@
 
 Multi signature transactions are an integral part to Bitcoin script since it's beginning, and there are many proven and theoretical problems that can be solved with this technology. This is a critical theoretical analysis of these proposed use cases.
 
+= Single Party Multi Signatures
+
 == n-of-n Second Factor Authentication
 
 In order to securely hold on chain bitcoin, Alice only needs to keep a private key hidden from others. Anyone with the knowledge of the cryptographic secret has full access to the corresponding UTXO. As non-scarce information is easily shared, there is a risk that the single private key is leaked. There is no second factor needed to move the funds, thus the slightest mistake could lead to sharing of the key, which means a complete loss of funds. Although a single signature is convenient, fast, and good for small denominations, multi sig can be used to add redundancy and security. 
@@ -59,6 +61,8 @@ Signature script:
   ...
   <signature Alice m>
 ```
+
+= Multi Party Multi Signatures
 
 2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. Approval / 2FA for each spend, but no full custody and risk of loss of keys.
 
