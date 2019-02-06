@@ -10,6 +10,27 @@ For example, Alice can specify a n-of-n multi signature script, let's say 2-of-2
 
 Thus, n-of-n second factor authentication is a valid defense against the leaking of private keys to unwanted malicious actors. They need to gain access to n private keys in order to have full control over the UTXO, the difficulty exponentially increases as n increases. Especially when Alice stores the private keys in different devices, in different location and with different protocols. However, the n-of-n script does not protect in the case where Alice herself looses access to even only one of the private keys. She can lock herself out of her own money, and this risk increases, as n increases. Although, this is also the case for a single signature script, once that one key is lost, the money is locked indefinitely. The tradeoff for the n-of-n scheme is thus the number of n in relation to the attackers sophistication to break all n security protocols, and the likelihood of Alice herself to loose only one of n keys.
 
+Redeem script:
+
+```console
+  n
+  <pubKey Alice 1>
+  <pubKey Alice 2>
+  ...
+  <pubKey Alice n>
+  n
+  OP_CHECKMULTISIG
+```
+
+Signature script:
+
+```
+  <signature Alice 1>
+  <signature Alice 2>
+  ...
+  <signature Alice n>
+```
+
 2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. Approval / 2FA for each spend, but no full custody and risk of loss of keys.
 
 == Group Fund Management
