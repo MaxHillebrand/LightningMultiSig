@@ -31,6 +31,35 @@ Signature script:
   <signature Alice n>
 ```
 
+== m-of-n Second Factor Authentication
+
+The main risk of n-of-n multi sig is that the loss of only one key leads to a complete loss of funds. Although this is very secure against malicious actors trying to steal money, it does not protect Alice from herself loosing access to one single key. A m-of-n script can provide further benefits that neither single, nor n-of-n multi sig have.
+
+Alice can assign a m-of-n multi sig script to a UTXO, such that she can only spend the coin with a total of m signatures. For a 2-of-3 example, she stores one key on her mobile wallet, another on her hardware wallet, and the third on a cold storage paper wallet. For every day transactions, she will use her phone and hardware wallet to build and sign the valid signature. These two wallets are user friendly enough to provide swift and easy execution of the spending protocol. A malicious actor needs to gain access to m private keys and this increases in difficulty with higher m and more complex and secure key generation and storage protocols. A 2-of-3 multi sig has the same anti theft protection as a 2-of-2 multi sig. The attacker needs to gain access to both Alice's phone and hardware wallet, or one of them in addition to the cold storage. However, in the case that Alice looses one of her every day keys, let's assume her mobile wallet, she can get the paper wallet key out of cold storage, and use it as the second factor together with her hardware wallet. She can decrease the risk of loss of private keys drastically with such a script.
+
+The m-of-n multi sig script provides simultaneous protection against theft and loss of private keys. The malicious actor needs to gain access to m, not n, private keys in order to generate a valid spending transaction. This provides the same level of protection as a m-of-m multi sig script would. However, contrarily to n-of-n scripts, Alice can afford to loose n-m private keys before she herself looses access to the UTXO. She can have m convenient and easy to use keys, like mobile and hardware wallets, which she can interact with for every day spending. For redundancy however, she also has n-m cold storage keys, which are difficult to access, for example a paper wallet hidden in a remote safe. She only needs to reveal these keys in the case where she looses access to some of the every day keys. However, the UTXO is locked when she m private keys are lost, same as with a m-of-m multi sig script. 
+
+Redeem script:
+
+```console
+  m
+  <pubKey Alice 1>
+  <pubKey Alice 2>
+  ...
+  <pubKey Alice n>
+  n
+  OP_CHECKMULTISIG
+```
+
+Signature script:
+
+```
+  <signature Alice 1>
+  <signature Alice 2>
+  ...
+  <signature Alice m>
+```
+
 2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. Approval / 2FA for each spend, but no full custody and risk of loss of keys.
 
 == Group Fund Management
