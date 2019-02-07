@@ -129,3 +129,21 @@ Regular 2-of-2 payment channel, but limited access is given to n parties, so tha
 == Submarine Swap to On Chain MultiSig
 
 An atomic swap where Alice is selling lightning liquidity and buys on chain capacity, which is locked in a m-of-n multisig redeem script. Regular instant funding of on chain multisig, but not the desired shared ownership of a lightning multi sig to spend. Probably not of interest.
+
+== Miniscript 
+
+2-of-3
+
+`multi(2,A,B,C)`
+
+2-of-3 + time lock as vault
+
+`aor(and(pk(A),time(T)),pk(B))`
+
+2-of-3 within 3-of-4
+
+`thres(3,pk(A),pk(B),pk(C),multi(2,D,E,F))`
+
+HTLC
+
+`aor(and(pk(A),time(T)),and(pk(B),hash(H)))`
