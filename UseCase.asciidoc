@@ -91,4 +91,8 @@ Redeem Script for time locked escrow:
       <3000 blocks> CHECKSEQUENCEVERIFY DROP 
       <Public Key 1> CHECKSIGVERIFY 
     ENDIF
-````
+```
+
+== Vault
+
+Script with m-of-n multisig, timelock and designated output address. It can only be spend with m signatures after a specified time and only to one previously agreed upon address. This might be useful for cold storage that can only be spend to another script that is controlled by the same owner.
