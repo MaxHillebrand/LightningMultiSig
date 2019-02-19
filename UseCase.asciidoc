@@ -64,7 +64,7 @@ Signature script:
 
 = Multi Party Multi Signatures
 
-2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. Approval / 2FA for each spend, but no full custody and risk of loss of keys.
+2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. The bank gives approval / 2FA for each spend, but without full custody. The bank can not send the funds without the client signature, thus there is no risk of theft. There are some privacy concerns, because the bank has the knowledge of the customers public keys and it will co-sign all the transactions. The bank knows how much is send when to whom, maybe even for what.
 
 == Group Fund Management
 
