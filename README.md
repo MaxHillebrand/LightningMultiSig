@@ -8,7 +8,7 @@ This thesis explains how multi sig is used on the first layer block chain; how l
 
 ## Structure
 
-### Part I On Scarcity
+### Part I [On Scarcity](/Scarcity.asciidoc)
 
 1. Scarcity
 2. Private property
@@ -16,27 +16,27 @@ This thesis explains how multi sig is used on the first layer block chain; how l
 4. Non-scarcity
 5. Open source libre software
 
-### Part II On-chain Transactions
+### Part II [On-chain Transactions](/Transaction.asciidoc)
 
 6. Pay to public key hash P2PKH [lecagcy and segwit]
 7. Pay to script hash P2SH [lecagcy and segwit]
 8. M-of-n Multi Signature on chain
 
-### Part III Lightning Network Basics
+### Part III [Lightning Network Basics](/PaymentChannel.asciidoc)
 
 9. Funding transaction
 10. Commitment transaction
 11. Closing transaction
-12. Routing
+12. [Routing](/Routing.asciidoc)
 
-### Part IV Lightning Network Multi Sig
+### Part IV [Lightning Network Multi Sig](/LightningMultiSigTransaction.asciidoc)
 
 13. M-of-n key aggregation on top of a regular 2-of-2 lightning payment channel
 14. Commitment transaction redeem script `m-of-n + 1`
 15. M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...
 16. Hindering the pre image release of a 2-of-2 payment channel route with a m-of-n unlock script
 
-### Part V Use Cases
+### Part V [Use Cases](/UseCase.asciidoc)
 
 17. Single party multi sig
     1.  n-of-n Second Factor Authentication
