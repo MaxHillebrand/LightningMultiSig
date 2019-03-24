@@ -64,9 +64,11 @@ Signature script:
 
 = Multi Party Multi Signatures
 
-2-of-3 or 4-of-5 multisig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. The bank gives approval / 2FA for each spend, but without full custody. The bank can not send the funds without the client signature, thus there is no risk of theft. There are some privacy concerns, because the bank has the knowledge of the customers public keys and it will co-sign all the transactions. The bank knows how much is send when to whom, maybe even for what.
+2-of-3 or 4-of-5 multi sig, with one key controlled by the security specialistfootnote:[See BitGo and Casa], and all others by clients. The bank gives approval / 2FA for each spend, but without full custody. The bank can not send the funds without the client signature, thus there is no risk of theft. There are some privacy concerns, because the bank has the knowledge of the customers public keys and it will co-sign all the transactions. The bank knows how much is send when to whom, maybe even for what.
 
 == Group Fund Management
+
+n-of-n multi sig where all parties provide funding and each has one of n required keys to spend out of the script. Approval and signature of all the peers is required. This can be used for shared funds that are desired to be spent only with the consent of all the constituents. 
 
 Business partners share access to funds in a n-of-n multi sig, so that all peers need to agree on the allocation of funds. Potentially improved with optional time locks. [2-of-2 always, 1-of-2 after 1000 blocks]
 
@@ -95,4 +97,14 @@ Redeem Script for time locked escrow:
 
 == Vault
 
-Script with m-of-n multisig, timelock and designated output address. It can only be spend with m signatures after a specified time and only to one previously agreed upon address. This might be useful for cold storage that can only be spend to another script that is controlled by the same owner.
+Script with m-of-n multi sig, timelock and designated output address. It can only be spend with m signatures after a specified time and only to one previously agreed upon address. This might be useful for cold storage that can only be spend to another script that is controlled by the same owner.
+
+
+The latest upgrade to testnet v4.0 is outstanding - thanks to all the contributors :)
+
+Here is some feedback after playing around with the receive feature:
+
+
+> "Send Maximum" left 600 sats dust
+> Change color for receive on chain address / lightning invoice
+> Lightning Fee Protection with tolerance fee <21 sat is really useful!
