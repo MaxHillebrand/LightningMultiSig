@@ -15,6 +15,7 @@ This thesis explains how multi sig is used on the first layer block chain; how l
 3. Mutually beneficial exchange
 4. Non-scarcity
 5. Open source libre software
+6. Non-simulated shared ownership
 
 ### Part II [On-chain Transactions](/Transaction.asciidoc)
 
