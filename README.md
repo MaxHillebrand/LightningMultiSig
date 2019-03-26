@@ -19,7 +19,7 @@ This thesis explains the universal divide between scarce and non-scarce goods; t
 5. Open source libre software
 6. Non-simulated shared ownership of bitcoin
 
-### Part II [Onthemchain Transactions](/Transaction.asciidoc)
+### Part II [On-chain Transactions](/Transaction.asciidoc)
 
 6. Pay to public key hash P2PKH [lecagcy and segwit]
 7. Pay to script hash P2SH [lecagcy and segwit]
