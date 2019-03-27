@@ -23,7 +23,7 @@ This thesis explains the universal divide between scarce and non-scarce goods; t
 
 1. Pay to public key hash P2PKH [lecagcy and segwit]
 2. Pay to script hash P2SH [lecagcy and segwit]
-3. M-of-n Multi Signature on chain
+3. M-of-n Multi Signature on chain [ECDSA and Schnorr MuSig]
 
 ### PART III [Lightning Network Basics](/PaymentChannel.asciidoc)
 
@@ -41,19 +41,9 @@ This thesis explains the universal divide between scarce and non-scarce goods; t
 
 ### PART V [Use Cases](/UseCase.asciidoc)
 
-1. Single party multi sig
-    
-    1.1.  n-of-n Second Factor Authentication
-    
-    1.2.  m-of-n Second Factor Authentication
+1. Single party multi sig <br>    1.1.  n-of-n Second Factor Authentication   <br>    1.2.  m-of-n Second Factor Authentication
 
-2. Multi Party Multi Signatures
-    
-    2.1.  Group Fund Management
-    
-    2.2.  Escrow
-    
-    2.3.  Vault
+2. Multi Party Multi Signatures <br>    2.1.  Group Fund Management <br>    2.2.  Escrow <br>    2.3.  Vault
 
 ## License and Contribution
 
