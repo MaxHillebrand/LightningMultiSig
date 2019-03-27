@@ -12,42 +12,42 @@ This thesis explains the universal divide between scarce and non-scarce goods; t
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
-1.1. Scarcity
-1.2. Private property
-1.3. Mutually beneficial exchange
-1.4. Non-scarcity
-1.5. Open source libre software
-1.6. Non-simulated shared ownership of bitcoin
+1. Scarcity
+2. Private property
+3. Mutually beneficial exchange
+4. Non-scarcity
+5. Open source libre software
+6. Non-simulated shared ownership of bitcoin
 
 ### PART II [On-chain Transactions](/Transaction.asciidoc)
 
-2.1. Pay to public key hash P2PKH [lecagcy and segwit]
-2.2. Pay to script hash P2SH [lecagcy and segwit]
-2.3. M-of-n Multi Signature on chain
+1. Pay to public key hash P2PKH [lecagcy and segwit]
+2. Pay to script hash P2SH [lecagcy and segwit]
+3. M-of-n Multi Signature on chain
 
 ### PART III [Lightning Network Basics](/PaymentChannel.asciidoc)
 
-3.1. Funding transaction
-3.2. Commitment transaction
-3.3. Closing transaction
-3.4. [Routing](/Routing.asciidoc)
+1. Funding transaction
+2. Commitment transaction
+3. Closing transaction
+4. [Routing](/Routing.asciidoc)
 
 ### PART IV [Lightning Network Multi Sig](/LightningMultiSigTransaction.asciidoc)
 
-4.1. M-of-n key aggregation on top of a regular 2-of-2 lightning payment channel
-4.2. Commitment transaction redeem script `m-of-n + 1`
-4.3. M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...
-4.4. Hindering the pre image release of a 2-of-2 payment channel route with a m-of-n unlock script
+1. M-of-n key aggregation on top of a regular 2-of-2 lightning payment channel
+2. Commitment transaction redeem script `m-of-n + 1`
+3. M-of-n access rights to node with 2-of-2 payment channels via macaroons, RPC, ...
+4. Hindering the pre image release of a 2-of-2 payment channel route with a m-of-n unlock script
 
 ### PART V [Use Cases](/UseCase.asciidoc)
 
-5.1. Single party multi sig
-    5.1.1.  n-of-n Second Factor Authentication
-    5.1.2.  m-of-n Second Factor Authentication
-5.2. Multi Party Multi Signatures
-    5.2.1.  Group Fund Management
-    5.2.2.  Escrow
-    5.2.3.  Vault
+1. Single party multi sig
+    1.1.  n-of-n Second Factor Authentication
+    1.2.  m-of-n Second Factor Authentication
+2. Multi Party Multi Signatures
+    2.1.  Group Fund Management
+    2.2.  Escrow
+    2.3.  Vault
 
 ## License and Contribution
 
