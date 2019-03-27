@@ -42,11 +42,17 @@ This thesis explains the universal divide between scarce and non-scarce goods; t
 ### PART V [Use Cases](/UseCase.asciidoc)
 
 1. Single party multi sig
+    
     1.1.  n-of-n Second Factor Authentication
+    
     1.2.  m-of-n Second Factor Authentication
+
 2. Multi Party Multi Signatures
+    
     2.1.  Group Fund Management
+    
     2.2.  Escrow
+    
     2.3.  Vault
 
 ## License and Contribution
