@@ -14,7 +14,7 @@ MuSig is parameterized by group parameters `(G,p,g)` where `p` is a `k`-bit inte
 
 ## Key Generation
 
-Individual private keys `x_i` are generated with a true random number generator and the public keys `X_i` are computed with `X_i = g^x_i`. The `X_1` and `x_1` are individual keys of a specific signer; `X_2, …, X_n` are the public keys of the cosigners; and `L = {pubk_1 = X_1, …, pubk_n = X_n}` is a multiset of all public keys. For `i ∈ {1, …, n}`, the signer computes `a_i = Hagg(L,X_i)` and then aggregates all the individual public keys into the single “aggregated” public key `a_i = H_agg(L,X_i)`.
+Individual private keys `x_i` are generated with a true random number generator and the public keys `X_i` are computed with `X_i = g^x_i`. The `X_1` and `x_1` are individual keys of a specific signer; `X_2, …, X_n` are the public keys of the cosigners; and `L = {pubk_1 = X_1, …, pubk_n = X_n}` is a multiset of all public keys. For `i ∈ {1, …, n}`, the signer computes `a_i = Hagg(L,X_i)` and then aggregates all the individual public keys into the single “aggregated” public key `Ẋ = X_i for 1` <= `X_i = n`, `Ẋ = product of X_i^a_i`.
 
 
 ## Signing
