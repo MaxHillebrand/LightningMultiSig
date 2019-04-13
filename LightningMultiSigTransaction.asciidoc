@@ -17,7 +17,7 @@ Now each channel state update requires 2/3 sigs from ABC + sig from D.footnote:[
 
 == Key aggregation
 
-Aggregated link:/Research.asciidoc/#schnorr[Schnorr signatures] to one key of the 2-of-2 lightning payment channel. The aggregation of m-of-n keys compute to the key pair which is referred in the funding transaction. Only with m-of-n signatures of the individual keys, can a valid aggregated signature be computed, with which a valid commitment transaction update can be committed to. The blockchain cannot tell the difference between a regular 2-of-2, and an aggregated 2-of-2 payment channel, thus, the aggregation should [?] be "backwards compatible". 
+Described in the chapter on [Schnorr MuSig](/SchnorrMuSig.asciidoc), due to the linearity of the Schnorr signature scheme, several individual public keys can be interactively aggregated to one single aggregated public key. A valid signature can only be computed, if all participants in the MuSig produce a valid signature with their individual private keys. A verifier can not distinguish between a regular and aggregated public key and signature. A regular 2-of-2 lightning payment channel with Schnorr signatures between Alice and David would thus in the cooperative closing case look exactly the same as any other single signature transaction. Further, the one key on Alice's side of the channel could as well be an aggregated key of 3-of-3 Alice Bob and Charlie. Thus, in order to produce a valid signature with that aggregated key, all three of them need to cooperate. David does not need to know, and cannot know, that his channel peer is in fact three individual key parties.
 
 
 == Split Revocation Basepoint Secret
@@ -124,7 +124,7 @@ OP_CHECKSIG
 
 == M-of-n RPC access rights to node with 2-of-2 payment channels
 
-Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administer right and hardware access are not trustless, maybe read only hardware secure module.
+Regular 2-of-2 payment channel, but limited access is given to n parties, so that m have to approve the transaction. But, administer right and hardware access are not trustless, maybe read only harEscrowdware secure module.
 
 == Submarine Swap to On Chain MultiSig
 
