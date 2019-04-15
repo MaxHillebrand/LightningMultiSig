@@ -28,6 +28,28 @@ Bitcoin utilizes a plethora of different tools like cryptography, economics and 
 
 P2WSH transactions can commit to more advanced scripts that can add complexity to the conditions that the spender needs to prove. Such a script could be a multi signature scheme, where n private keys are generated and the public keys are included in the redeem script. Only with signature prove of knowledge of m private keys can the UTXO be spent. N individuals can create their own unique private keys, however, this piece of information alone is worthless, as it cannot be used by it self. Only with the coordination of m individuals can the chain of digital signatures be advanced. This is non-simulated shared ownership of the scarce bitcoin which is cryptographically proven and cannot be broken.
 
+== Double Spending is the Non-Scarcity
+
+The double spending problem is defined as the aspect of a digital asset to be able to be send several times to different individuals. First, Alice initiates a transaction to Bob, and right after, she send the same asset to Charlie. The main issue is to find a common state of the most current property right definitions, the Byzantines Generals Problem. Bitcoin solves this computer science problem in a decentralized trustless way.
+
+In other words, the ability to spend the same good twice, means that Alice can give a good to Bob, whithout sacrificing the posession and usage of that good. Thus, this good is non scarce and does not require property rights to allocate resources. Any non scarce good can thus be double spend, while this is impossible for any scarce asset.
+
+
+== Bitcoin Halvening and Scarcity
+
+Every 210 000 blocks, the issuance rate of new bitcoin in the coinbase transaction is halfed from the origial 50 bitcoin reward. This means that over time, the stock to flow ratio increases exponentially, until it reaches infinity in the year 2141. It is important to differentiate that this does not at all affect the scarcity of bitcoin. Regardless the quantity of total money supply, one UTXO can only be spend by the one defined script. This is true in the case of a total money supply of 50, 21 million or 84 billion bitcoin. The total supply of money does not matter, since prices will simply adjust to reflect the market demand of holding money in percentage to the total money supply.
+
+
+== Fallacy of Intellectual Property
+
+There are currently seveal different types of "intellectual property" [patents, licenses, non disclosure agreements, ...]. They all claim that the "creator" of a specific idea, receipe or thought are to be the sole beneficiary of it. Anyone who is using this idea on its own, without the explicit consent of the "original thinker" is breaking their property rights and thus punishment is justified and desired. 
+
+Of course this is flaut on a fundamental level. All forms of intellectual creations are per definition non scarce, that is that when the information is shared with others, the "original" producer does not sacrifice the enjoyment of the thought. Precisely because there is no need for resource allocation, there is no need for property rights. IP thus tries to introduce artificiall scarcity in a place where nature has granted us non scarcity! This is an unnecessary limit on the prosperity humans can achieve.
+
+Furthermore, because this bogus claim to establish property rights where we do not need them, innocent individuals get violeted in their legit property rights. If Alice comes up with the idea to bake an apple cake, and she registeres heir IP claim, when Bob on his own finds out the same recipe, he has not taken anything away from Alice. But because Alice has the power of the State, she can enforce her wrong IP claim an steal the cake from Bob. She has no property right whatsoever in the goods and services that Bob has produced on his own, yet with IP, she can justify her aggressiona gainst a peaceful individual.
+
+
+
 
 ```console
 xxxxxxxxxxxxxxxxxxxx
