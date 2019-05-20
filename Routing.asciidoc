@@ -2,7 +2,11 @@
 
 == Hash Time Lock Contracts
 
-With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preimage is not reviled within the dedicated time, the funds go back to the payer.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 4 HTLC]footnote:[Rusty Russell 2015, Hashed Timelock Contracts https://rusty.ozlabs.org/?p=462]
+With the script `IF HASH160 <H> EQUALVERIFY ELSE <locktime> CHECKLOCKTIMEVERIFY DROP <PubKeyPayer> CHECKSIG ENDIF` whoever knows the hash pre image can claim the funds of this script. If the preimage is not revealed within the dedicated time, the funds go back to the payer.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 4 HTLC]footnote:[Rusty Russell 2015, Hashed Timelock Contracts https://rusty.ozlabs.org/?p=462] 
+
+== Schnorr Adaptor Signatures
+
+Instead of a hash and pre image, a Schnorr adaptor signature would also work with signature tweaking.footnote:[Poelstra, Nick, 2018 Adaptor Signatures and Atomic Swaps from Scriptless Scripts https://github.com/apoelstra/scriptless-scripts/blob/master/md/atomic-swap.md]
 
 == Network Topology
 
@@ -11,3 +15,7 @@ The Lightning network consists of several nodes who have bidirectional payment c
 == Step by Step Route
 
 The receiver Eric generates a random number R and sends the hash of it H to the sender Alice. Alice constructs a routefootnote:[BOLT 7] starting with a HTLC worth 1.003 bitcoin, payable to the H with a 10 block refund timeout. Further, Alice deductes 1.003 bitcoin from her payment channel and offers the HTLC to Bob. Bob can redeem this payment when he reveals R to Alice. The payment channel is now expressed by three outputs, two corresponding to the private keys of Alice and Bob respectively, the third to the HTLC. The same commitment is constructed between Bob and Carol of 1.002 bitcoin for 9 blocks, Carol and David of 1.001 bitcoin for 8 blocks, and David and Eric of 1.000 bitcoin for 7 blocks.footnote:[Dryja, Poon 2016, The Bitcoin Lightning Network, Chapter 8.1 Decrementing Timelocks] Eric can now release R to David in return for 1.0000, Dave can release R to Carol in return for 1.0001 bitcoin, Carol can sell R to Bob for 1.0002 bitcoin, and finally Bob can give R to Alice in return for 1.0003 bitcoin.
+
+== Atomicity
+
+A route consists of several individual payment contracts between independend actors. However, each script is cryptographically linked to each other, with the same hash pre image or Schnorr adaptor signature. When one party claims the bitcoin on chain, they need to reveal a secret that the other party needed to claim a different UTXO, on the same chain, another layer, or an entirely different currency. When one side acts, the other can react without any further communication and trust between the two. 
