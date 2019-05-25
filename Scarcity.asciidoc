@@ -43,7 +43,7 @@ In other words, the ability to spend the same good twice, means that Alice can g
 
 == Bitcoin Halvening and Scarcity
 
-Every 210 000 blocks, the issuance rate of new bitcoin in the coinbase transaction is halfed from the origial 50 bitcoin reward. This means that over time, the stock to flow ratio increases exponentially, until it reaches infinity in the year 2141. It is important to differentiate that this does not at all affect the scarcity of bitcoin. Regardless the quantity of total money supply, one UTXO can only be spend by the one defined script. This is true in the case of a total money supply of 50, 21 million or 84 billion bitcoin. The total supply of money does not matter, since prices will simply adjust to reflect the market demand of holding money in percentage to the total money supply.
+Every 210 000 blocks, the issuance rate of new bitcoin in the coinbase transaction is halfed from the origial 50 bitcoin reward. This means that over time, the stock to flow ratio increases exponentially, until it reaches infinity in the year 2141. It is important to differentiate that this does not at all affect the scarcity of bitcoin. Regardless the quantity of total money supply, one UTXO can only be spend by the one defined script. This is true in the case of a total money supply of 50, 21 million or 84 billion bitcoin. The total supply of money does not matter, since prices will simply adjust to reflect the market demand of holding money in percentage to the total money supply. The axiomatic importance is the fact that one UTXO can only be spend by one script, and not two different scripts at the same time.
 
 
 == Fallacy of Intellectual Property
