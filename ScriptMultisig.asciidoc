@@ -1,0 +1,30 @@
+== Script Multi Signatures
+
+In the incumbent implementation of multi signatures, the redeem script contains a list of public keys, as well as the threshold of necessary signatures to validate a transaction. This redeem script is hashed to the script public key and committed to the timechain at the creation of the UTXO.
+
+In order to spend this coin, a valid witness script has to be provided, containing any M signatures corresponding to the committed public keys. If the proposed signature is not valid for the public key, or if less then M signatures are provided, then the transaction and block are rejected by every full node. This enforces the shared ownership of bitcoin on the level of full nodes. This verification is done both at the time the transaction is initially broadcasted, or during the initial block download of a new full node. 
+
+However, this system is fundamentally based on the trust in the thorough verification of the consensus rules as they have been defined at the point of funding. Full nodes could adopt a hard fork that changes the validity rules so that the coins can be spend in another way as originally defined. Thus, script multi signatures are a protocol for simulated shared ownership.
+
+However, if this concept of full node verification is working properly and reliably, as is the case in Bitcoin, then the redeem script might be considered a very strong simulated property right, there is a very slim and unprecedented plausibility of breaking the spending conditions. This is one of the many reasons why the adherence to Nakamoto consensus is so vitally important, and why any change to the set of rules, including soft forks but especially hard forks carry a tremendous risk.
+
+
+=== Multi Signature in P2SH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
+
+SignatureScript: `<Signature 1> ... <Signature M> <redeem script>`
+
+Address: `Base58Check(HASH160(<ScriptPubKey>))`
+
+=== Multi Signature in P2WSH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public Key M> N CHECKMULTISIG` 
+
+ScriptPubKey: `0 SHA256(<witnessScript>)`
+
+Address: checksum base32 footnote:[BIP173] encoded
