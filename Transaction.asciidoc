@@ -24,7 +24,7 @@ Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTIS
 
 ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
 
-SignatureScript: `<Signature 1> <Signature M> <redeem script>`
+SignatureScript: `<Signature 1> ... <Signature M> <redeem script>`
 
 Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
@@ -50,11 +50,11 @@ Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke
 
 Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
 
-Witness Script `0 <signature 1> 1 <Public Key 1> <Public Key 2> 2 CHECKMULTISIG` 
+Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public Key M> N CHECKMULTISIG` 
 
 ScriptPubKey: `0 SHA256(<witnessScript>)`
 
-Address: checksum base32footnote:[BIP173] encoded
+Address: checksum base32 footnote:[BIP173] encoded
 
 == Possible scripts for multi sig
 
