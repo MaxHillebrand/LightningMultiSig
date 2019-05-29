@@ -15,7 +15,7 @@ Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTIS
 
 ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
 
-SignatureScript: `<Signature 1> ... <Signature M> <redeem script>`
+SignatureScript: `0 <Signature 1> ... <Signature M> <redeem script>`
 
 Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
