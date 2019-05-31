@@ -31,6 +31,8 @@ Only those who have securely generated the individual private key can produce a 
 
 The verifier has a multiset of public keys `L`, a message `m`, and a signature `σ`. With this public information, the verifier computes `a_i`, `Ẋ` and `c`. The signature is valid only if `g^s = R` <= `R = 1` <= `n`, `R (product of X_i^(a_i c)) = R Ẋ^c`. Due to key aggregation, the verification is similar to the standard Schnorr scheme, and secure variants of the MuSig scheme are discussed in the original paper footnote:[ MuSig 2018, Chapter 4.3 Discussion].
 
+When given a Bitcoin transaction as a message as well as a signature, then any full node can verify conclusively that the signer had knowledge of the private key. According to Nakamoto Consensus, this means that an existing UTXO can be spend and a new UTXO is created. The transaction will be included in a block of the time chain.
+
 
 ## Interactive Key Aggregation
 
