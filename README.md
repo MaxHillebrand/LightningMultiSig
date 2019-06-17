@@ -21,10 +21,11 @@ The use case of multi signatures are far reaching, including strengthening the p
 
 ### PART II Shared Ownership
 
-1. Script OP_CHECKMULTISIG
-2. Schnorr aggregated MuSig
-3. Shamir's secret sharing
-4. Schnorr threshold signatures
+1. [Basics of Bitcoin Script](/Transaction.asciidoc)
+2. [Script OP_CHECKMULTISIG](/ScriptMultisig.asciidoc)
+3. [Schnorr aggregated MuSig](/SchnorrMuSig.asciidoc)
+4. [Shamir's secret sharing](/ShamirsSecretSharing.asciidoc)
+5. Schnorr threshold signatures
 
 ### PART III [Use Cases](/UseCase.asciidoc)
 
@@ -36,7 +37,7 @@ The use case of multi signatures are far reaching, including strengthening the p
 6. [2-of-3 Buyer, Seller, Trust less Escrow](/UseCase.asciidoc#2-of-3-buyer-seller-trust-less-escrow)
 7. [2-of-3 Hot Wallet Security](/UseCase.asciidoc#2-of-3-hot-wallet-security)
 8. [3-of-5 Low Trust Joint Funds](/UseCase.asciidoc#3-of-5-lowtrust-joint-funds)
-9. 2-of-2 lightning network payment channel
+9. [2-of-2 lightning network payment channel](/PaymentChannel.asciidoc)
 10. n-of-n lightning network channel factories
 11. m-of-n lightning network individual payment
 
