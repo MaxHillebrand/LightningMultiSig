@@ -12,10 +12,10 @@ The use case of multi signatures are far reaching, including strengthening the p
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
-1. Scarcity
+1. [Scarcity](/Scarcity.asciidoc#scarcity-1)
 2. Private property
 3. Mutually beneficial exchange
-4. Non-scarcity
+4. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
 5. Open source libre software
 6. Non-scarcity of Bitcoin and the scarcity of UTXOs
 
