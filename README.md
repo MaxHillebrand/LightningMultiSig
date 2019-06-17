@@ -13,10 +13,10 @@ The use case of multi signatures are far reaching, including strengthening the p
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
 1. [Scarcity](/Scarcity.asciidoc#scarcity-1)
-2. [Liberty](/Scarcity.asciidoc#liberty)
-2.1 [Private property](/Scarcity.asciidoc#private-property)
-2.2 [Homesteading](/Scarcity.asciidoc#homesteading)
-2.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
+2. [Liberty](/Scarcity.asciidoc#liberty)<br/>
+   2.1 [Private property](/Scarcity.asciidoc#private-property)<br/>
+   2.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
+   2.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
 4. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
 5. Open source libre software
 6. Non-scarcity of Bitcoin and the scarcity of UTXOs
