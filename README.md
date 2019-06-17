@@ -13,7 +13,7 @@ The use case of multi signatures are far reaching, including strengthening the p
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
 1. [Scarcity](/Scarcity.asciidoc#scarcity-1)
-2. Liberty](/Scarcity.asciidoc#liberty)
+2. [Liberty](/Scarcity.asciidoc#liberty)
 2.1 [Private property](/Scarcity.asciidoc#private-property)
 2.2 [Homesteading](/Scarcity.asciidoc#homesteading)
 2.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
