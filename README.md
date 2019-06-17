@@ -28,14 +28,14 @@ The use case of multi signatures are far reaching, including strengthening the p
 
 ### PART III [Use Cases](/UseCase.asciidoc)
 
-1. 1-of-2 Joint Spending
-2. 2-of-2 Joint Saving
-3. 2-of-2 Two-Factor Authentication
-4. 2-of-2 Smart Contract Building Block
-5. 2-of-3 Child Saving
-6. 2-of-3 Buyer, Seller, Trust less Escrow
-7. 2-of-3 Hot Wallet Security
-8. 3-of-5 Low Trust Joint Funds
+1. [1-of-2 Joint Spending](/UseCase.asciidoc#1-of-2-joint-spending)
+2. [2-of-2 Joint Saving](/UseCase.asciidoc#2-of-2-joint-saving)
+3. [2-of-2 Two-Factor Authentication](/UseCase.asciidoc#2-of-2-two-factor-authentication)
+4. [2-of-2 Smart Contract Building Block](/UseCase.asciidoc#2-of-2-smart-bontract-building-block)
+5. [2-of-3 Child Saving](/UseCase.asciidoc#2-of-3-child-saving)
+6. [2-of-3 Buyer, Seller, Trust less Escrow](/UseCase.asciidoc#2-of-3-buyer-seller-trust-less-escrow)
+7. [2-of-3 Hot Wallet Security](/UseCase.asciidoc#2-of-3-hot-wallet-security)
+8. [3-of-5 Low Trust Joint Funds](/UseCase.asciidoc#3-of-5-lowtrust-joint-funds)
 9. 2-of-2 lightning network payment channel
 10. n-of-n lightning network channel factories
 11. m-of-n lightning network individual payment
