@@ -109,13 +109,21 @@ Poelstra, A. (2017) Lightning in Scriptless Scripts. Mimblewimble Team Mailing L
 
 I especially thank the many peers that have supported me in my path towards understanding this complex topic.
 
+Adam Back
+
 Adam Fiscor
+
+Adam Gibson
 
 Andreas Antonopolous
 
 Andrew Poelstra
 
 Alex Brosworth
+
+Chris Belcher
+
+Eric Voscoil
 
 Gregory Maxwell
 
@@ -129,12 +137,24 @@ Joseph Poon
 
 Konstantin Nick
 
-Mark Friedenbach
+Lucas Ontivero
+
+Mark Erhardt
+
+Marek Palatinus
 
 Nicolas Dorier
+
+Pavol Rusnak
+
+Peter Gray
 
 Pieter Wullie
 
 Rene Pickhardt
 
 Olaoluwa Osuntokun
+
+Omer Shlomovits
+
+Stepan Snigirev
