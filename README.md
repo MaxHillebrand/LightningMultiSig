@@ -18,8 +18,9 @@ The use case of multi signatures are far reaching, including strengthening the p
    2.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
    2.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
 3. [Slavery](/Scarcity.asciidoc#slavery)<br/>
-   3.1 [Master and Slave Class](/Scarcity.asciidoc#master-and-slaveclass)<br/>
-   3.2 [](/Scarcity.asciidoc#)
+   3.1 [Autistic Intervention](/Scarcity.asciidoc#autistic-intervention)<br/>
+   3.2 [Binary Intervention](/Scarcity.asciidoc#binary-intervention)<br/>
+   3.3 [Triangular Intervention](/Scarcity.asciidoc#triangular-intervention)
 4. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
 5. Open source libre software
 6. Non-scarcity of Bitcoin and the scarcity of UTXOs
