@@ -59,18 +59,18 @@ The thesis is due on July 1st 2019 and written under the direction of [Prof. Dr.
 
 ## ToDo
 
-This thesis is in the early stages of research and writing, there are many topics that require further insight and clear explanation. Here is a list of rough ToDo's with links to the working files.
+This thesis is in the second round of peer review, there are some topics that require further research, others that need fine tuning of the idea, and some edits of the structure and typos. Here is a list of rough ToDo's with links to the working files.
 
-* [Different type of transactions [P2PKH, P2SH, P2WPKH, P2WSH] including on chain multisig](/Transaction.asciidoc)
-* [Funding, Commitment, Revocation and Closing Transaction of Payment Channel](/PaymentChannel.asciidoc)
-* [HTLC and Routing](/Routing.asciidoc)
-* [Option 1: m-of-n + 1 commitment transaction](/LightningMultiSigTransaction.asciidoc)
-* [Option 2: 2-of-2 + with Shamir's secret sharing or aggregated ECDSA/Schnorr](/LightningMultiSigTransaction.asciidoc)
-* Option 3: m-of-n access rights to node with 2-of-2 payment channel
-* Option 4: Preimage locked with m-of-n
-* Option 5: split `revocation_basepoint_secret` into m-of-n, with 2-of-2 payment channel
-* [Usecases of multi signature both on- and off-chain](/UseCase.asciidoc)
-* Punishment mechanism and game theory
+* `[Up for grabs]`       Fix structure and typos for [Part 1 on Scarcity](/Scarcity.asciidoc)
+* `[Up for grabs]`       Add list of definitions of all important words and acronyms
+* `[Up for grabs]`       More details for Funding, Commitment, Revocation and Closing Transaction of [Payment Channel](/PaymentChannel.asciidoc)
+* `[Up for grabs]`       Fine tune the [Usecases](/UseCase.asciidoc) of multi signature both on- and off-chain
+* `[Up for grabs]`       Punishment mechanism and game theory
+* `[/w @provoost]`       Ellaborate on node enforcement of scarcity
+* `[/w @NSKinsella]`     Write clear definition of economic [posession] or catallactic [control] or juridical [property rights] ownership
+* `[/w @n1ckler]`        [Multi-Hop Locks from Scritpless Scripts](https://github.com/apoelstra/scriptless-scripts/blob/master/md/multi-hop-locks.md)
+* `[/w @OmerShlomovits]` Threshold signatures in Lightning [Multiparty Schnorr](https://github.com/KZen-networks/multi-party-schnorr)
+
 
 ## Support
 
