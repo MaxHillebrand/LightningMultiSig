@@ -33,7 +33,7 @@ _"The argument for property rights is based [...] on the need of individuals to 
 
 == Slavery
 
-In a system of slavery there exists two distinct classes of individuals: the master class who has property rights, and the slave class who has not. The tyrant has the legal right to exclusive ownership for all his homesteaded and exchanged scarce goods and his human slaves. He has the full benefit of their human ingenuity to remove problems, and can deploy them in various tasks. The tyrant can intervene either autistic, binary or triangular.
+In a system of slavery there exists two distinct classes of individuals: the master class who has property rights, and the slave class who has not. The tyrant has the legal right to exclusive ownership for all his homesteaded and exchanged scarce goods and his human slaves. He has the full benefit of their human ingenuity to remove problems, and can deploy them in various tasks. For fundamental praxeological analysis, it is not of concern how the master came to rule, through incoherence monarchy, elected democracy or military dictatorship. The tyrant can intervene either autistic, binary or triangular.
 
 === Autistic Intervention
 
@@ -46,6 +46,10 @@ A tyrant can enforce binary intervention footnote:[Rothbard (1962), Power and Ma
 === Triangular intervention
 
 In triangular intervention footnote:[Rothbard (1962), Power and Markets, Chapter 3 Triangular Intervention] the tyrant aggresses against two slaves who do not ask for permission to engage in trade amongst them. Through some form of licensing, registration or forced contract covenants, the state prescribes the way two peaceful individuals must act, and if they fail to comply, then he evicts some punishment. The attack is either in form of price control, or product control. A minimum price artificially excludes clients who don't value the good that high, and entrepreneurs who would already prefer the exchange below minimum price. Since this is inherently not mutually beneficial, it destroys capital and prosperity, while benefiting the master only. When manipulating the nature of production directly, rather than the terms of exchange, the building or sale of certain scarce goods is prohibited. Again, both client and entrepreneur are artificially prohibited from removing their problems and increasing their subjective marginal value scale, yet the master gains in the pleasure of submission.
+
+== Communism
+
+Communism is the utopia of shared ownership of scarce means of production. The workers shall collectively use the tools at their disposal to remove problems, from each according to his ability, to each according to his needs. footnote:[Marx (1875), Critique of the Gotha Program.] Yet this disregards the universal truth of exclusivity of scarce goods. The workers cannot collectively own the scarce means of production, since they are scarce, and thus only one individual at one time can use them. Communism neglects the need to allocate scarce resources throughout time, and thus inevitably will lead to capital destruction and misery. footnote:[Mises (1951), Socialism: An Economic and Sociological Analysis] The ideal of sharing goods with others, although not feasible in the realm of scarcity, is not just doable, but desirable with non-scarce goods.
 
 == Non-Scarcity
 
