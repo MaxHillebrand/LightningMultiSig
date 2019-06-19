@@ -23,8 +23,8 @@ The use case of multi signatures are far reaching, including strengthening the p
    3.3 [Triangular Intervention](/Scarcity.asciidoc#triangular-intervention)
 4. [Communism](/Scarcity.asciidoc#communism)
 5. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
-6. Open source libre software
-7. [Fallacy of Intellectual Property]/Scarcity.asciidoc#fallacy-of-intellectual-property)
+6. [Libre Open Source Software](/Scarcity.asciidoc#libre-open-source-software)
+7. [Fallacy of Intellectual Property](/Scarcity.asciidoc#fallacy-of-intellectual-property)
 8. Non-scarcity of Bitcoin and the scarcity of UTXOs
 
 ### PART II Shared Ownership
