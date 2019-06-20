@@ -109,6 +109,8 @@ Poelstra, A. (2017) Lightning in Scriptless Scripts. Mimblewimble Team Mailing L
 
 I especially thank the many peers that have supported me in my path towards understanding this complex topic.
 
+6102 Bitcoin
+
 Adam Back
 
 Adam Fiscor
@@ -127,6 +129,8 @@ Edmond Belliveau
 
 Eric Voskuil
 
+Giacomo Zucco
+
 Gregory Maxwell
 
 Hans Hermann Hoppe
@@ -144,6 +148,8 @@ Konstantin Nick
 Lucas Ontivero
 
 Ludwig von Mises
+
+Manuel Polavieja
 
 Mark Erhardt
 
