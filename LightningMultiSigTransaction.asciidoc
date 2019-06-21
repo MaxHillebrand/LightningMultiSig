@@ -1,7 +1,7 @@
 = Multi Signature Transaction in Lightning Payment Channels
 
 
-These are several possible approaches to solve the problem. Maybe changing the commitment transaction scrip, or enforcing the  multi sig on a higher wallet level, not on the blockchain directly.
+These are several possible approaches to solve the problem. Maybe changing the commitment transaction scrip, or enforcing the  multi sig on a higher wallet level, not on the time chain directly.
 
 
 == Commitment transaction script
