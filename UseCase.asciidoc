@@ -1,19 +1,19 @@
 = Use Case
 
-As described in the first part of this thesis, non-simulated shared ownership of any asset, but especially of a sound money is a groundbreaking achievement. With this new technology at our disposal, there are countless new solutions to known problems, and probably even more solutions to unknown unknown problems that we yet have to discover. The following list is mere an early compilation of interesting use cases, and not at all exhaustive. It is up to individual sovereign entrepreneurs to evaluate client problems and judge possible solution.
+As described in the first part of this thesis, non-simulated shared ownership of any scarce asset, but especially of a sound money is a groundbreaking achievement. With this new technology at our disposal, there are countless new solutions to known problems, and probably even more solutions to unknown unknowns that we yet have to discover. The following list is mere an early compilation of interesting use cases, and not at all exhaustive. It is up to individual sovereign entrepreneurs to evaluate client problems and judge possible solution, yet these use cases might serve as inspiration.
 
 == 1-of-2 Joint Spending
 
-Alice and Bob have a joint account used for every day spending of petty cash. The signature of either one of them is sufficient to send the coin, thus no collaboration or communication between the two is necessary. This is very convenient for every day transactions, but it requires a large amount of trust, since both of them could turn rogue and run away with the money, and there is no defense against this. Further, if only one of them gets compromised by a malicious hacker, he can equally steal the funds without recourse.
+Alice and Bob have a joint account used for every day spending of petty cash. The signature of either one of them is sufficient to send the coin, thus no collaboration or communication between the two is necessary. Any one of them can spend at any time, for any reason, all the bitcoin locked in this script. This is very convenient for every day transactions, but it requires a large amount of trust, since both of them could turn rogue and run away with the money, and there is no defense against this. Further, if only one of them gets compromised by a malicious hacker, he can equally steal the funds without recourse.
 
 == 2-of-2 Joint Saving
 
-Alice and Bob have a joint account used for long term savings. Both signatures are required to spend the funds, this requires coordination and communication for the signing ceremony. If either one of them is unavailable, the funds cannot be spent. This approval process is not convenient for recurring payments, and thus it is more intended for long hodling of the coins. Since even the loss of one private key leads to indispensability, it is very much recommended to keep several backups in diverse secure locations. In the case of a malicious hacker gaining access to one of these keys, the funds are still secure, and there might be enough time to move them to a new script with fresh keys.
+Alice and Bob have a joint account used for long term savings. Both signatures are required to spend the funds, this requires coordination and communication for the signing ceremony. If either one of them is unavailable, the funds cannot be spent. This is thus true shared ownership of the bitcoin, since two separate individuals need to give their explicit consent to transact. This approval process is not convenient for recurring payments, and thus it is more intended for long hodling of the coins. Since even the loss of one private key leads to indispensability, it is very much recommended to keep several backups in diverse secure locations. In the case of a malicious hacker gaining access to one of these keys, the funds are still secure, and there might be enough time to move them to a new script with fresh keys.
 
 == 2-of-2 Two-Factor Authentication
 
-Alice alone generates two private keys, she stores one on her phone and the other on her main computer. She requires access to both devices in order to spend the funds, thus an attacker needs to compromise both at the same time. However, if one of the two devices gets lost without backup, then access to the bitcoin is forever destroyed.
-                                                                                
+Alice alone generates two private keys, she stores one on her phone and the other on her main computer. Now she requires access to both devices in order to spend the funds, thus an attacker needs to compromise both at the same time. This highly increases the defense against a malicious hardware provider, since two independent manufacturers need to collude. However, if one of the two devices gets lost without backup, then access to the bitcoin is forever destroyed. There is no redundancy to protect against key loss.
+
 == 2-of-2 Smart Contract Building Block
 
 Advanced smart contracts such as the lightning network, tumblebit or coin swaps require a 2-of-2 multi sig. These second layer protocols commit to funds on chain and later update the state of property right without immediately settling back to the base layer. ………
@@ -45,11 +45,11 @@ Setup transaction [signed after distribution tx]
                      |      Alice shange
 ```
 ```
-Distribution transaction [signed first]
+Distribution transaction [signed first, broadcasted later]
 
 [i] 10 signatures    |	[o] Bob pubkey
                      |      Charlie pubkey
-                     |       ...
+                     |      ...
                      |      Kai pubkey
 ```
 
