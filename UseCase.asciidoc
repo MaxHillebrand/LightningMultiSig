@@ -16,6 +16,8 @@ Alice alone generates two private keys, she stores one on her phone and the othe
 
 == 2-of-2 Lightning Network Payment Channel
 
+Alice and Bob want to send several payments bidirectionally between them, without requesting verification by all full nodes for every individual payment. They fund a multi signature payment channel, commit to several update transactions "off chain", and ultimately close the final state in a settlement transaction. This limits full node verification of on- chain transactions to two transactions in the life cycle of a payment channel, which can conduct potentially unlimited amounts of updated commitment transactions. In order to secure the unconfirmed transaction against double spends by a malicious counterpart, they exchange secrets to allow for proof of and potential punishment of an attacker.
+
 === Funding Transaction
 
 Two parties establish shared state on the blockchain with a 2-of-2 multi signature **funding transaction** `2 <PubKeyAlice> <PubKeyBob> 2 CHECKMULTISIG`.footnote:[BOLT 3, Funding Transaction Output] This P2WSH transaction is broadcasted to the entire Bitcoin network and added to the blockchain with accumulated proof of work, assuming sufficient mining fees paid. 
