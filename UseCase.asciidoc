@@ -32,7 +32,26 @@ In order to secure hot wallet funds Alice can generate two private keys, keeping
 
 == 3-of-5 Low Trust Joint Funds
 
-The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust 3-of-5 multi sig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the blockchain which private keys have signed the transaction, there is accountability after the fact. This is especially useful for decentralized and non-hierarchical projects.
+The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust 3-of-5 multi sig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the timechain which private keys have signed the transaction, there is accountability after the fact. This is especially useful for decentralized and non-hierarchical projects.
+
+== Transaction Output Commitments
+
+Alice wants to pay 10 different peers, yet the current transaction fee level is high, and she estimates it will decrease in the future. She wants to commit to the payment now, yet pay the fee for the final transaction at a later point in time. Alice requests the public keys of all 10 receivers and builds a large 10-of-10 multi signature script. She build an unsigned and unbroadcasted setup transaction, with her UTXO in the input, and the 10-of-10 multisig with the total amount she wants to send, as well as her change output. Then, she creates a distribution transaction, which spends the multisig UTXO and creates the 10 different UTXOs with the individual public keys of the receivers. Alice then requests each of the receiver to sign the distribution transaction, and she ensures that each co-signer has a full valid signature of all the peers. Only then does she sign and broadcast the setup transaction, to get quick confirmation with a relatively low fee. The receivers are now certain that at any time one of them can broadcast the signed distribution transaction to receive the money.
+
+```
+Setup transaction [signed after distribution tx]
+
+[i] Alice signature  |  [o] 10-of-10 multisig
+			    Alice shange
+```
+```
+Distribution transaction [signed first]
+
+[i] 10 signatures    |  [o] Bob pubkey
+			    Charlie pubkey
+			    ...
+			    Kai pubkey
+```
 
 -----
 
