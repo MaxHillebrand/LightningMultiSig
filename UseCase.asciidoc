@@ -41,16 +41,16 @@ Alice wants to pay 10 different peers, yet the current transaction fee level is 
 ```
 Setup transaction [signed after distribution tx]
 
-[i] Alice signature  |  [o] 10-of-10 multisig
-			    Alice shange
+[i] Alice signature  |	[o] 10-of-10 multisig
+                            Alice shange
 ```
 ```
 Distribution transaction [signed first]
 
-[i] 10 signatures    |  [o] Bob pubkey
-			    Charlie pubkey
-			    ...
-			    Kai pubkey
+[i] 10 signatures    |	[o] Bob pubkey
+                            Charlie pubkey
+                            ...
+                            Kai pubkey
 ```
 
 -----
