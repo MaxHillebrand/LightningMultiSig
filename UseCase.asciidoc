@@ -20,11 +20,11 @@ Alice and Bob want to send several payments bidirectionally between them, withou
 
 === Funding Transaction
 
-Two parties establish shared state on the time chain with a 2-of-2 multi signature **funding transaction** `2 <PubKeyAlice> <PubKeyBob> 2 CHECKMULTISIG`.footnote:[BOLT 3, Funding Transaction Output] This P2WSH transaction is broadcasted to the entire Bitcoin network and added to the time chain with accumulated proof of work, assuming sufficient mining fees paid. 
+Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a 2-of-2 multi signature to establish shared ownerhsip with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 OP_CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures, when one of them is malicious, the funds are locked and irredeemable. In order to protect against an off-line counterpart, they exchange signatures of a valid commitment transaction, as described below, yet this is not broadcasted. Only when then do they broadcast this P2WSH funding transaction to the entire Bitcoin network, verified by all nodes and added to the time chain with accumulated proof of work, assuming sufficient mining fees paid. Now the payment channel is open, and has a unique identifier of the transaction and channel ID.
 
 === Commitment Transaction
 
-Subsequently, Alice and Bob can exchange signed **commitment transactions**footnote:[BOLT 3, Commitment Transaction] which change the value dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC.footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signsfootnote:[BIP 174] the the transaction and sends it to Bob, who completes the 2-of-2 multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
+Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[BIP 174] the the transaction and sends it to Bob, who completes the 2-of-2 multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
 
 Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 Equal NOTIF Drop 2 Swap <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
 
@@ -32,7 +32,7 @@ WitnessScript: `<remotehtlcsig> <payment_preimage>`
 
 If a revoked commitment transaction is published, the WitnessScript `<revocation_sig> <payment_preimage>` can spend the output immediately.
 
-It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different **update and revocation mechanisms** with accoring thread models and security assumptions:
+It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with accoring thread models and security assumptions:
 
 ==== Timelocks 
 
