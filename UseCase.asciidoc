@@ -107,9 +107,13 @@ Two, or preferably more peers create a channel factory deposit transaction that 
 			|		Justin Change
 ```
 
+=== Replaceable Allocation Transaction
+
+The goal of a channel factory is to have off-chain transactions, where only the latest state can successfully be committed on the time chain. It is thus essential that old states are replaced by the new one. This is done by building an invalidation tree with decrementing timelocks started by a kickoff root transaction. The leaves of the invalidation tree are the individual 2-of-2 commitment transaction. It is important that the bottom transaction of the invalidation tree is fully signed and could potentially be broadcasted. 
+
 === Commitment Transaction
 
-After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the n-of-n cooperative multi signature, the outputs are the the 2-of-2 direct payment channels between the individuals within the factory. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
+After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the n-of-n cooperative multi signature of the allocation transaction, the outputs are the the 2-of-2 direct payment channels between the individuals within the factory. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
 
 
 ```
