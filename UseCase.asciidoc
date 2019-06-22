@@ -97,7 +97,7 @@ Channel factories are payment channels where every commitment transaction opens 
 
 === Hook Transaction
 
-Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the hook transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This script has the regular payment channel conditions, the n-of-n cooperative case, as well as time locks with single signatures for uncooperative spending.
+Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the hook transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This script has the regular payment channel conditions, the n-of-n cooperative case, as well as time locks with single signatures for uncooperative spending. The hook transaction is signed only when all transactions of the initial state are signed to ensure the funds always return to their initial owner in case of the uncooperative case.
 
 ```
 [i]	Alice	| [o]	10-of-10 channel factory
