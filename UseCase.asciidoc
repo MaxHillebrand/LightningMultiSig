@@ -82,16 +82,16 @@ is another update mechanism, where Alice and Bob collaboratively generate two as
 Transaction held by Alice
 ```
 [i 0] 2-of-2 funding output, signed by Bob	|	[o 0] <nValueAlice>: <PubKeyAlice>
-						|	[o 1] <nValueBob>: IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
+											|	[o 1] <nValueBob>: IF <Revocation Public Key> ELSE <delay in blockst> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
 ```
 
 Transaction held by Bob
 ``` 
 [i 0] 2-of-2 funding output, signed by Alice	|	[o 0] <nValueBob>: <PubKeyBob> 
-						|	[o 1] <nValueAlice>: IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
+											|	[o 1] <nValueAlice>: IF <Revocation Public Key> ELSE <delay in blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
 ```
 
-The revocable key is split in two secrets, similar to 2-of-2 multi signature based on elliptical curve arithmetics. When Bob sends funds to Alice, Alice has to revoke the old commitment transaction by reviling her secret to Bob, before Bob agrees to sign the new state. If Alice would try to cheat and broadcast an old state, Bob can become active and use both paths of the revocation key to redeem Alice's delayed output. Alice only has one half of the revocation key and can only redeem her output after the 4320 blocks. With each state update, both exchange the new commitment transactions, and the revocation secret. 
+The revocable key is split in two secrets, similar to 2-of-2 multi signature based on elliptical curve arithmetics. When Bob sends funds to Alice, Alice has to revoke the old commitment transaction by revealing her secret to Bob, before Bob agrees to sign the commitment transaction of the new state. If Alice would try to cheat and broadcast an old state, Bob can become active and use both paths of the revocation key to redeem Alice's delayed output. Alice only has one half of the revocation key and can only redeem her output after the block delay timeout. With each state update, both exchange the new commitment transactions, and the revocation secret of the previous one.
 
 === Closing Transaction
 
@@ -119,34 +119,11 @@ Two, or preferably more peers create a channel factory deposit transaction that 
 
 === Replaceable Allocation Transaction
 
-The goal of a channel factory is to have off-chain transactions, where only the latest state can successfully be committed on the time chain. It is thus essential that old states are replaced by the new one. This is done by building an invalidation tree with decrementing timelocks started by a kickoff root transaction. The leaves of the invalidation tree are the individual 2-of-2 commitment transaction. It is important that the bottom transaction of the invalidation tree is fully signed and could potentially be broadcasted. 
+The goal of a channel factory is to have off-chain allocation transactions that spends the multi signature channel factory and creates many individual 2-of-2 payment channels. Because only the latest state of these allocation transactions must successfully be committed on the time chain, it is thus essential that old states are replaced by the new one. This can be done by building an invalidation tree with decrementing timelocks started by a kickoff root transaction footnote:[Decker, Wattenhofer. A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels. 2016.], exchanging revocation secrets footnote:[Poon, Dryja. The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. 2016.] or utilizing the eltoo footnote:[Decker, Russell, Osuntokun. eltoo: A Simple Layer 2 Protocol for Bitcoin. 2018.] updating mechanism. The leaves of the invalidation tree are the individual 2-of-2 multi signatures that open an individual 2 peer payment channel. Every allocation transaction thus spends the hook utxo to create individual payment channel funding transactions.
 
 === Commitment Transaction
 
 After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the n-of-n cooperative multi signature of the allocation transaction, the outputs are the the 2-of-2 direct payment channels between the individuals within the factory. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
-
-
-```
-=== Funding Transaction
-
-Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a 2-of-2 multi signature to establish shared ownerhsip with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 OP_CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures, when one of them is malicious, the funds are locked and irredeemable. In order to protect against an off-line counterpart, they exchange signatures of a valid commitment transaction, as described below, yet this is not broadcasted. Only when then do they broadcast this P2WSH funding transaction to the entire Bitcoin network, verified by all nodes and added to the time chain with accumulated proof of work, assuming sufficient mining fees paid. Now the payment channel is open, and has a unique identifier of the transaction and channel ID.
-
-=== Commitment Transaction
-
-Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[BIP 174] the the transaction and sends it to Bob, who completes the 2-of-2 multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
-
-Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 Equal NOTIF Drop 2 Swap <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
-
-WitnessScript: `<remotehtlcsig> <payment_preimage>`
-
-If a revoked commitment transaction is published, the WitnessScript `<revocation_sig> <payment_preimage>` can spend the output immediately.
-
-It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
-```
-
-
-
-
 
 
 -----
