@@ -69,7 +69,7 @@ WitnessScript: `<remotehtlcsig> <payment_preimage>`
 
 If a revoked commitment transaction is published, the WitnessScript `<revocation_sig> <payment_preimage>` can spend the output immediately.
 
-It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with accoring thread models and security assumptions:
+It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
 
 ==== Timelocks 
 
@@ -88,6 +88,40 @@ The revocable key is split in two secrets, similar to 2-of-2 multi signature bas
 After Alice and Bob have done sufficient payments, they can cooperatively close this payment channel, by broadcasting the final settlement transaction to the network. This cooperative **closing transaction** has a witness script `0 <signature1> <signature2> 2 <PubKey1> <PubKey2> 2 CHECKMULTISIG` and can specify any new ScriptPubKey in the output. Further, there is an option to unilaterally close the channel if one of the peers disconnects.
 
 The time chain footprint of potentially millions of off-chain transactions can be reduced to only the opening and closing transaction. This is increasing throughput, decreasing latency and enhancing privacy.
+
+
+
+== n-of-n Multi Party Channel Factories
+
+Channel factories are payment channels where every commitment transaction opens more payment channels. The unbroadcasted update transaction closes the previous payment channel and opens the new one atomically. This script enables the secure opening and closing of a new payment channel without committing any extra transaction to the time chain. A 10 peer channel factory has 90% transaction size savings compared to individual channel opening. footnote:[Harding, What are Channel Factories and how do they work? 2018]
+
+=== Funding Transaction
+
+Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This script has the regular payment channel conditions, the n-of-n cooperative case, as well as time locks with single signatures for uncooperative spending.
+
+=== Commitment Transaction
+
+After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the n-of-n cooperative multi signature, the outputs are the the 2-of-2 direct payment channels between the individuals within the factory. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
+
+
+```
+=== Funding Transaction
+
+Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a 2-of-2 multi signature to establish shared ownerhsip with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 OP_CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures, when one of them is malicious, the funds are locked and irredeemable. In order to protect against an off-line counterpart, they exchange signatures of a valid commitment transaction, as described below, yet this is not broadcasted. Only when then do they broadcast this P2WSH funding transaction to the entire Bitcoin network, verified by all nodes and added to the time chain with accumulated proof of work, assuming sufficient mining fees paid. Now the payment channel is open, and has a unique identifier of the transaction and channel ID.
+
+=== Commitment Transaction
+
+Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[BIP 174] the the transaction and sends it to Bob, who completes the 2-of-2 multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
+
+Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 Equal NOTIF Drop 2 Swap <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
+
+WitnessScript: `<remotehtlcsig> <payment_preimage>`
+
+If a revoked commitment transaction is published, the WitnessScript `<revocation_sig> <payment_preimage>` can spend the output immediately.
+
+It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
+```
+
 
 
 
