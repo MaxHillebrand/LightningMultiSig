@@ -14,6 +14,43 @@ Alice and Bob have a joint account used for long term savings. Both signatures a
 
 Alice alone generates two private keys, she stores one on her phone and the other on her main computer. Now she requires access to both devices in order to spend the funds, thus an attacker needs to compromise both at the same time. This highly increases the defense against a malicious hardware provider, since two independent manufacturers need to collude. However, if one of the two devices gets lost without backup, then access to the bitcoin is forever destroyed. There is no redundancy to protect against key loss.
 
+== 2-of-3 Child Saving
+
+Alice and Bob are the parents of Charlie, and they have a child savings account where all three have one key. The parents would like to pass on with “warm hands” some of their wealth to their heir and to teach him the importance of decreased time preference through savings. Charlie alone cannot spend the funds, but he requires the approval of either one of his parents. In the same manner, one of the malicious parents or a hacker cannot alone spend the funds, but they always require approval of either their son or partner. The parents are protected against unwise spending of their son, and Charlie is protected against attempted theft of one of his parents. In the case of loss of one private key, the other two can still collaborate to produce a valid signature script.
+
+== 2-of-3 Buyer, Seller, Trust less Escrow
+
+Alice wants to purchase a good from Bob, but they wanted to protect against the first-mover disadvantage. Charlie can be as the trust less escrow of a 2-of-3 multi sig. Alice funds the address with the amount of bitcoin agreed upon previously. Bob will wait until these funds are confirmed and verify on his full node. Then he will give Alice the good she desires and he will generate and sign a transaction spending the multi sig wallet onto his own single sig wallet. Only when Alice has a secured control over the good will she also sign that proposed transaction and broadcast it to the Bitcoin network. In this collaborative case, Charlie the trust less escrow is not needed. But when Bob does not hand over the good, Alice will call on the judge and after his verification of the events, Charlie will co-sign with Alice a transaction giving the bitcoin back to her. On the other hand, if Bob has given Alice the good, but she refuses to pay, Bob can appeal to Charlie who will judge in his favor and co-sign a transaction paying Bob. In order to protect against denial-of-service attacks an upfront escrow from Alice and Bob might be added to the multi sig address. In the case of attempted fraud, the judge will release that deposit to the victim. To ensure Charlie's honesty Alice and Bob might also require a security bond from him. Charlie himself alone cannot steal the funds. The decentralized and self-hosted bisq exchange footnote:[Chris Beams, Manfred Karrer. Phase Zero Protocol. 2017] has been successfully using this smart contract to secure millions of trades.
+
+== 2-of-3 Hot Wallet Security
+
+In order to secure hot wallet funds Alice can generate two private keys, keeping one on her hot hardware and the other one as a cold storage. The security specialist Bob will have the third key on a hot wallet. Every time Alice wants to make a payment she builds the transaction and signs it with her hot key. Then she sends the partially signed Bitcoin transaction to Bob who will only sign the transaction if some predetermined conditions are met. This can be some two-factor authentication, or in-person verification, or a white listed and blacklisted addresses, or some maximum value in a given time period. Only when all of the agreements are met will Bob sign this transaction with his hot wallet key. If Bob realizes that Alice has been compromised then he will refuse to sign the transaction. If Bob becomes unavailable Alice can get her second key out of cold storage and sign the transaction all by herself. Bob himself cannot spend the money alone.
+
+== 3-of-5 Low Trust Joint Funds
+
+The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust 3-of-5 multi sig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the timechain which private keys have signed the transaction, there is accountability after the fact. This is especially useful for decentralized and non-hierarchical projects.
+
+== Transaction Output Commitments
+
+Alice wants to pay 10 different peers, yet the current transaction fee level is high, and she estimates it will decrease in the future. She wants to commit to the payment now, yet pay the fee for the final transaction at a later point in time. Alice requests the public keys of all 10 receivers and builds a large 10-of-10 multi signature script. She build an unsigned and unbroadcasted setup transaction, with her UTXO in the input, and the 10-of-10 multisig with the total amount she wants to send, as well as her change output. Then, she creates a distribution transaction, which spends the multisig UTXO and creates the 10 different UTXOs with the individual public keys of the receivers. Alice then requests each of the receiver to sign the distribution transaction, and she ensures that each co-signer has a full valid signature of all the peers. Only then does she sign and broadcast the setup transaction, to get quick confirmation with a relatively low fee. The receivers are now certain that at any time one of them can broadcast the signed distribution transaction to receive the money.
+
+```
+Setup transaction [signed after distribution tx]
+
+[i] Alice signature  |	[o] 10-of-10 multisig
+                     |      Alice shange
+```
+```
+Distribution transaction [signed first, broadcasted later]
+
+[i] 10 signatures    |	[o] Bob pubkey
+                     |      Charlie pubkey
+                     |      ...
+                     |      Kai pubkey
+```
+
+== Lightning Network
+
 == 2-of-2 Lightning Network Payment Channel
 
 Alice and Bob want to send several payments bidirectionally between them, without requesting verification by all full nodes for every individual payment. They fund a multi signature payment channel, commit to several update transactions "off chain", and ultimately close the final state in a settlement transaction. This limits full node verification of on- chain transactions to two transactions in the life cycle of a payment channel, which can conduct potentially unlimited amounts of updated commitment transactions. In order to secure the unconfirmed transaction against double spends by a malicious counterpart, they exchange secrets to allow for proof of and potential punishment of an attacker.
@@ -52,40 +89,9 @@ After Alice and Bob have done sufficient payments, they can cooperatively close 
 
 The time chain footprint of potentially millions of off-chain transactions can be reduced to only the opening and closing transaction. This is increasing throughput, decreasing latency and enhancing privacy.
 
-== 2-of-3 Child Saving
 
-Alice and Bob are the parents of Charlie, and they have a child savings account where all three have one key. The parents would like to pass on with “warm hands” some of their wealth to their heir and to teach him the importance of decreased time preference through savings. Charlie alone cannot spend the funds, but he requires the approval of either one of his parents. In the same manner, one of the malicious parents or a hacker cannot alone spend the funds, but they always require approval of either their son or partner. The parents are protected against unwise spending of their son, and Charlie is protected against attempted theft of one of his parents. In the case of loss of one private key, the other two can still collaborate to produce a valid signature script.
 
-== 2-of-3 Buyer, Seller, Trust less Escrow
 
-Alice wants to purchase a good from Bob, but they wanted to protect against the first-mover disadvantage. Charlie can be as the trust less escrow of a 2-of-3 multi sig. Alice funds the address with the amount of bitcoin agreed upon previously. Bob will wait until these funds are confirmed and verify on his full node. Then he will give Alice the good she desires and he will generate and sign a transaction spending the multi sig wallet onto his own single sig wallet. Only when Alice has a secured control over the good will she also sign that proposed transaction and broadcast it to the Bitcoin network. In this collaborative case, Charlie the trust less escrow is not needed. But when Bob does not hand over the good, Alice will call on the judge and after his verification of the events, Charlie will co-sign with Alice a transaction giving the bitcoin back to her. On the other hand, if Bob has given Alice the good, but she refuses to pay, Bob can appeal to Charlie who will judge in his favor and co-sign a transaction paying Bob. In order to protect against denial-of-service attacks an upfront escrow from Alice and Bob might be added to the multi sig address. In the case of attempted fraud, the judge will release that deposit to the victim. To ensure Charlie's honesty Alice and Bob might also require a security bond from him. Charlie himself alone cannot steal the funds. The decentralized and self-hosted bisq exchange footnote:[Chris Beams, Manfred Karrer. Phase Zero Protocol. 2017] has been successfully using this smart contract to secure millions of trades.
-
-== 2-of-3 Hot Wallet Security
-
-In order to secure hot wallet funds Alice can generate two private keys, keeping one on her hot hardware and the other one as a cold storage. The security specialist Bob will have the third key on a hot wallet. Every time Alice wants to make a payment she builds the transaction and signs it with her hot key. Then she sends the partially signed Bitcoin transaction to Bob who will only sign the transaction if some predetermined conditions are met. This can be some two-factor authentication, or in-person verification, or a white listed and blacklisted addresses, or some maximum value in a given time period. Only when all of the agreements are met will Bob sign this transaction with his hot wallet key. If Bob realizes that Alice has been compromised then he will refuse to sign the transaction. If Bob becomes unavailable Alice can get her second key out of cold storage and sign the transaction all by herself. Bob himself cannot spend the money alone.
-
-== 3-of-5 Low Trust Joint Funds
-
-The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust 3-of-5 multi sig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the timechain which private keys have signed the transaction, there is accountability after the fact. This is especially useful for decentralized and non-hierarchical projects.
-
-== Transaction Output Commitments
-
-Alice wants to pay 10 different peers, yet the current transaction fee level is high, and she estimates it will decrease in the future. She wants to commit to the payment now, yet pay the fee for the final transaction at a later point in time. Alice requests the public keys of all 10 receivers and builds a large 10-of-10 multi signature script. She build an unsigned and unbroadcasted setup transaction, with her UTXO in the input, and the 10-of-10 multisig with the total amount she wants to send, as well as her change output. Then, she creates a distribution transaction, which spends the multisig UTXO and creates the 10 different UTXOs with the individual public keys of the receivers. Alice then requests each of the receiver to sign the distribution transaction, and she ensures that each co-signer has a full valid signature of all the peers. Only then does she sign and broadcast the setup transaction, to get quick confirmation with a relatively low fee. The receivers are now certain that at any time one of them can broadcast the signed distribution transaction to receive the money.
-
-```
-Setup transaction [signed after distribution tx]
-
-[i] Alice signature  |	[o] 10-of-10 multisig
-                     |      Alice shange
-```
-```
-Distribution transaction [signed first, broadcasted later]
-
-[i] 10 signatures    |	[o] Bob pubkey
-                     |      Charlie pubkey
-                     |      ...
-                     |      Kai pubkey
-```
 
 -----
 
