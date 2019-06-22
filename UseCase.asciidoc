@@ -77,9 +77,19 @@ can be used to solve the issue of publishing an old state, and disconnecting pee
 
 ==== Asymmetric Revocable Commitments
 
-is another update mechanism, where Alice and Bob collaboratively generate two asymmetric commitment transaction. Alice has a transaction with one Input: `2-of-2 funding output, signed by Bob` and Output 0 <nValueAlice>: `<PubKeyAlice>` and Output 1 <nValueBob>: `IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG`. 
+is another update mechanism, where Alice and Bob collaboratively generate two asymmetric commitment transaction. 
 
-Bob has a different transaction with one Input: `2-of-2 funding output, signed by Alice` and Output 0 <nValueBob>: `<PubKeyBob>` and Output 1 <nValueAlice>: `IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG`.
+Transaction held by Alice
+```
+[i 0] 2-of-2 funding output, signed by Bob	|	[o 0] <nValueAlice>: <PubKeyAlice>
+						|	[o 1] <nValueBob>: IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
+```
+
+Transaction held by Bob
+``` 
+[i 0] 2-of-2 funding output, signed by Alice	|	[o 0] <nValueBob>: <PubKeyBob> 
+						|	[o 1] <nValueAlice>: IF <Revocation Public Key> ELSE <4320 blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
+```
 
 The revocable key is split in two secrets, similar to 2-of-2 multi signature based on elliptical curve arithmetics. When Bob sends funds to Alice, Alice has to revoke the old commitment transaction by reviling her secret to Bob, before Bob agrees to sign the new state. If Alice would try to cheat and broadcast an old state, Bob can become active and use both paths of the revocation key to redeem Alice's delayed output. Alice only has one half of the revocation key and can only redeem her output after the 4320 blocks. With each state update, both exchange the new commitment transactions, and the revocation secret. 
 
