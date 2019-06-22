@@ -101,10 +101,10 @@ Two, or preferably more peers create a channel factory deposit transaction that 
 
 ```
 [i]	Alice	| [o]	10-of-10 channel factory
-	Bob		|	Alice Change
-	...		|	Bob Change
-	Justin	|	...
-			|	Justin Change
+	Bob		|		Alice Change
+	...		|		Bob Change
+	Justin	|		...
+			|		Justin Change
 ```
 
 === Commitment Transaction
