@@ -12,9 +12,9 @@ The use cases of multi signatures are far reaching, including strengthening the 
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
-1. [Scarce Goods](/Scarceity.asciidoc#scarce-goods)
-2. [Economic Goods](/Scarceity.asciidoc#economic-goods)
-3. [Rare Goods](/Scarceity.asciidoc#rare-goods)
+1. [Human Action](/Scarceity.asciidoc#human-action)
+2. [Exclusivity of Scarce Goods](/Scarceity.asciidoc#exclusivity-of-scarce-goods)
+3. [Rarity of Scarce Goods](/Scarceity.asciidoc#rarity-of-scarce-goods)
 4. [Liberty](/Scarcity.asciidoc#liberty)<br/>
    4.1 [Private property](/Scarcity.asciidoc#private-property)<br/>
    4.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
