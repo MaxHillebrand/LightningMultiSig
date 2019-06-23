@@ -128,7 +128,7 @@ The goal of a channel factory is to have many off-chain allocation transactions 
 
 === Commitment Transaction
 
-After the hook transaction has sufficient accumulated proof of work, and the allocation transaction is successfully signed and communicated, then the individual sub-channels are open. The commitment transaction spends the 2-of-2 multi signature of the allocation transaction, and creates UTXOs with the single public key of the individual owners of the bitcoin. 
+After the hook transaction has sufficient accumulated proof of work, and the allocation transaction is successfully signed and communicated, then the individual sub-channels are open. The commitment transaction spends the 2-of-2 multi signature of the allocation transaction, and creates UTXOs with the single public key of the individual owners of the bitcoin. The scripts and signing ceremony is identical to the ones of regular 2-of-2 payment channels.
 
 -----
 

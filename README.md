@@ -12,21 +12,23 @@ The use cases of multi signatures are far reaching, including strengthening the 
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
-1. [Scarcity](/Scarcity.asciidoc#scarcity-1)
-2. [Liberty](/Scarcity.asciidoc#liberty)<br/>
-   2.1 [Private property](/Scarcity.asciidoc#private-property)<br/>
-   2.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
-   2.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
-3. [Slavery](/Scarcity.asciidoc#slavery)<br/>
-   3.1 [Autistic Intervention](/Scarcity.asciidoc#autistic-intervention)<br/>
-   3.2 [Binary Intervention](/Scarcity.asciidoc#binary-intervention)<br/>
-   3.3 [Triangular Intervention](/Scarcity.asciidoc#triangular-intervention)
-4. [Communism](/Scarcity.asciidoc#communism)
-5. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
-6. [Libre Open Source Software](/Scarcity.asciidoc#libre-open-source-software)
-7. [Fallacy of Intellectual Property](/Scarcity.asciidoc#fallacy-of-intellectual-property)
-8. [Non-scarcity of Cryptography](/Scarcity.asciidoc#non-scarcity-of-cryptography)
-9. [Scarcity of UTXOs](/Scarcity.asciidoc#scarcity-of-utxos)
+1. [Scarce Goods](/Scarceity.asciidoc#scarce-goods)
+2. [Economic Goods](/Scarceity.asciidoc#economic-goods)
+3. [Rare Goods](/Scarceity.asciidoc#rare-goods)
+4. [Liberty](/Scarcity.asciidoc#liberty)<br/>
+   4.1 [Private property](/Scarcity.asciidoc#private-property)<br/>
+   4.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
+   4.3 [Mutually beneficial exchange](/Scarcity.asciidoc#mutually-beneficial-exchange)
+5. [Slavery](/Scarcity.asciidoc#slavery)<br/>
+   5.1 [Autistic Intervention](/Scarcity.asciidoc#autistic-intervention)<br/>
+   5.2 [Binary Intervention](/Scarcity.asciidoc#binary-intervention)<br/>
+   5.3 [Triangular Intervention](/Scarcity.asciidoc#triangular-intervention)
+6. [Communism](/Scarcity.asciidoc#communism)
+7. [Non-scarcity](/Scarcity.asciidoc#non-scarcity)
+8. [Libre Open Source Software](/Scarcity.asciidoc#libre-open-source-software)
+9. [Fallacy of Intellectual Property](/Scarcity.asciidoc#fallacy-of-intellectual-property)
+10. [Non-scarcity of Cryptography](/Scarcity.asciidoc#non-scarcity-of-cryptography)
+11. [Scarcity of UTXOs](/Scarcity.asciidoc#scarcity-of-utxos)
 
 
 ### PART II Shared Ownership
