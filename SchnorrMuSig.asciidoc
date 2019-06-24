@@ -60,13 +60,14 @@ Since, assuming the discrete log problem, there is no computationally feasible w
 
 Taproot footnote:[Maxwell, G. (2018) Taproot: Privacy preserving switchable scripting. Bitcoin Mailing List. https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-January/015614.html] is a proposed variation on the current script language to add a BIP-taproot footnote:[Wuille, Nick, Petukhow (2019) BIP-Taproot: SeGwit version 1 output spending rules.] Merkle spend. Taproot is a clever usage of aggregated Schnorr signatures and Merklized abstract syntax tree [MAST]. This enables a drastic increase in the complexity of potential spending conditions, since only the one script that is actually used to move the coins is revealed to full nodes on the time chain. This allows the writing of very complex scripts while still minimizing their data size for efficient and private usage of block space. A taproot bech32 address contains the public key directly, and not the hash of the public key as in incumbent P2WPKH addresses. Therefore a taproot spend does not require to reveal the public key when the UTXO is consumed. A valid transaction needs to contain a Schnorr signature [64 bytes / 16 vbytes] according to BIP-Schnorr footnote:[Wuille, Lundeberg (2019) BIP Schnorr: Schnorr Signatures for secp256k1.]. In total, the cost of creating a taproot UTXO is roughly similar to sending to a P2WSH, yet spending a single-key taproot is 40% cheaper than P2WPKH.
 
-```
-[in Vbytes]	P2PKH	P2WPKH	Taproot
-scriptPubKey	25	22	35
-scriptSig	107	0	0
-witness		0	26.75	16.25
 
-total     	132	48.75	51.25
+```
+[in Vbytes]		P2PKH	P2WPKH	Taproot
+scriptPubKey	25		22		35
+scriptSig		107		0		0
+witness			0		26.75	16.25
+
+total     		132		48.75	51.25
 ```
 footnote:[Harding, Single-sig spending using Taproot. Bitcoin Optech Newsletter #46. 2019.]
 
@@ -85,7 +86,7 @@ MuSig aggregated pubkey [ii]	MuSig aggregated pubkey [iii]
 Alice hot, Alice cold			Bob hot, Alice cold
 ```
 
-For the cooperative common case [i], Alice and Bob create another Schnorr MuSig aggregated public key, the taproot internal key. Then, tapbranch and the taproot internal key are hashed together, resulting in a tweaked private key, used to calculate the tweaked public key. The tweaked public key is added to the taproot internal key which generates the taproot output key and used in the bech32 address committed in the time chain.
+For the cooperative common case [i], Alice and Bob create another Schnorr MuSig aggregated public key, the taproot internal key. Then, tapbranch and the taproot internal key are hashed together, resulting in a tweaked private key, used to calculate the tweaked public key. The tweaked public key is added to the taproot internal key which generates the taproot output key and used in the bech32 address committed in the time chain. This taproot output key has two spending options, the cooperative key path, or the advanced script path. In the cooperative case all peers can calculate individual and aggregated signatures that validate to this taproot output pubkey. But the output key also commits to a the tapbranch Merkle root, and in the advanced case, it can be verified that the proposed script was part in that MAST, and thus a valid spending condition defined at the time of funding the UTXO.
 
 ```
                   Merkle root [hash]	\	
@@ -98,5 +99,5 @@ Tweak pubkey		    =\ Taproot output key
 Taproot internal key	=/ [pubkey on time chain]
 ```
 
-For spending this taproot UTXO in the cooperative case [i], Alice and Bob calculate a valid signature aggregated with the tweak private key [including the Merkle root of the unused spending conditions [ii] and [iii]] and taproot internal key. Full nodes will only see the committed taproot output key and the a valid signature for it, they do not know that this was a MuSig, or even a taproot. When using spending condition [ii] or [iii], then the spending transaction includes the script they want to use, the data needed by it [in our case only the aggregated public key and aggregated signature], the taproot internal key and the hash of the tapleaf script not used. In the sub-optimal case, it has to be revealed that the script in fact is a taproot, yet only the spending condition actually used is revealed, not the many other scripts that could have potentially been used to spend the UTXO. The maximum depth of the tree is 32 rows, which would allow for over four billion possible scripts, yet only one has to be revealed and verified.
+For spending this taproot UTXO in the cooperative case [i], Alice and Bob calculate a valid signature aggregated with the tweak private key [including the Merkle root of the unused spending conditions [ii] and [iii]] and taproot internal key. Full nodes will only see the committed taproot output key and the a valid signature for it, they do not know that this was a MuSig, or even a taproot. When using spending condition [ii] or [iii], then the spending transaction includes the script they want to use, the data needed by it [in our case only the aggregated public key and aggregated signature], the taproot internal key and the hash of the tapleaf script not used. In the sub-optimal case, it has to be revealed that the script in fact is a taproot, yet only the spending condition actually used is revealed, not the many other scripts that could have potentially been used to spend the UTXO. The maximum depth of the tree is 32 rows, which would allow for over four billion possible scripts, yet only one has to be revealed and verified. But for any m-of-n there need to be `m!/((n!(m-n)!)` tapleafs specified to express all the possible combinations of m signatures.
 
