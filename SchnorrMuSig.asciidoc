@@ -1,25 +1,25 @@
-# Schnorr Signatures
+= Schnorr Signatures
 
 The Schnorr signature scheme footnote:[Claus-Peter Schnorr. Efficient Signature Generation by Smart Cards. J. Cryptology, 4(3):161–174, 1991.] uses a cyclic group `G` of prime order `p`, a generator `g` of `G`, and a hash function `H`. It uses a random number private key `x`, and public key `X`, with `(x, X) ∈ {0, …, p-1} * G` where `X = g^x`. To sign a message `m`, the signer generates a random number integer `r` in `Zp` and computes the nonce `R = g^r_, _c = H(X,R,m)` footnote:[The key-prefix method with the hash of _R_ and _m_ as described by Daniel J. Bernstein, Niels Duif, Tanja Lange, Peter Schwabe, and Bo-Yin Yang. High-Speed High-Security Signatures. In Bart Preneel and Tsuyoshi Takagi, editors, Cryptographic Hardware and Embedded Systems – CHES 2011, volume 6917 of LNCS, pages 124–142. Springer, 2011.], as well as `s = r + cx`. The signature σ is the tuple `(R,s)` and this can be verified by `g^s = RX^c`.
 
 Just like ECDSA, the Schnorr signature scheme is proven secure under the discrete logarithm assumption, defined as followed. Let `(G,p,g)` be group parameters. An algorithm `A` is said to `(t,ԑ)`-solve the DL problem w.r.t. `(G,p,g)` if on input a random group element `X`, it runs in time at most `t` and returns `x ∈ {0, ..., p − 1}` such that `X = g^x` with probability at least ԑ, where the probability is taken over the random draw of `X` and the random coins of `A`. footnote:[See MuSig 2018 Chapter 2.1. Notation and Definitions]
 
 
-# MuSig
+= MuSig
 
 The MuSig paper footnote:[Gregory Maxwell, Andrew Poelstra, Yannick Seurin, and Pieter Wuille. Simple Schnorr Multi-Signatures with Applications to Bitcoin. 2018] describes a simple and efficient multi-signature scheme based on Schnorr. Some of the benefits are key aggregation, signature aggregation and batch verification. The paper includes a security prove footnote:[See MuSig 2018, Chapter 4. Security of the New Multi-Signature Scheme] in the plain public-key model, which is omitted in this paper.
 
 MuSig is parameterized by group parameters `(G,p,g)` where `p` is a `k`-bit integer, `G` is a cyclic group of order `p`, and `g` is a generator of `G`, and by three hash functions. footnote:[See MuSig 2018, Chapter 3. Our New Multi-Signature Scheme] The total signature size is `|G|+|p|`; the public key size `|G|`; and the private key size `|p|`.
 
 
-## Key Generation
+== Key Generation
 
 Individual private keys `x_i` are generated with a true random number generator and the public keys `X_i` are computed with `X_i = g^x_i`. The `X_1` and `x_1` are individual keys of a specific signer; `X_2, …, X_n` are the public keys of the cosigners; and `L = {pubk_1 = X_1, …, pubk_n = X_n}` is a multiset of all public keys. For `i ∈ {1, …, n}`, the signer computes `a_i = Hagg(L,X_i)` and then aggregates all the individual public keys into the single “aggregated” public key `Ẋ = X_i for 1` <= `X_i = n`, `Ẋ = product of X_i^a_i`.
 
 Each individual signer has sole knowledge of the non-scarce information of the private key. Assuming that this secret is not shared with others and generated with a cryptographically secure random number generator, then only this individual can produce a signature that is valid for the given public key. 
 
 
-## Signing
+== Signing
 
 The signer has knowledge of aggregated `Ẋ`; the message `m` (in the context of Bitcoin `m` is the transaction according to the SIGHASH flag); and the multiset `L`. He generates another random integer `r_1` and computes the nonce of 'R_i for 1` <= `R_i` <= `n`, `R = product of all R_i`, and the commitment to that nonce `t_1 = H_com(R_1)`. The commitment `t_1` is shared with all cosigners, then in the next round of communication the nonce `R_1`, and we proceed with the protocol only if all `R` have been correctly committed for all `t_i = H_com(R_i)` with `i ∈ {2, …, n}`.
 
@@ -27,25 +27,30 @@ The signer computes `R for 1` <= `R_i` <= `n`, `R = product of all R_i`, `c = H_
 
 Only those who have securely generated the individual private key can produce a valid individual signature over a message with very little effort. Without the knowledge of the private key, it is computationally infeasible to produce a correct signature. Once the signing algorithm is calculated, it cannot be undone, as the specific information of the signature is manifested. However, when the signature is not shared with others, nobody can verify it.
 
-## Verification
+== Verification
 
 The verifier has a multiset of public keys `L`, a message `m`, and a signature `σ`. With this public information, the verifier computes `a_i`, `Ẋ` and `c`. The signature is valid only if `g^s = R` <= `R = 1` <= `n`, `R (product of X_i^(a_i c)) = R Ẋ^c`. Due to key aggregation, the verification is similar to the standard Schnorr scheme, and secure variants of the MuSig scheme are discussed in the original paper footnote:[ MuSig 2018, Chapter 4.3 Discussion].
 
 When given a Bitcoin transaction as a message as well as a signature, then any full node can verify conclusively that the signer had knowledge of the private key. According to Nakamoto Consensus, this means that an existing UTXO can be spend and a new UTXO is created. The transaction will be included in a block of the time chain.
 
 
-## Interactive Key Aggregation
+== Interactive Key Aggregation
 
 Each cosigner generates their own individual private public key pair `(X,x)`, and only that cosigner has knowledge of this secret key `x_i`. In the first round of communication, all cosigners share their public keys, any verifier can build the multiset `L` and calculates `a_i` by hashing `L` and `X_i`. For `a_1`, the hash pre-image contains all the public keys once, but `X_1` twice. The aggregated public key `Ẋ for 1` <= `Ẋ_i = 1` <= `n`, `Ẋ = product of X_iâ_i` is indistinguishable from any other Schnorr public key. If only `Ẋ` is known, then the individual public keys `X_i` cannot be computed. Thus, the on-chain commitment to this MuSig is the exact same virtual size as any other public key commitment. Therefore, MuSig is both a privacy and scalability improvement. Further, anyone with knowledge of all the public keys `X_i` can compute [and thus send bitcoin to] this aggregated public key `Ẋ`, without collaboration from the peers.
 
-## Interactive Signing
+== Interactive Signing
 
 Although there is one aggregated public key `Ẋ`, there is no “aggregated private key”. In order to produce a valid signature while defending against the rogue key attack footnote:[Thomas Ristenpart and Scott Yilek. The Power of Proofs-of-Possession: Securing Multiparty Signatures against Rogue-Key Attacks. In Moni Naor, editor, Advances in Cryptology - EUROCRYPT 2007, volume 4515 of LNCS, pages 228–245. Springer, 2007.] footnote:[See MuSig 2018 chapter 5.3. Cross-Input Multi-Signatures], all cosigners have to collaborate in a three step footnote:[whilst a two-step round would be possible, it is larger in signature size and computational cost of signing and verification.] signing ceremony. First, sharing a nonce commitment `t_i`, then the nonce `R_i`, and finally the partial signatures `s_i`. Only when all `i` partial signatures are available can the coordinator produce the valid signature `σ` which contains the aggregated nonce `R` and `s` part of the signature. If one cosigner is unavailable to communicate the signature, then there can not be a valid signature.
 
-## Verification
+== Verification
 
-Since the aggregated public key and signature look identical to an individual, the verifier knows only that [all of] the signer[s] has [have] agreed and collaborated with that signature and thus the spending of the bitcoin, but he does not know whether this is only one single key pair, or several key pairs in aggregation. Further, this single public key and signature could be a collaborative taproot footnote:[Maxwell. Taproot: Privacy preserving switchable scripting. Bitcoin-dev mailing list. Jan 23 2018] or graftroot footnote:[Maxwell. Graftroot: Private and efficient surrogate scripts under the taproot assumption. Bitcoin-dev mailing list. Feb 05 2018] transaction, a collaborative lightning network channel close, or a scriptless script atomic swap footnote:[Poelstra. Scriptless scripting and deniable swaps. Mimblewimble team mailing list. Feb 03 2017]. This plausible deniablity is a great enhancement to the fungibility of UTXOs and strengthening Bitcoins overall privacy aspects.
+Since the aggregated public key and signature look identical to an individual public key, the verifier knows only that [all of] the signer[s] has [have] agreed and collaborated with that signature and thus the spending of the bitcoin, but he does not know whether this is only one single key pair, or several key pairs in aggregation. Further, this single public key and signature could be a collaborative taproot footnote:[Maxwell. Taproot: Privacy preserving switchable scripting. Bitcoin-dev mailing list. Jan 23 2018] or graftroot footnote:[Maxwell. Graftroot: Private and efficient surrogate scripts under the taproot assumption. Bitcoin-dev mailing list. Feb 05 2018] transaction, a collaborative lightning network channel close, or a scriptless script atomic coin swap footnote:[Poelstra. Scriptless scripting and deniable swaps. Mimblewimble team mailing list. Feb 03 2017]. This plausible deniablity is a great enhancement to the fungibility of UTXOs and strengthening Bitcoins overall privacy aspects. Although lots of the spending logic is abstracted from the time chain, yet every full node can still verify absolutely if the spending condition, whatever it is, was completely valid. There no false positives or negatives, a UTXO can only be spend with a valid witness script. 
 
-## Non-Simulated Shared Ownership
+Contrarily to the script based multi signature, in Schnorr MuSig only one aggregated public key is committed to the time chain, and a valid signature can only be computed when all 'm' signers collaborate on the shared message. Without any further detail than the aggregated public key and signature, any full node can verify if the spending attempt is valid or not. There are no additional security and node verification assumptions compared to any other single signature transaction.
 
-In contrary to the script based multi signature, in Schnorr MuSig only one aggregated public key is committed to the time chain, and a valid signature can only be computed when all 'm' signers collaborate on the shared message. Without any further detail than the aggregated public key and signature, any full node can verify if the spending attempt is valid or not. There are no additional security and node verification assumptions compared to any other single signature transaction. Since the only possible valid signature depends on the agreement of every single committed public key, Schnorr MuSig is a true non-simulated shared ownership of scarce bitcoin.
+== Non-Simulated Shared Ownership
+
+In a Schnorr 3-of-3 MuSig ceremony, Alice Bob and Charlie each generate an individual non-scarce private key, which only they have the knowledge of. They compute and exchange public keys and concatenate them into one single aggregated public key. Although each individual can produce a valid individual signature with their individual private key, an aggregated signature that is valid to the aggregated public key can only be produced by all three individual signatures over the same message. Thus one aggregated signature is cryptographic proof, that all n-of-n individual private keys have been known and have given active consent to the transaction. 
+
+Since, assuming the discrete log problem, there is no computationally feasible way to fake a signature without the knowledge of the private key. When a full node receives a valid transaction with a valid Schnorr signature, it has cryptographic proof that the committed script is computed valid. Thus the transaction is included in the time chain with the most accumulated proof of work, the chain of digital signatures is advanced and a new UTXO with a new spending condition is created. The transfer of the UTXO is thus irrefutable and censorship resistant, it is a true ownership exchange. And since the MuSig transaction is only valid when all n-of-n peers agree, this is non-simulated shared ownership over a scarce bitcoin.
+
