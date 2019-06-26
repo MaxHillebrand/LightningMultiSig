@@ -1,0 +1,17 @@
+== Threshold Signatures
+
+A threshold signature scheme footnote:[Stinson, Strobl. Provably Secure Distributed Schnorr Signatures and a (t,n) Threshold Scheme for Implicit Certificates. Certicom Corporation, 2001.] is setup by n individual public keys, and it computes valid only with proof of knowledge of m private keys.
+
+This uses in part Shamir's Secret Sharing Scheme, where a dealer distributes a secret `MS` to `n` peers so that any group of `m` peers can reconstruct the `MS`, yet any group `m-1` does not get any information about `MS`. footnote:[See Chapter on Shamir's Secret Sharing Scheme]
+
+=== Key Generation
+
+All `n` signers compute their individual private public key pairs, and they collaborate to generate an aggregated public key `Ẋ` footnote:[See Chapter on Schnorr Signatures, Part on Interactive Key Aggregation] and a random shared secret. 
+
+=== Signature Issuing Protocol
+
+When `m` peers want to produce a valid signature for the message `m`, they first issue a new random shared secret. 
+
+[... need easier explanation ...]
+
+

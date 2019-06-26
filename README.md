@@ -37,7 +37,7 @@ The use cases of multi signatures are far reaching, including strengthening the 
 2. [Script OP_CHECKMULTISIG](/ScriptMultisig.asciidoc)
 3. [Schnorr aggregated MuSig](/SchnorrMuSig.asciidoc)
 4. [Shamir's secret sharing](/ShamirsSecretSharing.asciidoc)
-5. Schnorr threshold signatures
+5. [Schnorr threshold signatures](/ThresholdSignatures.asciidoc)
 
 ### PART III [Use Cases](/UseCase.asciidoc)
 
