@@ -1,12 +1,12 @@
 == Script Multi Signatures
 
-In the incumbent implementation of multi signatures, the redeem script contains a list of public keys, as well as the threshold of necessary signatures to validate a transaction. This redeem script is hashed to the script public key and committed to the timechain at the creation of the UTXO.
+In the incumbent implementation of multi signatures, the redeem script contains a list of `n` public keys, as well as the threshold of `m` necessary signatures to validate a transaction. This redeem script is hashed to the script public key and committed to the time chain at the creation of the UTXO. The hash commitment decreases the P2WSH UTXO data size at the time of funding, yet the clear text script needs to be revealed for verification at the time of spending.
 
-In order to spend this coin, a valid witness script has to be provided, containing any M signatures corresponding to the committed public keys. If the proposed signature is not valid for the public key, or if less then M signatures are provided, then the transaction and block are rejected by every full node. This enforces the shared ownership of bitcoin on the level of full nodes. This verification is done both at the time the transaction is initially broadcasted, or during the initial block download of a new full node. 
+In order to spend this coin, the committed redeem script and a valid witness script has to be provided, containing any `m` signatures corresponding to the committed public keys. If the proposed signatures are not valid for the public keys, or if less then `m` signatures are provided, then the transaction and block are rejected by every full node. This enforces the shared ownership of bitcoin on the level of full nodes. This verification is done both at the time the transaction is initially broadcasted, or during the initial block download of a new full node. 
 
-However, this system is fundamentally based on the trust in the thorough verification of the consensus rules as they have been defined at the point of funding. Full nodes could adopt a hard fork that changes the validity rules so that the coins can be spend in another way as originally defined. Thus, script multi signatures are a protocol for simulated shared ownership.
+However, this system is fundamentally based on the trust in the thorough verification of the consensus rules as they have been defined at the point of funding. Full nodes could adopt a hard fork that changes the validity rules so that the coins can be spend in another way as originally defined. This is in contrast to aggregated Schnorr MuSig [See chapter on Schnorr MuSig.] where nodes verify only one signature, not knowing that this is actually a aggregated signature of several individual private keys. Since the verifier of a script multi signature has more information available, there is a higher possibility to censor this particular transaction. A adversary could define an additional rule that all script based multi signature scripts are to be dropped, yet he cannot do this for aggregated multi signatures. Script multi signatures have a smaller anonymity set.
 
-However, if this concept of full node verification is working properly and reliably, as is the case in Bitcoin, then the redeem script might be considered a very strong simulated property right, there is a very slim and unprecedented plausibility of breaking the spending conditions. This is one of the many reasons why the adherence to Nakamoto consensus is so vitally important, and why any change to the set of rules, including soft forks but especially hard forks carry a tremendous risk.
+However, if this concept of full node verification is working properly and reliably, as is the case in Bitcoin, then the redeem script can be considered a very strong simulated property right, there is a very slim and unprecedented plausibility of breaking the spending conditions. This is one of the many reasons why the adherence to Nakamoto consensus is so vitally important, and why any change to the set of rules, including soft forks but especially hard forks, carry a tremendous risk.
 
 
 === Multi Signature in P2SH
@@ -27,4 +27,4 @@ Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public K
 
 ScriptPubKey: `0 SHA256(<witnessScript>)`
 
-Address: checksum base32 footnote:[BIP173] encoded
+Address: public key, checksum base32 footnote:[BIP173] encoded
