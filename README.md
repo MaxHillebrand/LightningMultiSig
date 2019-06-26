@@ -57,7 +57,7 @@ The use cases of multi signatures are far reaching, including strengthening the 
 
 This Bachelor's thesis is written in an open source process, and published under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by/4.0/legalcode). If you'd like to contribute to the research and writing, please submit an issue or fork the repository, commit the changes on your own branch, and issue a pull request. I have 1001 questions and thank all the peers whom I can bother to ask. If you have a proposal, feedback or question, don't hesitate to [reach out](https://towardsliberty.com/contact)! Thank you very much for your support!
 
-The thesis is due on July 1st 2019 and written under the direction of [Prof. Dr. Bernd Kaltenhaeuser](https://www.dhbw-vs.de/hochschule/mitarbeitende/bernd-kaltenhaeuser.html). It will be published for peer review in the Libertarians Scholars Conference.
+The thesis is due on July 1st 2019 and written under the direction of [Prof. Dr. Bernd Kaltenhaeuser](https://www.dhbw-vs.de/hochschule/mitarbeitende/bernd-kaltenhaeuser.html). The [Declaration of Honor](/DeclarationOfHonor.asciidoc) is signed here. It will be published for peer review in the Libertarians Scholars Conference.
 
 ## ToDo
 
