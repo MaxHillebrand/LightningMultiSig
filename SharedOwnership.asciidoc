@@ -2,7 +2,7 @@
 
 = Basics of Bitcoin Script
 
-A bitcoin UTXO is the tip of the chain of digital signatures which originates in the coinbase issuance transaction. A transaction dedicates inputs, which are previously unspent transaction outputs with a valid ScriptPubKey; and outputs, which link the bitcoin to a new ScriptPubKey.
+A bitcoin UTXO is the tip of the chain of digital signatures which originates in the coinbase issuance transaction. A transaction dedicates inputs, which are previously unspent transaction outputs with a valid witness to the ScriptPubkey; and outputs, which "lock up" the bitcoin with a new ScriptPubKey. The Bitcoin script is the property rights definition of how a UTXO can be spend. At any time, there is only one script for one UTXO, the spending conditions are defined at the point where the UTXO is created.
 
 == Pay to Public Key Hash
 
