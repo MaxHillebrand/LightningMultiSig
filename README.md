@@ -33,11 +33,11 @@ The use cases of multi signatures are far reaching, including strengthening the 
 
 ### PART II [Shared Ownership](/SharedOwnership.asciidoc)
 
-1. [Basics of Bitcoin Script](/SharedOwnership.asciidoc/basics-of-bitcoin-script)
-   1.1 [Pay to Public Key Hash](/SharedOwnership.asciidoc/basics-of-bitcoin-script/pay-to-public-key-hash)<br/>
-   1.2 [Pay to Script Hash](/SharedOwnership.asciidoc/basics-of-bitcoin-script/pay-to-script-hash)<br/>
-   1.3 [Pay to Witness Public Key Hash](/SharedOwnership.asciidoc/basics-of-bitcoin-script/pay-to-witness-public-key-hash)<br/>
-   1.4 [Pay to Witness Script Hash](/SharedOwnership.asciidoc/basics-of-bitcoin-script/pay-to-witness-script-hash)
+1. [Basics of Bitcoin Script](/SharedOwnership.asciidoc/basics-of-bitcoin-script)<br/>
+   1.1 [Pay to Public Key Hash](SharedOwnership.asciidoc#pay-to-public-key-hash)<br/>
+   1.2 [Pay to Script Hash](/SharedOwnership.asciidoc#pay-to-script-hash)<br/>
+   1.3 [Pay to Witness Public Key Hash](/SharedOwnership.asciidoc#pay-to-witness-public-key-hash)<br/>
+   1.4 [Pay to Witness Script Hash](/SharedOwnership.asciidoc#pay-to-witness-script-hash)
 2. [Script OP_CHECKMULTISIG](/SharedOwnership.asciidoc/script-multi-signatures)
 3. [Schnorr aggregated MuSig](/SharedOwnership.asciidoc/schnorr-signatures)
 4. [Shamir's secret sharing](/SharedOwnership.asciidoc/shamir’s-secret-sharing-scheme)
