@@ -6,7 +6,7 @@ A bitcoin UTXO is the tip of the chain of digital signatures which originates in
 
 == Pay to Public Key Hash
 
-A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the committed public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed.
+A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the committed public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed. The message to sign is the hash of certain parts of the transaction it self. So not only is the signature proof of knowledge of the private key, it also gives the explicit concent which input is consumed, and which outputs are created.
 
 === Multi Signature in P2PKH
 
