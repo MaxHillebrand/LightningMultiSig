@@ -30,7 +30,7 @@ SignatureScript: `<Signature 1> ... <Signature M> <redeem script>`
 
 Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
-=== Pay to Witness Public Key Hash
+== Pay to Witness Public Key Hash
 
 Segregated witnessfootnote:[BIP141] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
 
@@ -56,13 +56,7 @@ Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public K
 
 ScriptPubKey: `0 SHA256(<witnessScript>)`
 
-Address: checksum base32 footnote:[BIP173] encoded
-
-== Possible scripts for multi sig
-
-Redeem script: `IF <Public Key 1> CHECKSIG ELSE <Public Key 2> CHECKSIG ENDIF`
-
-Signature script: `<signature 1> TRUE` or `<signature 2> FALSE`
+Address: `checksum base32 footnote:[BIP173] encoded`
 
 
 = Script Multi Signatures
