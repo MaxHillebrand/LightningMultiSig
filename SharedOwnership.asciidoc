@@ -46,7 +46,7 @@ Address: `RIPEMD160(SHA256(<witnessScript>))`
 
 == Pay to Witness Script Hash
 
-Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The main difference to P2PKH is thus the location of the signature part.
+Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The main difference to P2PKH is thus the location of the signature part. SegWit also increases the security for multisig compared to P2SH, which uses 160-bit HASH160 algorithm, a double hash with RIPEMD of SHA256. In the case where one signer of the multisig is malicious and wants to spend the money without the consent of other signers, he can brute force a collision between a valid P2SH multisig address and a script that pays him all the money. This requires only 80-bits, that is 2^80 worth of work, which is already possible for a well funded attacker. SegWit fixes this issue by using HASH160 only for P2WPKH, but 256-bit SHA256 for P2WSH.
 
 === Multi Signature in P2WSH
 
