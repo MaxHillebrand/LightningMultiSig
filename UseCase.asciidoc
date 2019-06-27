@@ -154,3 +154,64 @@ After the hook transaction has sufficient accumulated proof of work, and the all
 In the case where all peers collaborate, they will close all the individual payment channels within the factory, this is done all off-chain and should be coordinated within seconds. Then they build and sign a factory closing transaction with the n-of-n multisig as the input, and individual UTXOs with the correct number of bitcoin according to the latest state of the factory. In this case there are no timelocks, and thus every individual can spend their own UTXO as soon as they desire. The individual script might even be the funding of a new channel or factory according to the splicing in and out process.
 
 In the uncooperative case, the on-line peers can construct a one sided closing transaction, which is however limited by an additional time lock. During this period the off-line peers have the opportunity to come back on-line to check if this is the most recent state of the channel factory, and if not, to proof it and punish the thieves.
+
+== M-of-n HTLC
+
+An early proposal for instant escrows was to use complex scripts with several HTLCs to enable threshold transactions inside a payment channel. footnote:[[2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning, Joseph Poon: https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html] `m-of-n` hash preimages are required for the HTLC to be fulfilled. Timeouts are at the minimum the escrow timeouts and they increase with every additional `n` in the multisig scheme. Sender, escrow and receiver [or others] have the `n` preimages, yet only `m` of them are required in order to validate the redeem script. In most cases, sender and receiver will disclose preimage themselves without the need for escrow action. Although this does work theoretically, it commits a lot of information to the time chain and is thus rather inefficient.
+
+```console
+
+Assume the order in the stack is Sender, Escrow, Recipient.
+
+For PAID 2-of-3 Escrow+Recipient, the HTLC stack is:
+        <BobSig> <0> <EscrowPreimageR> <RecipientPreimageR> <0>
+
+If it's REFUND because 2-of-3 has not been redeemed in time:
+        <AliceSig> <0> <1>
+
+Bitcoin Script (Alice's, we use OP_1/OP_0 to distinctly show computed
+true/false. 0/1 is for supplied data as part of the
+sigScript/redeemScript stack):
+------------------------------------------------------------------------
+
+//Paid
+OP_IF
+        <CSVDelay> OP_DROP OP_CSV //under rusty's CSV style
+
+        //Stack: <BobSig> <0> <EscrowPreimageR> <RecipientPreimageR>
+        //Recipient must agree to receive funds.
+        OP_HASH160 <RecipientHash> OP_EQUALVERIFY
+
+        //Stack: <BobSig> <0> <EscrowPreimageR>
+        //Either the Sender or Escrow must consent for payment
+        OP_HASH160 <EscrowHash> OP_EQUAL
+        //Stack: <BobSig> <0> <OP_1>
+        OP_SWAP
+        //Stack: <BobSig> <OP_1> <0>
+        OP_HASH160 <SenderHash> OP_EQUAL
+        //Stack: <BobSig> <OP_1> <OP_0>
+        OP_BOOLOR
+        //Stack: <BobSig> <OP_1>
+        OP_VERIFY
+
+        <BobPubKey>
+        //Stack: <BobSig> <BobPubKey>
+//Refund
+OP_ELSE
+        //Stack: <AliceSig> <0>
+        OP_HASH160 OP_DUP
+        <R-HASH> OP_EQUAL
+        OP_NOTIF
+                <CSVDelay> OP_DROP OP_CSV
+        OP_ENDIF
+
+        <HTLCTimeout> OP_DROP OP_CLTV
+
+        //Stack: <AliceSig>
+        <AlicePubKey>
+        //Stack: <AliceSig> <AlicePubKey>
+OP_ENDIF
+OP_CHECKSIG
+------------------------------------------------------------------------
+```
+footnote:[Original proposed script by Poon.]
