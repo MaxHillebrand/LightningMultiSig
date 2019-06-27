@@ -1,9 +1,106 @@
+= Shared Ownership of Scarce Bitcoin
+
+= Basics of Bitcoin Script
+
+A bitcoin UTXO is the tip of the chain of digital signatures which originates in the coinbase issuance transaction. A transaction dedicates inputs, which are previously unspent transaction outputs with a valid ScriptPubKey; and outputs, which link the bitcoin to a new ScriptPubKey.
+
+== Pay to Public Key Hash
+
+A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the committed public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed.
+
+=== Multi Signature in P2PKH
+
+ScriptPubKey: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+SignatureScript: `<Signature 1> <Signature 2> ... <Signature M>`
+
+Validation Script: `<Signature 1> <Signature M> M <Public Key 1> <Public Key 2> <Public Key N> N CHECKMULTISIG`
+
+== Pay to Script Hash
+
+The ScriptPubKey of a **P2SH** transaction contains a hash of a redeem script, which can be any script whatsoever.footnote:[BIP16] The conditions to redeem the transaction are with the redeemer, not the sender of the transaction. To spend the UTXO, Bob needs to provide the signature with the full redeem script in the signature script. It is only valid, when the redeem script hashes to the same value as the script hash Alice put in the output. The redeem script has the same attributes as a pubkey hash, thus the follow up process is identical to a P2PKH script. This gives the benefit of removing complex scripts from block space and shifting the burden of key storage to the future spending time. The majority of fees are paid not when receiving to a complex P2SH, but when spending the P2SH UTXO where the redeem script and signatures are reviled.
+
+=== Multi Signature in P2SH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
+
+SignatureScript: `<Signature 1> ... <Signature M> <redeem script>`
+
+Address: `Base58Check(HASH160(<ScriptPubKey>))`
+
+=== Pay to Witness Public Key Hash
+
+Segregated witnessfootnote:[BIP141] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
+
+=== Single Signature in P2WPKH
+
+Redeem Script: `<Public Key> CHECKSIG`
+
+Witness Script: `0 <Public Key Hash>` 
+
+ScriptPubKey: `0 SHA256(<witness Script>)`
+
+Address: `RIPEMD160(SHA256(<witnessScript>))`
+
+== Pay to Witness Script Hash
+
+Similar to P2WPKH, **P2WSH** removes the witness part from the transaction merke tree of the redeem script. The main difference to P2PKH is thus the location of the signature part.
+
+=== Multi Signature in P2WSH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public Key M> N CHECKMULTISIG` 
+
+ScriptPubKey: `0 SHA256(<witnessScript>)`
+
+Address: checksum base32 footnote:[BIP173] encoded
+
+== Possible scripts for multi sig
+
+Redeem script: `IF <Public Key 1> CHECKSIG ELSE <Public Key 2> CHECKSIG ENDIF`
+
+Signature script: `<signature 1> TRUE` or `<signature 2> FALSE`
+
+
+= Script Multi Signatures
+
+In the incumbent implementation of multi signatures, the redeem script contains a list of `n` public keys, as well as the threshold of `m` necessary signatures to validate a transaction. This redeem script is hashed to the script public key and committed to the time chain at the creation of the UTXO. The hash commitment decreases the P2WSH UTXO data size at the time of funding, yet the clear text script needs to be revealed for verification at the time of spending.
+
+In order to spend this coin, the committed redeem script and a valid witness script has to be provided, containing any `m` signatures corresponding to the committed public keys. If the proposed signatures are not valid for the public keys, or if less then `m` signatures are provided, then the transaction and block are rejected by every full node. This enforces the shared ownership of bitcoin on the level of full nodes. This verification is done both at the time the transaction is initially broadcasted, or during the initial block download of a new full node. 
+
+However, this system is fundamentally based on the trust in the thorough verification of the consensus rules as they have been defined at the point of funding. Full nodes could adopt a hard fork that changes the validity rules so that the coins can be spend in another way as originally defined. This is in contrast to aggregated Schnorr MuSig [See chapter on Schnorr MuSig.] where nodes verify only one signature, not knowing that this is actually a aggregated signature of several individual private keys. Since the verifier of a script multi signature has more information available, there is a higher possibility to censor this particular transaction. A adversary could define an additional rule that all script based multi signature scripts are to be dropped, yet he cannot do this for aggregated multi signatures. Script multi signatures have a smaller anonymity set.
+
+However, if this concept of full node verification is working properly and reliably, as is the case in Bitcoin, then the redeem script can be considered a very strong simulated property right, there is a very slim and unprecedented plausibility of breaking the spending conditions. This is one of the many reasons why the adherence to Nakamoto consensus is so vitally important, and why any change to the set of rules, including soft forks but especially hard forks, carry a tremendous risk.
+
+=== Multi Signature in P2SH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
+
+SignatureScript: `0 <Signature 1> ... <Signature M> <redeem script>`
+
+Address: `Base58Check(HASH160(<ScriptPubKey>))`
+
+=== Multi Signature in P2WSH
+
+Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
+
+Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public Key M> N CHECKMULTISIG` 
+
+ScriptPubKey: `0 SHA256(<witnessScript>)`
+
+Address: public key, checksum base32 footnote:[BIP173] encoded
+
+
 = Schnorr Signatures
 
 The Schnorr signature scheme footnote:[Claus-Peter Schnorr. Efficient Signature Generation by Smart Cards. J. Cryptology, 4(3):161–174, 1991.] uses a cyclic group `G` of prime order `p`, a generator `g` of `G`, and a hash function `H`. It uses a random number private key `x`, and public key `X`, with `(x, X) ∈ {0, …, p-1} * G` where `X = g^x`. To sign a message `m`, the signer generates a random number integer `r` in `Zp` and computes the nonce `R = g^r_, _c = H(X,R,m)` footnote:[The key-prefix method with the hash of _R_ and _m_ as described by Daniel J. Bernstein, Niels Duif, Tanja Lange, Peter Schwabe, and Bo-Yin Yang. High-Speed High-Security Signatures. In Bart Preneel and Tsuyoshi Takagi, editors, Cryptographic Hardware and Embedded Systems – CHES 2011, volume 6917 of LNCS, pages 124–142. Springer, 2011.], as well as `s = r + cx`. The signature σ is the tuple `(R,s)` and this can be verified by `g^s = RX^c`.
 
 Just like ECDSA, the Schnorr signature scheme is proven secure under the discrete logarithm assumption, defined as followed. Let `(G,p,g)` be group parameters. An algorithm `A` is said to `(t,ԑ)`-solve the DL problem w.r.t. `(G,p,g)` if on input a random group element `X`, it runs in time at most `t` and returns `x ∈ {0, ..., p − 1}` such that `X = g^x` with probability at least ԑ, where the probability is taken over the random draw of `X` and the random coins of `A`. footnote:[See MuSig 2018 Chapter 2.1. Notation and Definitions]
-
 
 = MuSig
 
@@ -101,3 +198,46 @@ Taproot internal key	=/ [pubkey on time chain]
 
 For spending this taproot UTXO in the cooperative case [i], Alice and Bob calculate a valid signature aggregated with the tweak private key [including the Merkle root of the unused spending conditions [ii] and [iii]] and taproot internal key. Full nodes will only see the committed taproot output key and the a valid signature for it, they do not know that this was a MuSig, or even a taproot. When using spending condition [ii] or [iii], then the spending transaction includes the script they want to use, the data needed by it [in our case only the aggregated public key and aggregated signature], the taproot internal key and the hash of the tapleaf script not used. In the sub-optimal case, it has to be revealed that the script in fact is a taproot, yet only the spending condition actually used is revealed, not the many other scripts that could have potentially been used to spend the UTXO. The maximum depth of the tree is 32 rows, which would allow for over four billion possible scripts, yet only one has to be revealed and verified. But for any m-of-n there need to be `n!/((m!(n-m)!)` tapleafs specified to express all the possible combinations of m signatures.
 
+
+= Shamir’s Secret Sharing Scheme
+
+Shamir’s Secret Sharing [SSSS] footnote:[Adi Shamir. How to Share a Secret. Communications of the ACM, Volume 22, November 1979.] is an algorithm used to divide a given master secret `MS` into `n` parts, such that `m` parts are required in order to compute the original master secret. If only `m-1` parts are available, no information about the master secret is revealed. If the `m-of-n` threshold scheme is  `n = 2m-1` then we can still recover `MS` even if `n/2 = m-1` of the `n` pieces are destroyed. However, an adversary cannot reconstruct `MS` even when he has compromised `n/2 = m-1` parts.
+
+SSSS is based on polynomial interpolation: given `m` points in the 2-dimensional plane `(x_1, y_1) … (x_m, y_m)` there is only one function `q(x)` of degree `m-1` such that `q(x_i) = y_i` for all `i`. In order to protect against the attacker acquiring information about `MS` with every additional `D_i`, we use finite field arithmetic with a field of size `p ∊ P: p > MS, p > n`. Prime number `p` must be close enough to the desired security level, because a too large `p` leads to long cypher text, but a too small `p` leads to compromised security.
+
+=== Preparation
+ 
+After specifying `MS`, `m` and `n`, we generate `m-1` random numbers `a_1, … a_[m-1]` and build a polynomial with the secret as `a_0`.  The polynomial is thus `q(x) = a_0 + a_1*x + a_2*x^2 + … + a_[m-1]*x^[m-1]`.
+
+Then we construct `n` points `D_[x-1] = (x, q(x) mod p)` from the polynomial and each party gets a different point [both `x` and `q(x)`], the `MS` is `q(0)`. Each sub-secret is a point `n` on the constructed polynomial curve.
+
+=== Reconstruction
+
+To reconstruct `MS`, any `m` of `n` will be enough to compute the entire polynomial `q(x)` with the Lagrange interpolation formula footnote:[Hazewinkel, Michiel. Lagrange interpolation formula. Encyclopedia of Mathematics, Springer Science+Business Media B.V. 1994].
+
+=== Simulated shared ownership
+
+SSSS can distribute the knowledge of a secret across several different sub-secret, where each of the holders has full knowledge of his individual part. However, the dealer first generates a master secret, which he has full knowledge off. Thus the dealer has full access and property rights in the funds locked up by the master secret. The sub-secret holders thus have a simulated shared ownership, however, they rely on the good will of the dealer to not spend the funds on his own accord. The use case for SSSS is thus more to backup a private key among semi-trusted peers, but where the dealer and owner of the bitcoin has always full control himself. This is a vitally important differentiation compared to some secure key and signature aggregation footnote:[Refer to chapter on Schnorr MuSig], which generates non-simulated shared ownership.
+
+=== Verifiable Secret Sharing Scheme
+
+Verifiable Secret Sharing Scheme [VSS] is used to prevent the dealer from cheating, every peer can verify his own share and will detect when the dealer has distributed inconsistent shares. footnote:[Pedersen. Non-interactive and information-theoretic secure verifiable secret sharing. Lecture Notes in Computer Science (Crypto '90), 473:331-238, 1991.]
+
+The dealer specifies `MS ∈ Z` and a random numer `MS' ∈ Z` and commits to them by publicly releasing `C_0 = MS*G + MS'*H`. Then he chooses a random polynomials `f(u) = MS + f_1 u + ... + f_t+1 u^t-1` and `f'(u) = MS' + f'_1 u + ... + f'_t+1 u^t-1` to compute `(s_i, s'_i) = (f(i), f'(i)) for i ∈ {1, ..., n}`. The tuple `(s_i, s'_i)` is send secretly to player `P_i` for `1 <  i < n`. Then the master dealer publicly commits the values `C_j = f_j*G + f'_j*H for 1 =< j =< t-1`.
+
+Then each player `P_i` verifies that `s_i*G + s'_i*H = for t-1 <= j = 0 <= sum of i^j*C_j`, if this is false, the dealer accused and he cand efend himself by revealing the value `(f(i), f'(i)`. The dealer is rejected if there are more than `m` complaints, or if his defense does not validate the equation.
+
+
+= Threshold Signatures
+
+A threshold signature scheme footnote:[Stinson, Strobl. Provably Secure Distributed Schnorr Signatures and a (t,n) Threshold Scheme for Implicit Certificates. Certicom Corporation, 2001.] is setup by n individual public keys, and it computes valid only with proof of knowledge of m private keys.
+
+This uses in part Shamir's Secret Sharing Scheme, where a dealer distributes a secret `MS` to `n` peers so that any group of `m` peers can reconstruct the `MS`, yet any group `m-1` does not get any information about `MS`. footnote:[See Chapter on Shamir's Secret Sharing Scheme]
+
+=== Key Generation
+
+All `n` signers compute their individual private public key pairs, and they use a `m-of-n` verifiable secret sharing scheme footnote:[See Chapter on Shamir's Secret Sharing Scheme] to generate `n` shares of their individual private key, so that given `m` shares the individual private key can be calculated. Each of the `n` participants then give each peer one specific share, so that all peers have one share each of all the private keys of all participants. Due to the linearity of the Schnorr signature scheme, these shares can be added, or tweaked to the individual private key. All participants broadcast their individual public keys, so that an n-of-n aggregated public key `Ẋ` can be calculated and used as the locking script of a UTXO. footnote:[See Chapter on Schnorr Signatures, Part on Interactive Key Aggregation]
+
+=== Signing
+
+In order to produce a valid signature, at least `m` participants need to collaborate. Each of them signs a spending transaction with the individual tweaked private key, which is the sum of their individual private key and all `n-1` shares of the other individual private keys. All `m` individual signatures are then aggregated to the final signature. This includes the `m` "full" signatures of each active signer, and `m` shares of the signature of the `n-m` non-signing private keys. Because `m` shares are enough to produce the full signature for the non-signing keys, this final signature is thus a fully n-of-n, and thus valid according to regular MuSig.

@@ -31,13 +31,13 @@ The use cases of multi signatures are far reaching, including strengthening the 
 11. [Scarcity of UTXOs](/Scarcity.asciidoc#scarcity-of-utxos)
 
 
-### PART II Shared Ownership
+### PART II [Shared Ownership](/SharedOwnership.asciidoc)
 
-1. [Basics of Bitcoin Script](/Transaction.asciidoc)
-2. [Script OP_CHECKMULTISIG](/ScriptMultisig.asciidoc)
-3. [Schnorr aggregated MuSig](/SchnorrMuSig.asciidoc)
-4. [Shamir's secret sharing](/ShamirsSecretSharing.asciidoc)
-5. [Schnorr threshold signatures](/ThresholdSignatures.asciidoc)
+1. [Basics of Bitcoin Script](/SharedOwnership.asciidoc/basics-of-bitcoin-script)
+2. [Script OP_CHECKMULTISIG](/SharedOwnership.asciidoc/script-multi-signatures)
+3. [Schnorr aggregated MuSig](/SharedOwnership.asciidoc/schnorr-signatures)
+4. [Shamir's secret sharing](/SharedOwnership.asciidoc/shamir’s-secret-sharing-scheme)
+5. [Schnorr threshold signatures](/SharedOwnership.asciidoc/threshold-signatures)
 
 ### PART III [Use Cases](/UseCase.asciidoc)
 
