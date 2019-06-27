@@ -12,7 +12,9 @@ Alice and Bob have a joint account used for long term savings. Both signatures a
 
 == 2-of-2 Two-Factor Authentication
 
-Alice alone generates two private keys, she generates and stores one on her phone and the other on her main computer. Now she requires access to both devices in order to spend the funds, thus an attacker needs to compromise both at the same time. This highly increases the defense against a malicious hardware provider, since two independent manufacturers need to collude. However, if one of the two devices gets lost without backup, then access to the bitcoin is forever destroyed. There is no redundancy to protect against key loss.
+In order to protect against the leaking of one non-scarce private key and to increase the redundancy and security, Alice can require a second factor signature from another private key in a `2-of-2` multisig. Alice alone generates two private keys, she generates and stores one on her phone and the other on her hardware wallet. Now she requires access to both devices in order to spend the funds, thus an attacker needs to compromise both at the same time. In the case that a malicious actor gains undue access to only one of her devices containing the private key, this is not enough to spend the coins. The chance that a hacker is breaking both of her devices is several orders of magnitude more difficult. This also highly increases the defense against a malicious hardware provider, since two independent manufacturers need to collude. However, in the case that Alice looses only one of her devices and private key, she looses access to the bitcoin which would rightfully be hers. It is as impossible for her to spend the UTXO with only one key, as it is for a malicious actor. There is no redundancy to protect against key loss.
+
+Thus, `n-of-n` second factor authentication is a valid defense against the leaking of private keys to unwanted malicious actors. They need to gain access to `n` private keys in order to have full control over the UTXO, the difficulty exponentially increases as `n` increases. Especially when Alice stores the private keys in different devices, in different location and with different protocols. However, the `n-of-n` script does not protect in the case where Alice herself looses access to even only one of the private keys. She can lock herself out of her own money, and this risk increases, as n increases. Although, this is also the case for a single signature script, once that one key is lost, the money is locked indefinitely. The trade off for the `n-of-n` scheme is thus the number of `n` in relation to the attackers sophistication to break all `n` security protocols, and the likelihood of Alice herself to loose only one of `n` keys.
 
 == 2-of-3 Child Saving
 
@@ -20,19 +22,46 @@ Alice and Bob are the parents of Charlie, and they have a child savings account 
 
 == 2-of-3 Buyer, Seller, Trust less Escrow
 
-Alice wants to purchase a good from Bob, but they wanted to protect against the first-mover disadvantage. Charlie can be as the trust less escrow of a 2-of-3 multisig. Every one of them generates a unique private public key pair, one signature alone cannot validate the script, it always requires the collaboration of two signers. Alice sends the amount of bitcoin agreed upon previously to an UTXO with this redeem script. Bob will wait until these funds are confirmed and verify on his full node. He now has absolute proof that Alice has the bitcoin, and is willing to spend them. Even further, he now has shared ownership in this coin, requiring only the collaboration of one of the peers to gain the full control over it. Bob will now give Alice the good she desires and he will build and sign a transaction spending the multisig coin and generates his own singlesig UTXO. Only when Alice has a secured control over the good and verified its quality will she also sign that proposed transaction and broadcast it to the Bitcoin network. In this collaborative case, Charlie as trust-reduced escrow is not needed, he might not even know that he was part of the scheme. But when malicious Bob does not hand over the good, Alice will call on the judge and request his analysis of the case. Charlie will verification that Bob is indeed malicious, and then co-sign with Alice a transaction giving the bitcoin back to her. On the other hand, if Bob has given malicious Alice the good, but she refuses to pay, Bob can appeal to Charlie who will judge in his favor and co-sign a transaction paying Bob. In order to protect against denial-of-service attacks an upfront escrow from Alice and Bob might be added to the multisig address. In the case of attempted fraud, the judge will release that deposit to the victim. To ensure Charlie's honesty Alice and Bob might also require a security bond from him. Charlie himself alone cannot steal the funds. The decentralized and self-hosted bisq exchange footnote:[Chris Beams, Manfred Karrer. Phase Zero Protocol. 2017] has been successfully using this smart contract to secure millions of trades.
+Alice wants to purchase a good from Bob, but they wanted to protect against the first-mover disadvantage. Charlie can be as the trust less escrow of a `2-of-3` multisig. Every one of them generates a unique private public key pair, one signature alone cannot validate the script, it always requires the collaboration of two signers. Alice sends the amount of bitcoin agreed upon previously to an UTXO with this redeem script. Bob will wait until these funds are confirmed and verify on his full node. He now has absolute proof that Alice has the bitcoin, and is willing to spend them. Even further, he now has shared ownership in this coin, requiring only the collaboration of one of the peers to gain the full control over it. Bob will now give Alice the good she desires and he will build and sign a transaction spending the multisig coin and generates his own singlesig UTXO. Only when Alice has a secured control over the good and verified its quality will she also sign that proposed transaction and broadcast it to the Bitcoin network. In this collaborative case, Charlie as trust-reduced escrow is not needed, he might not even know that he was part of the scheme. But when malicious Bob does not hand over the good, Alice will call on the judge and request his analysis of the case. Charlie will verification that Bob is indeed malicious, and then co-sign with Alice a transaction giving the bitcoin back to her. On the other hand, if Bob has given malicious Alice the good, but she refuses to pay, Bob can appeal to Charlie who will judge in his favor and co-sign a transaction paying Bob. In order to protect against denial-of-service attacks an upfront escrow from Alice and Bob might be added to the multisig address. In the case of attempted fraud, the judge will release that deposit to the victim. To ensure Charlie's honesty Alice and Bob might also require a security bond from him. Charlie himself alone cannot steal the funds. The decentralized and self-hosted bisq exchange footnote:[Chris Beams, Manfred Karrer. Phase Zero Protocol. 2017] has been successfully using this smart contract to secure millions of trades.
+
+It would also be possible to include a time out condition that the bitcoin can be spend by the original owner, after a certain time window has passed. This can further reduce the need for collaboration with the third party arbitrator, because in the malicious off-line case, the victim can simply wait for the time out to pass, and then spend the funds without anyone else's interaction.
+
+Redeem Script for time locked escrow: 
+
+```
+IF 
+  IF 
+    2 
+  ELSE 
+    <1000 blocks> CHECKSEQUENCEVERIFY DROP 
+    <Public Key 1> CHECKSIGVERIFY 
+    1
+  ENDIF 
+  <Public Key 2> <Public Key 3> <Public Key 4> 3 CHECKMULTISIG 
+ELSE 
+  <3000 blocks> CHECKSEQUENCEVERIFY DROP 
+  <Public Key 1> CHECKSIGVERIFY 
+ENDIF
+```
+
 
 == 2-of-3 Hot Wallet Security
 
-In order to secure hot wallet funds Alice can generate two private keys, keeping one on her hot hardware and the other one as a cold storage. The security specialist Bob will have the third key on a hot wallet. Every time Alice wants to make a payment she builds the transaction and signs it with her hot key. Then she sends the partially signed Bitcoin transaction to Bob who will only sign the transaction if some predetermined conditions are met. This can be some two-factor authentication, or in-person verification, or a white listed and blacklisted addresses, or some maximum value in a given time period. Only when all of the agreements are met will Bob sign this transaction with his hot wallet key. If Bob realizes that Alice has been compromised then he will refuse to sign the transaction. If Bob becomes unavailable Alice can get her second key out of cold storage and sign the transaction all by herself. Bob himself cannot spend the money alone.
+The main risk of `n-of-n` multisig is that the loss of only one key leads to a complete loss of funds. Although this is very secure against malicious actors trying to steal money, it does not protect Alice from herself loosing access to one single key. A `m-of-n` script can provide further benefits that neither single, nor `n-of-n` multisig have.
+
+In order to secure hot wallet funds Alice can generate two private keys, generating and storing one on her hot hardware and the other one as a cold storage. The security specialist Bob will have the third key on a hot wallet. Alice can assign a `2-of-3v multisig script to a UTXO, such that she can only spend the coin with a total of 2 signatures. Every time Alice wants to make a payment she builds the transaction with the multisig as input and signs it with her hot key. Then she sends the partially signed Bitcoin transaction to Bob who will only sign the transaction if some predetermined conditions are met. This can be some two-factor authentication, or in-person verification, or a white listed and blacklisted addresses, or some maximum value in a given time period. Only when all of the agreements are met will Bob sign this transaction with his hot wallet key. If Bob realizes that Alice has been compromised then he will refuse to sign the transaction. It is important to note that the spending conditions are not only simulated and rely on the trust in an honest Bob. 
+
+If Bob becomes unavailable, or fails to uphold his promise to co-sign, then Alice can get her second key out of cold storage and sign the transaction all by herself. She does not need to cooperate with Bob in order to spend her money, without any other party, she has full control over that coin. Bob alone cannot spend the money, he does never has full control over the coin, and thus no property rights in it. A `2-of-3` multisig has the same anti theft protection as a `2-of-2` multisig. The attacker needs to gain access to both Alice's phone and hardware wallet, or one of them in addition to the cold storage. However, in the case that Alice looses one of her every day keys, let's assume her hot wallet, she can get her second key out of cold storage, and use it together with Bob's hot key. She can decrease the risk of loss of private keys drastically with such a script.
+
+The `m-of-n` multisig script provides simultaneous protection against theft and loss of private keys. The malicious actor needs to gain access to `m`, not `n`, private keys in order to generate a valid spending transaction. This provides the same level of protection as a `m-of-m` multisig script would. However, contrarily to `n-of-n` scripts, Alice can afford to loose `n-m` private keys before she herself looses access to the UTXO. She can have m convenient and easy to use keys, like mobile and hardware wallets, which she can interact with for every day spending. For redundancy however, she also has `n-m` cold storage keys, which are difficult to access, for example a paper wallet hidden in a remote safe. She only needs to reveal these keys in the case where she looses access to some of the every day keys. However, the UTXO is locked when she `m` private keys are lost, same as with a `m-of-m` multisig script. 
 
 == 3-of-5 Low Trust Joint Funds
 
-The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust 3-of-5 multisig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the time chain which private keys have signed the transaction, there is accountability after the fact. This is especially useful for decentralized and non-hierarchical projects.
+The five peers Alice Bob Charlie David and Eve work on the same project and have a low trust `3-of-5` multisig. Each of them holds one key and they need collaboration of any of the three peers in order to spend the bitcoin. This reduces the threat of embezzlement, hacking and loss of two keys. Since it is provable on the time chain which private keys have signed the transaction, there is accountability after the fact. footnote:[It is evident for script based multisig, yet not by default for MuSig, but there is a drop-in protocol to achieve the accountability.] This is especially useful for decentralized and non-hierarchical projects where peers have a the convenience of collaboration without full consensus for every transaction. This setup retains spend-ability for up to the loss of two keys, yet it is also secure for up to two malicious peers.
 
 == Transaction Output Commitments
 
-Alice wants to pay 10 different peers, yet the current transaction fee level is high, and she estimates it will decrease in the future. She wants to commit to the payment now, yet pay the fee for the final transaction at a later point in time. Alice requests the public keys of all 10 receivers and builds a large 10-of-10 multisignature script. She build an unsigned and unbroadcasted setup transaction, with her UTXO in the input, and the 10-of-10 multisig with the total amount she wants to send, as well as her change output. Then, she creates a distribution transaction, which spends the multisig UTXO and creates the 10 different UTXOs with the individual public keys of the receivers. Alice then requests each of the receiver to sign the distribution transaction, and she ensures that each co-signer has a full valid signature of all the peers. Only then does she sign and broadcast the setup transaction, to get quick confirmation with a relatively low fee. The receivers are now certain that at any time one of them can broadcast the signed distribution transaction to receive the money.
+Alice wants to pay 10 different peers, yet the current transaction fee level is high, and she estimates it will decrease in the future. She wants to commit to the payment now, yet pay the fee for the final transaction at a later point in time. Alice requests the public keys of all 10 receivers and builds a large `10-of-10` multi signature script. She builds an unsigned and unbroadcasted setup transaction, with her own UTXO in the input, and the `10-of-10` multisig and her change output. The value of the multisig coin is the total sum of all the 10 payments she is sending. Then, she creates a distribution transaction, which spends the multisig UTXO and creates the 10 different UTXOs with the individual public keys of the receivers. Alice then requests each of the receivers to sign the distribution transaction, and she ensures that each co-signer has a valid signature of all the peers. Only then does she sign and broadcast the setup transaction, to get confirmation with a relatively low fee. The receivers are now certain that at any time one of them can broadcast the signed distribution transaction to receive the money. Yet they can delay the distribution transaction until the fee for block space has decreased.
 
 ```
 Setup transaction [signed after distribution tx]
@@ -51,63 +80,54 @@ Distribution transaction [signed first, broadcasted later]
 
 == Lightning Network
 
+The lightning network consists of individual peers communicating information and trustlessly exchanging bitcoin between each other without requesting the verification of all Bitcoin full nodes. An additional piece of software, a lightning network node, has to be installed and run by the user. Each node can communicate with different peers to gain necessary information about the state of the network. In order to send bitcoin between lightning peers, two nodes collaboratively open, update and close a payment channel off-chain. This limits full node verification of on-chain transactions to two transactions in the life cycle of a payment channel, which can conduct potentially unlimited amounts of updated commitment transactions. These are based on the Bitcoin scripts multi signatures and hashed time locked contracts, as well as per-signed revocation transactions. A payment can be routed through many independent channels, so even peers without a direct channel can send and receive bitcoin. The following chapters focus on the shared ownership of payment channel, and not on the routing between the channels since this is independent from the channel update mechanism.
+
 == 2-of-2 Lightning Network Payment Channel
 
-Alice and Bob want to send several payments bidirectionally between them, without requesting verification by all full nodes for every individual payment. They fund a multisignature payment channel, commit to several update transactions "off chain", and ultimately close the final state in a settlement transaction. This limits full node verification of on- chain transactions to two transactions in the life cycle of a payment channel, which can conduct potentially unlimited amounts of updated commitment transactions. In order to secure the unconfirmed transaction against double spends by a malicious counterpart, they exchange secrets to allow for proof of and potential punishment of an attacker.
+The basic implementation of the current payment channels is based on a `2-of-2` script multisig. Two peers collaborate long term to send payments in between each other, and to route payments through the lightning network. The life cycle of a channel consists of the on-chain opening transaction, off-chain commitment transaction, different cases for collaborative or forced closing transactions, and the defense against theft with revocation transactions. Each of them will be analyzed in this chapter.
 
 === Funding Transaction
 
-Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a 2-of-2 multisignature to establish shared ownerhsip with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 OP_CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures, when one of them is malicious, the funds are locked and irredeemable. In order to protect against an off-line counterpart, they exchange signatures of a valid commitment transaction, as described below, yet this is not broadcasted. Only when then do they broadcast this P2WSH funding transaction to the entire Bitcoin network, verified by all nodes and added to the time chain with accumulated proof of work, assuming sufficient mining fees paid. Now the payment channel is open, and has a unique identifier of the transaction and channel ID.
+Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a `2-of-2` multi signature with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures. If one of them is malicious, the funds are locked and irredeemable. Alice wants to protect herself against the case that malicious Bob goes off-line, so she requests Bob's signature over a commitment transaction, as described below, that send all 10 bitcoin to a new script of Alice. Alice stores this transaction, yet she doesn't yet broadcast it. Now Alice will sign the funding transaction, knowing that at any time she could broadcast the initial commitment transaction with Bob's signature. The funding transaction is verified by every full node and confirmed in the time chain. Now the payment channel is open, it has a unique identifier of the transaction and channel ID. Alice and Bob can choose to announce this channel publicly to the lightning network and offer to route payments up to the capacity of the multisig.
 
 === Commitment Transaction
 
-Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[BIP 174] the the transaction and sends it to Bob, who completes the 2-of-2 multisignature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
+Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value of the outputs dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[Chow. BIP 174: Partially Signed Bitcoin Transactions. 2017.] the transaction and sends it to Bob, who completes the `2-of-2` multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
 
-Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 Equal NOTIF Drop 2 Swap <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
+Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 EQUAL NOTIF DROP 2 SWAP <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
 
-WitnessScript: `<remotehtlcsig> <payment_preimage>`
+Witness Script: `<remotehtlcsig> <payment_preimage>`
 
-If a revoked commitment transaction is published, the WitnessScript `<revocation_sig> <payment_preimage>` can spend the output immediately.
-
-It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. Only the most up to date state must be possible to redeem on the base layer time chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
-
-==== Timelocks 
-
-can be used to solve the issue of publishing an old state, and disconnecting peers. The first commitment transaction has a `CHECKSEQUENCEVERIFY = 4320` [30 days] and all subsequent update transaction have a shorter nLockTime value. The most recent transaction can thus be broadcasted the earliest, prior to any old channel state. When `NLOCKTIME`is used, the channel has a limited lifetime, but with `CHECKSEQUENCEVERIFY` countdown starts only with the publishing of the closing transaction. If Bob disconnects his node, Alice can close the payment channel without Bob's signature after `CHECKSEQUENCEVERIFY` expires, even old channel states.
-
-==== Asymmetric Revocable Commitments
-
-is another update mechanism, where Alice and Bob collaboratively generate two asymmetric commitment transaction. 
+If a revoked commitment transaction is published, the Witness Script `<revocation_sig> <payment_preimage>` can spend the output immediately. For every commitment transaction, the receiver requests the revocation private key before accepting the money. Thus for any received payment there is proof of payment, and that can be used to punish a malicious trying to settle an old state. It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. There needs to exist enforceable proof in the case that a old state is closed on chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
 
 Transaction held by Alice
 ```
-[i 0] 2-of-2 funding output, signed by Bob	|	[o 0] <nValueAlice>: <PubKeyAlice>
-											|	[o 1] <nValueBob>: IF <Revocation Public Key> ELSE <delay in blockst> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
+[i 0] 2-of-2 funding output, signed by Bob	|	[o] <nValueAlice>: <PubKeyAlice>
+											|	[o] <nValueBob>: IF <Revocation Public Key> ELSE <delay in blockst> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
 ```
 
 Transaction held by Bob
 ``` 
-[i 0] 2-of-2 funding output, signed by Alice	|	[o 0] <nValueBob>: <PubKeyBob> 
-											|	[o 1] <nValueAlice>: IF <Revocation Public Key> ELSE <delay in blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
+[i] 2-of-2 funding output, signed by Alice	|	[o] <nValueBob>: <PubKeyBob> 
+											|	[o] <nValueAlice>: IF <Revocation Public Key> ELSE <delay in blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
 ```
 
-The revocable key is split in two secrets, similar to 2-of-2 multisignature based on elliptical curve arithmetics. When Bob sends funds to Alice, Alice has to revoke the old commitment transaction by revealing her secret to Bob, before Bob agrees to sign the commitment transaction of the new state. If Alice would try to cheat and broadcast an old state, Bob can become active and use both paths of the revocation key to redeem Alice's delayed output. Alice only has one half of the revocation key and can only redeem her output after the block delay timeout. With each state update, both exchange the new commitment transactions, and the revocation secret of the previous one.
+The revocable key is split in two secrets, similar to `2-of-2` multi signature based on elliptical curve arithmetics. When Bob sends funds to Alice, Bob has to revoke the old commitment transaction by revealing her secret to Alice, before Alice agrees to sign the commitment transaction of the new state. If Bob would try to cheat and broadcast an old state, Alice can become active and use both paths of the revocation key to redeem Bob's delayed output. Alice only has one half of the revocation key and can only redeem her output after the block delay timeout. With each state update, both exchange the new commitment transactions, and the revocation secret of the previous one.
 
 === Closing Transaction
 
-After Alice and Bob have done sufficient payments, they can cooperatively close this payment channel, by broadcasting the final settlement transaction to the network. This cooperative **closing transaction** has a witness script `0 <signature1> <signature2> 2 <PubKey1> <PubKey2> 2 CHECKMULTISIG` and can specify any new ScriptPubKey in the output. Further, there is an option to unilaterally close the channel if one of the peers disconnects.
+After Alice and Bob have done several off-chain payments, they can cooperatively close this payment channel, by broadcasting the final multisig settlement transaction to the network. This cooperative closing transaction has a witness script `0 <signature1> <signature2> 2 <PubKey1> <PubKey2> 2 CHECKMULTISIG` and can specify any new ScriptPubKey in the output. In this case where both signatures are available, the transaction does not include any timelocks and thus can be spend again without any timeouts.
 
-The time chain footprint of potentially millions of off-chain transactions can be reduced to only the opening and closing transaction. This is increasing throughput, decreasing latency and enhancing privacy.
-
+In the case where one peer is uncooperative the other party can do a one-sided closing transaction. This is the script with the revocation key and HTLC in order to protect against the closing with an old state. In this time-out window the uncooperative party has the opportunity to come back online and to check if this closing attempt is actually valid. If not, then the revocation key is used as proof that this is an old state. 
 
 
 == n-of-n Multi Party Channel Factories
 
-Channel factories are payment channels where every commitment transaction opens more payment channels. The unbroadcasted update transaction closes the previous payment channel and opens the new one atomically. This script enables the secure opening and closing of a new payment channel without committing any extra transaction to the time chain. A 10 peer channel factory has 90% transaction size savings compared to individual channel opening. footnote:[Harding, What are Channel Factories and how do they work? 2018]
+Channel factories are payment channels where every commitment transaction opens more payment channels. The off-chain update transaction closes the previous payment channel and opens the new one atomically. This script enables the secure opening and closing of a new payment channel without committing any extra transaction to the time chain. A 10 peer channel factory has 90% transaction size savings compared to individual channel opening. footnote:[Harding, What are Channel Factories and how do they work? 2018]
 
 === Hook Transaction
 
-Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the hook transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This script has the regular payment channel conditions, the n-of-n cooperative case, as well as time locks with single signatures for uncooperative spending. The hook transaction is signed only when all transactions of the initial state are signed to ensure the funds always return to their initial owner in case of the uncooperative case.
+Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the hook transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This is the transaction to collect all the bitcoin from the peers and fund the channel factory. This script has the regular payment channel conditions, the `n-of-n` cooperative case, as well as partially signed yet unbroadcasted backup transactions with time locks with single signatures for uncooperative spending. The hook transaction is signed only when all transactions of the initial state are signed to ensure the funds always return to their initial owner in case of the uncooperative case.
 
 ```
 [i]	Alice	| [o]	10-of-10 channel factory
@@ -119,124 +139,18 @@ Two, or preferably more peers create a channel factory deposit transaction that 
 
 === Replaceable Allocation Transaction
 
-
-After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the n-of-n cooperative multisignature of the allocation transaction, the outputs are the the 2-of-2 direct payment channels between the individuals within the factory. 
+After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the `n-of-n` cooperative multi signature of the allocation transaction, the outputs are the funding UTXO with a `2-of-2` direct payment channels between the individuals within the factory.
 
 Every allocation transaction thus spends the hook UTXO to create individual payment channel funding transactions. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
 
-The goal of a channel factory is to have many off-chain allocation transactions that open many individual 2-of-2 payment channels. Because only the latest state of these allocation transactions must successfully be committed on the time chain, it is thus essential that old states are replaced by the new one. This can be done by building an invalidation tree with decrementing timelocks started by a kickoff root transaction footnote:[Decker, Wattenhofer. A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels. 2016.], exchanging revocation secrets footnote:[Poon, Dryja. The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. 2016.] or utilizing the eltoo footnote:[Decker, Russell, Osuntokun. eltoo: A Simple Layer 2 Protocol for Bitcoin. 2018.] updating mechanism. The leaves of the invalidation tree are the individual 2-of-2 multisignatures that open an individual 2 peer payment channel. 
+The goal of a channel factory is to have many off-chain allocation transactions that open many individual `2-of-2` payment channels. Because only the latest state of these allocation transactions must successfully be committed on the time chain, it is thus essential that old states are replaced by the new one. This can be done by building an invalidation tree with either decrementing timelocks started by a kickoff root transaction footnote:[Decker, Wattenhofer. A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels. 2016.], exchanging revocation secrets footnote:[Poon, Dryja. The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. 2016.] or utilizing the eltoo footnote:[Decker, Russell, Osuntokun. eltoo: A Simple Layer 2 Protocol for Bitcoin. 2018.] updating mechanism. The leaves of the invalidation tree are the individual `2-of-2` multi signatures that open an individual 2 peer payment channel. 
 
 === Commitment Transaction
 
-After the hook transaction has sufficient accumulated proof of work, and the allocation transaction is successfully signed and communicated, then the individual sub-channels are open. The commitment transaction spends the 2-of-2 multisignature of the allocation transaction, and creates UTXOs with the single public key of the individual owners of the bitcoin. The scripts and signing ceremony is identical to the ones of regular 2-of-2 payment channels.
+After the hook transaction has sufficient accumulated proof of work, and the allocation transaction is successfully signed and communicated, then the individual sub-channels are open. The commitment transaction spends the `2-of-2` multi signature of the allocation transaction, and creates UTXOs with the single public key of the individual owners of the bitcoin. The scripts and signing ceremony is identical to the ones of regular `2-of-2` payment channels.
 
------
+=== Closing Transaction
 
-multisignature transactions are an integral part to Bitcoin script since it's beginning, and there are many proven and theoretical problems that can be solved with this technology. This is a critical theoretical analysis of these proposed use cases.
+In the case where all peers collaborate, they will close all the individual payment channels within the factory, this is done all off-chain and should be coordinated within seconds. Then they build and sign a factory closing transaction with the n-of-n multisig as the input, and individual UTXOs with the correct number of bitcoin according to the latest state of the factory. In this case there are no timelocks, and thus every individual can spend their own UTXO as soon as they desire. The individual script might even be the funding of a new channel or factory according to the splicing in and out process.
 
-= Single Party multisignatures
-
-== n-of-n Second Factor Authentication
-
-In order to securely hold on chain bitcoin, Alice only needs to keep a private key hidden from others. Anyone with the knowledge of the cryptographic secret has full access to the corresponding UTXO. As non-scarce information is easily shared, there is a risk that the single private key is leaked. There is no second factor needed to move the funds, thus the slightest mistake could lead to sharing of the key, which means a complete loss of funds. Although a single signature is convenient, fast, and good for small denominations, multisig can be used to add redundancy and security. 
-
-For example, Alice can specify a n-of-n multisignature script, let's say 2-of-2, where Alice is the only individual in possession of both private keys, one on a hardware wallet, the other on her phone. Only with a valid signature with both secrets can the UTXO be spent. This is a secure second factor authentication, for example, Alice needs to have access to both her hardware wallet and phone in order to sign a valid spending transaction. In the case that a malicious actor gains undue access to only one of her devices containing the private key, this is not enough to spend the coins. The chance that a hacker is breaking both of her devices is several orders of magnitude more difficult. However, in the case that Alice looses only one of her devices and private key, she looses access to the bitcoin which would rightfully be hers. It is as impossible for her to spend the UTXO with only one key, as it is for a malicious actor.
-
-Thus, n-of-n second factor authentication is a valid defense against the leaking of private keys to unwanted malicious actors. They need to gain access to n private keys in order to have full control over the UTXO, the difficulty exponentially increases as n increases. Especially when Alice stores the private keys in different devices, in different location and with different protocols. However, the n-of-n script does not protect in the case where Alice herself looses access to even only one of the private keys. She can lock herself out of her own money, and this risk increases, as n increases. Although, this is also the case for a single signature script, once that one key is lost, the money is locked indefinitely. The trade off for the n-of-n scheme is thus the number of n in relation to the attackers sophistication to break all n security protocols, and the likelihood of Alice herself to loose only one of n keys.
-
-Redeem script:
-
-```console
-  n
-  <pubKey Alice 1>
-  <pubKey Alice 2>
-  ...
-  <pubKey Alice n>
-  n
-  OP_CHECKMULTISIG
-```
-
-Signature script:
-
-```
-  <signature Alice 1>
-  <signature Alice 2>
-  ...
-  <signature Alice n>
-```
-
-== m-of-n Second Factor Authentication
-
-The main risk of n-of-n multisig is that the loss of only one key leads to a complete loss of funds. Although this is very secure against malicious actors trying to steal money, it does not protect Alice from herself loosing access to one single key. A m-of-n script can provide further benefits that neither single, nor n-of-n multisig have.
-
-Alice can assign a m-of-n multisig script to a UTXO, such that she can only spend the coin with a total of m signatures. For a 2-of-3 example, she stores one key on her mobile wallet, another on her hardware wallet, and the third on a cold storage paper wallet. For every day transactions, she will use her phone and hardware wallet to build and sign the valid signature. These two wallets are user friendly enough to provide swift and easy execution of the spending protocol. A malicious actor needs to gain access to m private keys and this increases in difficulty with higher m and more complex and secure key generation and storage protocols. A 2-of-3 multisig has the same anti theft protection as a 2-of-2 multisig. The attacker needs to gain access to both Alice's phone and hardware wallet, or one of them in addition to the cold storage. However, in the case that Alice looses one of her every day keys, let's assume her mobile wallet, she can get the paper wallet key out of cold storage, and use it as the second factor together with her hardware wallet. She can decrease the risk of loss of private keys drastically with such a script.
-
-The m-of-n multisig script provides simultaneous protection against theft and loss of private keys. The malicious actor needs to gain access to m, not n, private keys in order to generate a valid spending transaction. This provides the same level of protection as a m-of-m multisig script would. However, contrarily to n-of-n scripts, Alice can afford to loose n-m private keys before she herself looses access to the UTXO. She can have m convenient and easy to use keys, like mobile and hardware wallets, which she can interact with for every day spending. For redundancy however, she also has n-m cold storage keys, which are difficult to access, for example a paper wallet hidden in a remote safe. She only needs to reveal these keys in the case where she looses access to some of the every day keys. However, the UTXO is locked when she m private keys are lost, same as with a m-of-m multisig script. 
-
-Redeem script:
-
-```console
-  m
-  <pubKey Alice 1>
-  <pubKey Alice 2>
-  ...
-  <pubKey Alice n>
-  n
-  OP_CHECKMULTISIG
-```
-
-Signature script:
-
-```
-  <signature Alice 1>
-  <signature Alice 2>
-  ...
-  <signature Alice m>
-```
-
-= Multi Party multisignatures
-
-2-of-3 or 4-of-5 multisig, with one key controlled by the security specialist footnote:[See BitGo and Casa], and all others by clients. The bank gives approval / 2FA for each spend, but without full custody. The bank can not send the funds without the client signature, thus there is no risk of theft. There are some privacy concerns, because the bank has the knowledge of the customers public keys and it will co-sign all the transactions. The bank knows how much is send when to whom, maybe even for what.
-
-== Group Fund Management
-
-n-of-n multisig where all parties provide funding and each has one of n required keys to spend out of the script. Approval and signature of all the peers is required. This can be used for shared funds that are desired to be spent only with the consent of all the constituents. 
-
-Business partners share access to funds in a n-of-n multisig, so that all peers need to agree on the allocation of funds. Potentially improved with optional time locks. [2-of-2 always, 1-of-2 after 1000 blocks]
-
-== Escrow
-
-Upfront security deposit for a market place / exchange, with semi-trusted third party arbitrator to sign in case of dispute.footnote:[See Bisq 2-of-3 & HodlHodl 2-of-2]
-
-2-of-3 [Alice, Bob, Charlie] can always spend from this script, after 1000 blocks, 
-
-Redeem Script for time locked escrow: 
-```console
-    IF 
-      IF 
-        2 
-      ELSE 
-        <1000 blocks> CHECKSEQUENCEVERIFY DROP 
-        <Public Key 1> CHECKSIGVERIFY 
-        1
-      ENDIF 
-      <Public Key 2> <Public Key 3> <Public Key 4> 3 CHECKMULTISIG 
-    ELSE 
-      <3000 blocks> CHECKSEQUENCEVERIFY DROP 
-      <Public Key 1> CHECKSIGVERIFY 
-    ENDIF
-```
-
-== Vault
-
-Script with m-of-n multisig, time lock and designated output address. It can only be spend with m signatures after a specified time and only to one previously agreed upon address. This might be useful for cold storage that can only be spend to another script that is controlled by the same owner.
-
-
-The latest upgrade to testnet v4.0 is outstanding - thanks to all the contributors :)
-
-Here is some feedback after playing around with the receive feature:
-
-
-> "Send Maximum" left 600 sats dust
-> Change color for receive on chain address / lightning invoice
-> Lightning Fee Protection with tolerance fee <21 sat is really useful!
+In the uncooperative case, the on-line peers can construct a one sided closing transaction, which is however limited by an additional time lock. During this period the off-line peers have the opportunity to come back on-line to check if this is the most recent state of the channel factory, and if not, to proof it and punish the thieves.
