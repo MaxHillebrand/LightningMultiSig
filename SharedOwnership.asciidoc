@@ -32,7 +32,7 @@ Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
 == Pay to Witness Public Key Hash
 
-Segregated witnessfootnote:[BIP141] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
+Segregated witness footnote:[Lombrozo, Lau, Wuille. BIP 141: Segregated Witness.] is a protocol upgrade footnote:[Fry. BIP 148: Mandatory Activation of SegWit Deployment] intended to fix transaction malleability and to increase the block size through different weight calculations. footnote:[See Bitcoin Wiki. Weight units.] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
 
 === Single Signature in P2WPKH
 
