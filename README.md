@@ -38,10 +38,11 @@ The use cases of multi signatures are far reaching, including strengthening the 
    1.2 [Pay to Script Hash](/SharedOwnership.asciidoc#pay-to-script-hash)<br/>
    1.3 [Pay to Witness Public Key Hash](/SharedOwnership.asciidoc#pay-to-witness-public-key-hash)<br/>
    1.4 [Pay to Witness Script Hash](/SharedOwnership.asciidoc#pay-to-witness-script-hash)
-2. [Script OP_CHECKMULTISIG](/SharedOwnership.asciidoc/script-multi-signatures)
-3. [Schnorr aggregated MuSig](/SharedOwnership.asciidoc/schnorr-signatures)
-4. [Shamir's secret sharing](/SharedOwnership.asciidoc/shamir’s-secret-sharing-scheme)
-5. [Schnorr threshold signatures](/SharedOwnership.asciidoc/threshold-signatures)
+2. [Script OP_CHECKMULTISIG](/SharedOwnership.asciidoc#script-multi-signatures)
+3. [Schnorr aggregated MuSig](/SharedOwnership.asciidoc#schnorr-signatures)
+4. [Taproot](/SharedOwnership.asciidoc#taproot)
+5. [Shamir's secret sharing](/SharedOwnership.asciidoc#shamir’s-secret-sharing-scheme)
+6. [Schnorr threshold signatures](/SharedOwnership.asciidoc#schnorr-threshold-signatures)
 
 ### PART III [Use Cases](/UseCase.asciidoc)
 
