@@ -1,4 +1,4 @@
-# Non-Simulated Shared Ownership of scarce bitcoin with Multi Signatures in the Lightning Network
+# Shared Ownership of scarce bitcoin with Multi Signatures in the Lightning Network
 
 ## Abstract
 

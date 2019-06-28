@@ -1,13 +1,13 @@
 = Declaration of Honor
 
-I hereby certify that I have written my thesis with the topic: Non-Simulated Shared Ownership of Scarce Bitcoin in the Lightning Network independently and did not use any sources or tools other than those specified. The thesis is published under the Creative Commons Attribution-Share Alike 4.0 International License.
+I hereby certify that I have written my thesis with the topic: Shared Ownership of Scarce Bitcoin in the Lightning Network independently and did not use any sources or tools other than those specified. The thesis is published under the Creative Commons Attribution-Share Alike 4.0 International License.
 
 I declare that the commits of the account @MaxHillebrand to the git research repository https://github.com/MaxHillebrand/LightningMultiSig/ were done only by myself, this can be verified by the GPG signatures of the commits.
 
 I also declare that the electronic version 2.0 matches this printed version.
 SHA256 of v2.0 pdf document: <sha256sum>
 
-A .txt file containing my GPG signature over this declaration of honor, including the SHA256 of the v2.0 pdf and the most recent Bitcoin block hash, are time stamped in the Bitcoin time chain. The Open Time Stamp proof is available together with the v2.0 pdf. This is a cryptographically valid Jurat proof of the time window the thesis was finished.
+A .txt file containing my GPG signature over this declaration of honor, including the SHA256 of the v2.0 pdf and the most recent Bitcoin block hash, is time stamped in the Bitcoin time chain. The Open Time Stamp proof is available together with the v2.0 pdf. This is a cryptographically valid Jurat proof of the time window the thesis was finished.
 
 Villingen-Schwenningen, <date>
 At Bitcoin block hight: <block hight>

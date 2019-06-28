@@ -1,4 +1,4 @@
-= Shared Ownership of Scarce Bitcoin
+= PART II: SHARED OWNERSHIP OF SCARCE BITCOIN
 
 = Basics of Bitcoin Script
 
@@ -6,7 +6,7 @@ A bitcoin UTXO is the tip of the chain of digital signatures which originates in
 
 == Pay to Public Key Hash
 
-A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the committed public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed. The message to sign is the hash of certain parts of the transaction it self. So not only is the signature proof of knowledge of the private key, it also gives the explicit concent which input is consumed, and which outputs are created.
+A ScriptPubKey is a short script that details the conditions which must be met in order to claim control of the bitcoin. In a **P2PKH** transaction, this script contains `OP_DUP OP_HASH160 <PubKey> OP_EQUALVERIFY OP_CHECKSIG`, the UTXO can only be spend by the proof of knowledge of the private key corresponding to the committed public key hash. The signature script is a prefixed to the ScriptPubKey and contains an secp256k1 signature and the full public key: `<Sig> <PubKey> OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG`. To verify the correctness of the transaction, all operators from both the Alice's signature and Bob's pubkey script are executed. The message to sign is the hash of certain parts of the transaction it self. So not only is the signature proof of knowledge of the private key, it also gives the explicit consent which input is consumed, and which outputs are created.
 
 === Multi Signature in P2PKH
 
@@ -18,7 +18,7 @@ Validation Script: `<Signature 1> <Signature M> M <Public Key 1> <Public Key 2> 
 
 == Pay to Script Hash
 
-The ScriptPubKey of a **P2SH** transaction contains a hash of a redeem script, which can be any script whatsoever. footnote:[BIP16] At the time of UTXO creation there is only the hash of the script on the time chain, but not the script itself. It is thus unclear what the spending condition of that particular coin is. These conditions to redeem the bitcoin are with the receiver, not the sender of the transaction. To spend the UTXO, Bob needs to provide both the full redeem script and a valid signature script. It is only valid, when the redeem script hashes to the same value as the script hash Alice commited to in the output. The redeem script has the same attributes as a pubkey hash, thus the follow up process is identical to a P2PKH script. This gives the benefit of removing complex scripts from block space and shifting the burden of key storage to the future spending time. The majority of fees are paid not when receiving to a complex P2SH, but when spending the P2SH UTXO where the redeem script and signatures are revealed.
+The ScriptPubKey of a **P2SH** transaction contains a hash of a redeem script, which can be any script whatsoever. footnote:[BIP16] At the time of UTXO creation there is only the hash of the script on the time chain, but not the script itself. It is thus unclear what the spending condition of that particular coin is. These conditions to redeem the bitcoin are with the receiver, not the sender of the transaction. To spend the UTXO, Bob needs to provide both the full redeem script and a valid signature script. It is only valid, when the redeem script hashes to the same value as the script hash Alice committed to in the output. The redeem script has the same attributes as a pubkey hash, thus the follow up process is identical to a P2PKH script. This gives the benefit of removing complex scripts from block space and shifting the burden of key storage to the future spending time. The majority of fees are paid not when receiving to a complex P2SH, but when spending the P2SH UTXO where the redeem script and signatures are revealed.
 
 === Multi Signature in P2SH
 
@@ -32,7 +32,7 @@ Address: `Base58Check(HASH160(<ScriptPubKey>))`
 
 == Pay to Witness Public Key Hash
 
-Segregated witness footnote:[Lombrozo, Lau, Wuille. BIP 141: Segregated Witness.] is a protocol upgrade footnote:[Fry. BIP 148: Mandatory Activation of SegWit Deployment] intended to fix transaction malleability and to increase the block size through different weight calculations. footnote:[See Bitcoin Wiki. Weight units.] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
+Segregated witness footnote:[Lombrozo, Lau, Wuille. BIP 141: Segregated Witness. 2017.] is a protocol upgrade footnote:[Fry. BIP 148: Mandatory Activation of SegWit Deployment  2017.] intended to fix transaction malleability and to increase the block size through different weight calculations. footnote:[See Bitcoin Wiki. Weight units.] **P2WPKH** transactions remove the signature in the input field, and relocate it in the witness structure of the scriptSig. The script PubKey thus contains only `0 <PubKeyHash>` and the signature is verified as `<signature> <pubkey> CHECKSIG`.
 
 === Single Signature in P2WPKH
 
@@ -69,27 +69,6 @@ However, this system is fundamentally based on the trust in the thorough verific
 
 However, if this concept of full node verification is working properly and reliably, as is the case in Bitcoin footnote:[See Chapter on Full Nodes Define, Verify and Enforce Scarcity.], then the redeem script can be considered a non-simulated property right definition, there is a very slim and unprecedented plausibility of breaking the spending conditions. This is one of the many reasons why the adherence to Nakamoto consensus is so vitally important, and why any change to the set of rules, including soft forks but especially hard forks, carry a tremendous risk.
 
-=== Multi Signature in P2SH
-
-Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
-
-ScriptPubKey: `HASH160 <20-byte hash of redeem script> EQUAL`
-
-SignatureScript: `0 <Signature 1> ... <Signature M> <redeem script>`
-
-Address: `Base58Check(HASH160(<ScriptPubKey>))`
-
-=== Multi Signature in P2WSH
-
-Redeem Script: `M <Public Key 1> <Public Key 2> ... <Public Key N> N CHECKMULTISIG`
-
-Witness Script `0 <signature 1> ... <signature M> M <Public Key 1> ... <Public Key M> N CHECKMULTISIG` 
-
-ScriptPubKey: `0 SHA256(<witnessScript>)`
-
-Address: public key, checksum base32 footnote:[BIP173] encoded
-
-
 = Schnorr Signatures
 
 The Schnorr signature scheme footnote:[Claus-Peter Schnorr. Efficient Signature Generation by Smart Cards. J. Cryptology, 4(3):161–174, 1991.] is a conceptually simple, data size and computationally efficient and secure under the discrete logarithm assumption [ECDSA]. This protocol is currently proposed as s soft fork replacement of Bitcoin's incumbent elliptical curve digital signature algorithm. 
@@ -112,7 +91,7 @@ Just like ECDSA, the Schnorr signature scheme is proven secure under the discret
 
 = MuSig
 
-The MuSig paper footnote:[Gregory Maxwell, Andrew Poelstra, Yannick Seurin, and Pieter Wuille. Simple Schnorr Multi-Signatures with Applications to Bitcoin. 2018] describes a simple and efficient multi-signature scheme based on Schnorr. Some of the benefits are key aggregation, signature aggregation and batch verification. The paper includes a security prove in the plain public-key model footnote:[See MuSig 2018, Chapter 4. Security of the New Multi-Signature Scheme], which is omitted in this paper.
+The MuSig paper footnote:[Maxwell, Poelstra, Seurin, Wuille. Simple Schnorr Multi-Signatures with Applications to Bitcoin. 2018.] describes a simple and efficient multi-signature scheme based on Schnorr. Some of the benefits are key aggregation, signature aggregation and batch verification. The paper includes a security prove in the plain public-key model footnote:[See MuSig 2018, Chapter 4. Security of the New Multi-Signature Scheme], which is omitted in this paper.
 
 MuSig is parameterized by group parameters `(G,p,g)` where `p` is a `k`-bit integer, `G` is a cyclic group of order `p`, and `g` is a generator of `G`, and by three hash functions. footnote:[See MuSig 2018, Chapter 3. Our New Multi-Signature Scheme] The total signature size is `|G|+|p|`; the public key size `|G|`; and the private key size `|p|`.
 
@@ -130,7 +109,7 @@ The signer has knowledge of aggregated `X́`; the message `m` (in the context of
 
 The signer computes `R for 1` <= `R_i` <= `n`, `R = product of all R_i`, `c = H_sig(X́,R,m)`, and `s_1 = r_1 + ca_1x_1 mod p`, `s_1` is send to all cosigners. After all `s_2, …, sn` have been received, the signer computes let `s for 1` <= `s_i` <= `n`, `s = sum of all (s_i mod p)`. The signature is `σ = (R,s)`.
 
-Although there is one aggregated public key `X́`, there is no “aggregated private key”. In order to produce a valid signature while defending against the rogue key attack footnote:[Thomas Ristenpart and Scott Yilek. The Power of Proofs-of-Possession: Securing Multiparty Signatures against Rogue-Key Attacks. In Moni Naor, editor, Advances in Cryptology - EUROCRYPT 2007, volume 4515 of LNCS, pages 228–245. Springer, 2007.] footnote:[See MuSig 2018 chapter 5.3. Cross-Input Multi-Signatures], all cosigners have to collaborate in a three step footnote:[whilst a two-step round would be possible, it is larger in signature size and computational cost of signing and verification.] signing ceremony. First, sharing a nonce commitment `t_i`, then the nonce `R_i`, and finally the partial signatures `s_i`. Only when all `i` partial signatures are available can the coordinator produce the valid signature `σ` which contains the aggregated nonce `R` and `s` part of the signature. If one cosigner is unavailable to communicate the signature, then there can not be a valid signature.
+Although there is one aggregated public key `X́`, there is no “aggregated private key”. In order to produce a valid signature while defending against the rogue key attack footnote:[Ristenpart, Yilek. The Power of Proofs-of-Possession: Securing Multiparty Signatures against Rogue-Key Attacks. In Moni Naor, editor, Advances in Cryptology - EUROCRYPT 2007, volume 4515 of LNCS, pages 228–245. Springer, 2007.] footnote:[See MuSig. Chapter 5.3. Cross-Input Multi-Signatures. 2018.], all cosigners have to collaborate in a three step footnote:[whilst a two-step round would be possible, it is larger in signature size and computational cost of signing and verification.] signing ceremony. First, sharing a nonce commitment `t_i`, then the nonce `R_i`, and finally the partial signatures `s_i`. Only when all `i` partial signatures are available can the coordinator produce the valid signature `σ` which contains the aggregated nonce `R` and `s` part of the signature. If one cosigner is unavailable to communicate the signature, then there can not be a valid signature.
 
 Only those who have securely generated the individual private key can produce a valid individual signature over a message with very little effort. Without the knowledge of the private key, it is computationally infeasible to produce a correct signature. Once the signing algorithm is calculated, it cannot be undone, as the specific information of the signature is manifested. However, when the signature is not shared with others, nobody can verify it.
 
@@ -232,7 +211,7 @@ A threshold signature scheme footnote:[Stinson, Strobl. Provably Secure Distribu
 
 == Key Generation
 
-All `n` signers compute their individual private public key pairs, and they use a `m-of-n` verifiable secret sharing scheme footnote:[See Chapter on Shamir's Secret Sharing Scheme] to generate `n` shares of their individual private key, so that given `m` shares the individual private key can be calculated. Each of the `n` participants then give each peer one specific share, so that all peers have one share each of all the private keys of all participants. Due to the linearity of the Schnorr signature scheme, these shares can be added, that is tweaked, to the individual private key. All participants broadcast their individual public keys, so that an n-of-n aggregated public key `X́` can be calculated and used as the locking script of a UTXO. footnote:[See Chapter on Schnorr Signatures, Part on Interactive Key Aggregation]
+All `n` signers compute their individual private public key pairs, and they use a `m-of-n` verifiable secret sharing scheme footnote:[See Chapter on Shamir's Secret Sharing Scheme] to generate `n` shares of their individual private key, so that given `m` shares the individual private key can be calculated. Each of the `n` participants then give each peer one specific share, so that all peers have one share each of all the private keys of all participants. Due to the linearity of the Schnorr signature scheme, these shares can be added, that is tweaked, to the individual private key. All participants broadcast their individual public keys, so that an n-of-n aggregated public key `X́` can be calculated and used as the locking script of a UTXO. footnote:[Refer to chapter II.4. on MuSig.]
 
 == Signing
 
