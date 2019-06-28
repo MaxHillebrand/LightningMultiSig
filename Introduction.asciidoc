@@ -1,66 +1,17 @@
 = Abstract
 
-This thesis praxeologically defines the universal axiom of scarcity as the attribute of exclusivity and rarity of a good. Humans act in order to remove uneasiness by allocating scarce resources throughout time. An individual can acquire the just property right in a scarce good by either homesteading or exchanging it. Yet abundant non-scarce goods without exclusivity do not justify the need for resource allocation through property rights, as they are in the realm of mind and cyberspace. Bitcoin applies cryptography in order to emerge the scarcity of bitcoin as libre sound money, and its scripting capability can define the property rights of non-simulated shared ownership between several individuals. This fundamental economic breakthrough can be applied in countless use cases to increase the security, efficiency and usability of libre sound money Bitcoin.
+This thesis praxeologically defines the universal axiom of scarcity as the attribute of exclusivity and rarity of a good. Humans act in order to remove uneasiness by allocating scarce resources throughout time. An individual can acquire the just property right in a scarce good by either homesteading or exchanging it. Yet abundant non-scarce goods without exclusivity do not justify the need for resource allocation through property rights, as they are in the realm of mind and cyberspace. Bitcoin applies cryptography in order to emerge the scarcity of the unspent transaction output. Its scripting capability can define the property rights of non-simulated shared ownership between several individuals. This fundamental economic breakthrough can be applied in countless use cases to increase the security, efficiency and usability of libre sound money Bitcoin.
 
 = Introduction
 
-The universal axiom of scarcity is defined as the potential of conflict of control over a good. When Alice is utilizing a scarce good, Bob is excluded from using the same good at the same time but for a different task. Because of this fundamental rivalry over scarce goods, property rights emerge as a sound and logical structure to allocate resources throughout time. The binary opposite is a non-scarce good which is not restricted to individual control; it can be shared with whomever, without the need of sacrifice by the initial creator. Since non-scarce goods don't need to be allocated throughout time, property rights are neither necessary nor enforceable.
+In order to achieve wisdom, one must accumulate knowledge from a vast eclectic array of sources, internally seek to understand the subject by rigorous logic and reason, and apply in ones life what is understood to be truthful. This trivium process of education is based on some fundamental axioms that underly the universe humans manifest. It is of utmost importance to have a thorough grasp of the foundation on which more complex thought processes are build. If a theory is based on a wrong or imprecise axiom, then whatever is deduced above must be fallacious, regardless it's internal justification. But when the starting point is an uncontested fact that is properly defined, then whatever is deduced logically and with consistent reason, must undoubtedly be the truth.
 
-In Bitcoin, an unspent transaction output can only be spent when a previously-committed script is computed as valid. Bitcoin script is exhaustive with several `opcodes` which can be constructed into smart contracts. The most basic script is a `pay-to-single public key hash [P2PKH]`, where the knowledge of one private belonging to the address, the intent to transfer bitcoins to particular set of outputs and integrity of said intent proven with a cryptographic signature returns valid, and thus enables the transfer of bitcoin. Only with the knowledge of a non-scarce piece of information of the private key can the property rights of a scarce bitcoin be proven and enforced. Scripts can be constructed with `OP_CHECKMULTISIG`, where a coin can only be spent with m-of-n valid signatures. The Schnorr signature scheme can aggregate individual public keys and signatures for a more efficient and secure multisig implementation. Since a `UTXO` can only be spent within a threshold agreement between independent individuals, they have non-simulated shared ownership of scarce libre sound money.
+Praxeology is the applied science of purposeful human action to allocate scarce resources throughout time. It's the study of individuals with subjective preferences of possible ends, and the ability to analyze and utilize the scarce means available in order to achieve these ends. This thesis seeks to explain scarcity as the fundamental precondition to human action, as the attribute of exclusivity and rarity of goods and as the justification for the need of property rights in order to allocate these scarce resources.
 
-The use cases of multi signatures are far reaching, including strengthening the property right defence of a single individual with several separated keys, shared ownership of funds between like-minded peers, escrow security for ensuring honest trades, or as a basis for advanced scripts like `paymentchannels` in the lightning network or atomic swaps. 
+Yet in the same line of reasoning is the attribute of non-scarcity of goods that are either non-exclusive or abundant in nature. Any individual can utilize this knowledge without the need of another's sacrifice, thus there is no rivalry of who may use it. This thesis explains the axiomatic reason why there is no justification whatsoever for introducing artificial scarcity of naturally non-scarce goods through intellectual property rights.
 
+Rather than to attempt to defy the universal truth of scarcity, cryptography embraces the attributes of non-scarce knowledge and libre open source technologies. Although information cannot be owned, it can be exclusively known by one individual, and cryptography allows for an efficient proof of existence without revealing the secret. One novel contribution of this research is the explanation of how Bitcoin utilizes non-scarce cryptography in order to emerge non-simulated ownership in a scarce good of cyberspace. Full nodes define, verify and enforce the property rights boundaries of the bitcoin in an unspent transaction output.
 
+The main contribution is the analysis of how the non-scarce cryptography of the Bitcoin protocol can grant several individuals shared ownership of a bitcoin. This is a groundbreaking achievement, since so far a scarce good could ultimately only be used by one individual for one task at one time. There are several different approaches and technologies available to achieve similar ends, and they are carefully analyzed and defined in part two of the thesis.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+To ensure that the theories elaborated in part one, and the tools explained in part two are not just theoretical constructs without any relevance to human action, part three is dedicated to exploring several applications and use cases of shared ownership of a scarce money. This tool is valuable to advance the security, enable the collaboration and increase the efficiency of the libre sound money Bitcoin.

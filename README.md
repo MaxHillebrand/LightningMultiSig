@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This thesis praxeologically defines the universal axiom of scarcity as the attribute of exclusivity and rarity of a good. Humans act in order to remove uneasiness by allocating scarce resources throughout time. An individual can acquire the just property right in a scarce good by either homesteading or exchanging it. Yet abundant non-scarce goods without exclusivity do not justify the need for resource allocation through property rights, as they are in the realm of mind and cyberspace. Bitcoin applies cryptography in order to emerge the scarcity of bitcoin as libre sound money, and its scripting capability can define the property rights of non-simulated shared ownership between several individuals. This fundamental economic breakthrough can be applied in countless use cases to increase the security, efficiency and usability of libre sound money Bitcoin.
+This thesis praxeologically defines the universal axiom of scarcity as the attribute of exclusivity and rarity of a good. Humans act in order to remove uneasiness by allocating scarce resources throughout time. An individual can acquire the just property right in a scarce good by either homesteading or exchanging it. Yet abundant non-scarce goods without exclusivity do not justify the need for resource allocation through property rights, as they are in the realm of mind and cyberspace. Bitcoin applies cryptography in order to emerge the scarcity of the unspent transaction output. Its scripting capability can define the property rights of non-simulated shared ownership between several individuals. This fundamental economic breakthrough can be applied in countless use cases to increase the security, efficiency and usability of libre sound money Bitcoin.
 
 ## Structure
 
