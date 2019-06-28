@@ -237,3 +237,141 @@ All `n` signers compute their individual private public key pairs, and they use 
 == Signing
 
 In order to produce a valid signature, at least `m` participants need to collaborate. Each of them signs a spending transaction with the individual tweaked private key, which is the sum of their individual private key and all `n-1` shares of the other individual private keys. All `m` individual signatures are then aggregated to the final signature. This includes the `m` "full" signatures of each active signer, and `m` shares of the signature of the `n-m` non-signing private keys. Because `m` shares are enough to produce the full signature for the non-signing keys, this final signature is a fully n-of-n, and thus valid according to regular MuSig.
+
+= Lightning Network
+
+The lightning network consists of individual peers communicating information and trustlessly exchanging bitcoin between each other without requesting the verification of all Bitcoin full nodes. An additional piece of software, a lightning network node, has to be installed and run by the user. Each node can communicate with different peers to gain necessary information about the state of the network. In order to send bitcoin between lightning peers, two nodes collaboratively open, update and close a payment channel off-chain. This limits full node verification of on-chain transactions to two transactions in the life cycle of a payment channel, which can conduct potentially unlimited amounts of updated commitment transactions. These are based on the Bitcoin scripts multi signatures and hashed time locked contracts, as well as per-signed revocation transactions. A payment can be routed through many independent channels, so even peers without a direct channel can send and receive bitcoin. The following chapters focus on the shared ownership of payment channel, and not on the routing between the channels since this is independent from the channel update mechanism.
+
+== 2-of-2 Lightning Network Payment Channel
+
+The basic implementation of the current payment channels is based on a `2-of-2` script multisig. Two peers collaborate long term to send payments in between each other, and to route payments through the lightning network. The life cycle of a channel consists of the on-chain opening transaction, off-chain commitment transaction, different cases for collaborative or forced closing transactions, and the defense against theft with revocation transactions. Each of them will be analyzed in this chapter.
+
+=== Funding Transaction
+
+Two parties create a transaction funded by individual inputs, for example Alice provides a 10 bitcoin UTXO as input. This funding transaction creates a `2-of-2` multi signature with the redeem script `2 <PubKeyAlice> <PubKeyBob> 2 CHECKMULTISIG`. footnote:[BOLT 3, Funding Transaction Output] Alice and Bob can only spend this UTXO with both signatures. If one of them is malicious, the funds are locked and irredeemable. Alice wants to protect herself against the case that malicious Bob goes off-line, so she requests Bob's signature over a commitment transaction, as described below, that send all 10 bitcoin to a new script of Alice. Alice stores this transaction, yet she doesn't yet broadcast it. Now Alice will sign the funding transaction, knowing that at any time she could broadcast the initial commitment transaction with Bob's signature. The funding transaction is verified by every full node and confirmed in the time chain. Now the payment channel is open, it has a unique identifier of the transaction and channel ID. Alice and Bob can choose to announce this channel publicly to the lightning network and offer to route payments up to the capacity of the multisig.
+
+=== Commitment Transaction
+
+Subsequently, Alice and Bob can exchange signed commitment transactions footnote:[BOLT 3, Commitment Transaction] which change the value of the outputs dedicated to Alice and Bob. This transaction consumes the output of the funding transaction, and creates four new outputs, one back to Alice's single signature private key, the other back to Bob's, and one for each offered and received HTLC. footnote:[BOLT 3, Commitment Transaction outputs] Initially, only Alice partially signs footnote:[Chow. BIP 174: Partially Signed Bitcoin Transactions. 2017.] the transaction and sends it to Bob, who completes the `2-of-2` multi signature and sends the fully signed transaction back to Alice. The next commitment transaction consumes the same founding transaction output, but changes the amount dedicated to the newly created outputs of Alice and Bob. These valid transactions could be broadcasted to the network and added to the time chain, but for now they are kept occulted by Alice and Bob.
+
+Offered HTLC output P2WSH: `DUP HASH160 <RIPEMD160(SHA256(revocationpubkey))> EQUAL IF CHECKSIG ELSE <remote_htlcpubkey> SWAO SIZE 32 EQUAL NOTIF DROP 2 SWAP <local_htlcpubkey> 2 CHECKMULTISIG ELSE HASH160 <RIPEMD160(payment_hash)> EQUALVERIFY CHECKSIG ENDIF ENDIF`
+
+Witness Script: `<remotehtlcsig> <payment_preimage>`
+
+If a revoked commitment transaction is published, the Witness Script `<revocation_sig> <payment_preimage>` can spend the output immediately. For every commitment transaction, the receiver requests the revocation private key before accepting the money. Thus for any received payment there is proof of payment, and that can be used to punish a malicious trying to settle an old state. It has to be ensured, that a old state of the channel is invalidated with the most current commitment transaction. There needs to exist enforceable proof in the case that a old state is closed on chain. There are several different update and revocation mechanisms with according thread models and security assumptions:
+
+Transaction held by Alice
+```
+[i 0] 2-of-2 funding output, signed by Bob	|	[o] <nValueAlice>: <PubKeyAlice>
+											|	[o] <nValueBob>: IF <Revocation Public Key> ELSE <delay in blockst> CHECKSEQUENCEVERIFY DROP <PubKeyBob> CHECKSIG
+```
+
+Transaction held by Bob
+``` 
+[i] 2-of-2 funding output, signed by Alice	|	[o] <nValueBob>: <PubKeyBob> 
+											|	[o] <nValueAlice>: IF <Revocation Public Key> ELSE <delay in blocks> CHECKSEQUENCEVERIFY DROP <PubKeyAlice> ENDIF CHECKSIG
+```
+
+The revocable key is split in two secrets, similar to `2-of-2` multi signature based on elliptical curve arithmetics. When Bob sends funds to Alice, Bob has to revoke the old commitment transaction by revealing her secret to Alice, before Alice agrees to sign the commitment transaction of the new state. If Bob would try to cheat and broadcast an old state, Alice can become active and use both paths of the revocation key to redeem Bob's delayed output. Alice only has one half of the revocation key and can only redeem her output after the block delay timeout. With each state update, both exchange the new commitment transactions, and the revocation secret of the previous one.
+
+=== Closing Transaction
+
+After Alice and Bob have done several off-chain payments, they can cooperatively close this payment channel, by broadcasting the final multisig settlement transaction to the network. This cooperative closing transaction has a witness script `0 <signature1> <signature2> 2 <PubKey1> <PubKey2> 2 CHECKMULTISIG` and can specify any new ScriptPubKey in the output. In this case where both signatures are available, the transaction does not include any timelocks and thus can be spend again without any timeouts.
+
+In the case where one peer is uncooperative the other party can do a one-sided closing transaction. This is the script with the revocation key and HTLC in order to protect against the closing with an old state. In this time-out window the uncooperative party has the opportunity to come back online and to check if this closing attempt is actually valid. If not, then the revocation key is used as proof that this is an old state. 
+
+
+== n-of-n Multi Party Channel Factories
+
+Channel factories are payment channels where every commitment transaction opens more payment channels. The off-chain update transaction closes the previous payment channel and opens the new one atomically. This script enables the secure opening and closing of a new payment channel without committing any extra transaction to the time chain. A 10 peer channel factory has 90% transaction size savings compared to individual channel opening. footnote:[Harding, What are Channel Factories and how do they work? 2018]
+
+=== Hook Transaction
+
+Two, or preferably more peers create a channel factory deposit transaction that is verified by all nodes and committed to the time chain. All peers provide their individual UTXOs with witness proofs in the input of the hook transaction, and they create several individual change outputs, as well as the channel factory script UTXO. This is the transaction to collect all the bitcoin from the peers and fund the channel factory. This script has the regular payment channel conditions, the `n-of-n` cooperative case, as well as partially signed yet unbroadcasted backup transactions with time locks with single signatures for uncooperative spending. The hook transaction is signed only when all transactions of the initial state are signed to ensure the funds always return to their initial owner in case of the uncooperative case.
+
+```
+[i]	Alice	| [o]	10-of-10 channel factory
+	Bob		|		Alice Change
+	...		|		Bob Change
+	Justin	|		...
+			|		Justin Change
+```
+
+=== Replaceable Allocation Transaction
+
+After the funding transaction has sufficient accumulated proof of work, the peers can collaboratively update the channel factory by creating an unbroadcasted commitment transaction. The input is the `n-of-n` cooperative multi signature of the allocation transaction, the outputs are the funding UTXO with a `2-of-2` direct payment channels between the individuals within the factory.
+
+Every allocation transaction thus spends the hook UTXO to create individual payment channel funding transactions. Only peers of the same factory can connect, since only they verify and enforce the scarcity and double spending protection of these bitcoin. Because only the factory peers need to verify the unbroadcasted commitment transactions, the speed of opening and closing an individual payment channel is near instant, and without any on-chain transaction cost.
+
+The goal of a channel factory is to have many off-chain allocation transactions that open many individual `2-of-2` payment channels. Because only the latest state of these allocation transactions must successfully be committed on the time chain, it is thus essential that old states are replaced by the new one. This can be done by building an invalidation tree with either decrementing timelocks started by a kickoff root transaction footnote:[Decker, Wattenhofer. A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels. 2016.], exchanging revocation secrets footnote:[Poon, Dryja. The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments. 2016.] or utilizing the eltoo footnote:[Decker, Russell, Osuntokun. eltoo: A Simple Layer 2 Protocol for Bitcoin. 2018.] updating mechanism. The leaves of the invalidation tree are the individual `2-of-2` multi signatures that open an individual 2 peer payment channel. 
+
+=== Commitment Transaction
+
+After the hook transaction has sufficient accumulated proof of work, and the allocation transaction is successfully signed and communicated, then the individual sub-channels are open. The commitment transaction spends the `2-of-2` multi signature of the allocation transaction, and creates UTXOs with the single public key of the individual owners of the bitcoin. The scripts and signing ceremony is identical to the ones of regular `2-of-2` payment channels.
+
+=== Closing Transaction
+
+In the case where all peers collaborate, they will close all the individual payment channels within the factory, this is done all off-chain and should be coordinated within seconds. Then they build and sign a factory closing transaction with the n-of-n multisig as the input, and individual UTXOs with the correct number of bitcoin according to the latest state of the factory. In this case there are no timelocks, and thus every individual can spend their own UTXO as soon as they desire. The individual script might even be the funding of a new channel or factory according to the splicing in and out process.
+
+In the uncooperative case, the on-line peers can construct a one sided closing transaction, which is however limited by an additional time lock. During this period the off-line peers have the opportunity to come back on-line to check if this is the most recent state of the channel factory, and if not, to proof it and punish the thieves.
+
+== M-of-n HTLC
+
+An early proposal for instant escrows was to use complex scripts with several HTLCs to enable threshold transactions inside a payment channel. footnote:[[2-of-3 Instant Escrow, or How to Do "2-of-3 Multisig Contract" Equivalent on Lightning, Joseph Poon: https://lists.linuxfoundation.org/pipermail/lightning-dev/2016-January/000403.html] `m-of-n` hash preimages are required for the HTLC to be fulfilled. Timeouts are at the minimum the escrow timeouts and they increase with every additional `n` in the multisig scheme. Sender, escrow and receiver [or others] have the `n` preimages, yet only `m` of them are required in order to validate the redeem script. In most cases, sender and receiver will disclose preimage themselves without the need for escrow action. Although this does work theoretically, it commits a lot of information to the time chain and is thus rather inefficient.
+
+```console
+
+Assume the order in the stack is Sender, Escrow, Recipient.
+
+For PAID 2-of-3 Escrow+Recipient, the HTLC stack is:
+        <BobSig> <0> <EscrowPreimageR> <RecipientPreimageR> <0>
+
+If it's REFUND because 2-of-3 has not been redeemed in time:
+        <AliceSig> <0> <1>
+
+Bitcoin Script (Alice's, we use OP_1/OP_0 to distinctly show computed
+true/false. 0/1 is for supplied data as part of the
+sigScript/redeemScript stack):
+------------------------------------------------------------------------
+
+//Paid
+OP_IF
+        <CSVDelay> OP_DROP OP_CSV //under rusty's CSV style
+
+        //Stack: <BobSig> <0> <EscrowPreimageR> <RecipientPreimageR>
+        //Recipient must agree to receive funds.
+        OP_HASH160 <RecipientHash> OP_EQUALVERIFY
+
+        //Stack: <BobSig> <0> <EscrowPreimageR>
+        //Either the Sender or Escrow must consent for payment
+        OP_HASH160 <EscrowHash> OP_EQUAL
+        //Stack: <BobSig> <0> <OP_1>
+        OP_SWAP
+        //Stack: <BobSig> <OP_1> <0>
+        OP_HASH160 <SenderHash> OP_EQUAL
+        //Stack: <BobSig> <OP_1> <OP_0>
+        OP_BOOLOR
+        //Stack: <BobSig> <OP_1>
+        OP_VERIFY
+
+        <BobPubKey>
+        //Stack: <BobSig> <BobPubKey>
+//Refund
+OP_ELSE
+        //Stack: <AliceSig> <0>
+        OP_HASH160 OP_DUP
+        <R-HASH> OP_EQUAL
+        OP_NOTIF
+                <CSVDelay> OP_DROP OP_CSV
+        OP_ENDIF
+
+        <HTLCTimeout> OP_DROP OP_CLTV
+
+        //Stack: <AliceSig>
+        <AlicePubKey>
+        //Stack: <AliceSig> <AlicePubKey>
+OP_ENDIF
+OP_CHECKSIG
+------------------------------------------------------------------------
+```
+footnote:[Original proposed script by Poon.]
