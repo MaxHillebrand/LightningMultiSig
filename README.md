@@ -28,8 +28,10 @@ The use cases of multi signatures are far reaching, including strengthening the 
 8. [Libre Open Source Software](/Scarcity.asciidoc#libre-open-source-software)
 9. [Fallacy of Intellectual Property](/Scarcity.asciidoc#fallacy-of-intellectual-property)
 10. [Non-scarcity of Cryptography](/Scarcity.asciidoc#non-scarcity-of-cryptography)
-11. [Scarcity of UTXOs](/Scarcity.asciidoc#scarcity-of-utxos)
-
+11. [Scarcity of UTXOs](/Scarcity.asciidoc#scarcity-of-utxos)<br/>
+    11.1 [Double Spending is Non-Scarcity](/Scarcity.asciidoc#double-spending-is-non-scarcity)<br/>
+    11.2 [Bitcoin Halving and Scarcity](/Scarcity.asciidoc#bitcoin-halving-and-scarcity)<br/>
+    11.3 [Full Nodes Define, Verify and Enforce Scarcity](/Scarcity.asciidoc#full-nodes-define,-verify-and-enforce-scarcity)
 
 ### PART II [Shared Ownership](/SharedOwnership.asciidoc)
 
@@ -52,33 +54,17 @@ The use cases of multi signatures are far reaching, including strengthening the 
 1. [1-of-2 Joint Spending](/UseCase.asciidoc#1-of-2-joint-spending)
 2. [2-of-2 Joint Saving](/UseCase.asciidoc#2-of-2-joint-saving)
 3. [2-of-2 Two-Factor Authentication](/UseCase.asciidoc#2-of-2-two-factor-authentication)
-4. [2-of-2 Lightning Network Payment Channel](/UseCase.asciidoc#2-of-2-lightning-network-payment-channel)
-5. [2-of-3 Child Saving](/UseCase.asciidoc#2-of-3-child-saving)
-6. [2-of-3 Buyer, Seller, Trust less Escrow](/UseCase.asciidoc#2-of-3-buyer-seller-trust-less-escrow)
-7. [2-of-3 Hot Wallet Security](/UseCase.asciidoc#2-of-3-hot-wallet-security)
-8. [3-of-5 Low Trust Joint Funds](/UseCase.asciidoc#3-of-5-lowtrust-joint-funds)
+4. [2-of-3 Child Saving](/UseCase.asciidoc#2-of-3-child-saving)
+5. [2-of-3 Buyer, Seller, Trust less Escrow](/UseCase.asciidoc#2-of-3-buyer-seller-trust-less-escrow)
+6. [2-of-3 Hot Wallet Security](/UseCase.asciidoc#2-of-3-hot-wallet-security)
+7. [3-of-5 Low Trust Joint Funds](/UseCase.asciidoc#3-of-5-lowtrust-joint-funds)
+8. [Transaction Output Commitments](/UseCase.asciidoc#transaction-output-commitments)
 
 ## License and Contribution
 
 This Bachelor's thesis is written in an open source process, and published under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by/4.0/legalcode). If you'd like to contribute to the research and writing, please submit an issue or fork the repository, commit the changes on your own branch, and issue a pull request. I have 1001 questions and thank all the peers whom I can bother to ask. If you have a proposal, feedback or question, don't hesitate to [reach out](https://towardsliberty.com/contact)! Thank you very much for your support!
 
 The thesis is due on July 1st 2019 and written under the direction of [Prof. Dr. Bernd Kaltenhaeuser](https://www.dhbw-vs.de/hochschule/mitarbeitende/bernd-kaltenhaeuser.html). The [Declaration of Honor](/DeclarationOfHonor.asciidoc) is signed here. It will be published for peer review in the Libertarians Scholars Conference.
-
-## ToDo
-
-This thesis is in the second round of peer review, there are some topics that require further research, others that need fine tuning of the idea, and some edits of the structure and typos. Here is a list of rough ToDo's with links to the working files.
-
-
-* `[Up for grabs]` Fix structure and typos for [Part 1 on Scarcity](/Scarcity.asciidoc)
-* `[Up for grabs]` Add list of definitions of all important words and acronyms
-* `[Up for grabs]` More details for Funding, Commitment, Revocation and Closing Transaction of [Payment Channel](/PaymentChannel.asciidoc)
-* `[Up for grabs]` Fine tune the [Usecases](/UseCase.asciidoc) of multi signature both on- and off-chain
-* `[Up for grabs]` Punishment mechanism and game theory
-* `[/w @provoost]` Ellaborate on node enforcement of scarcity
-* `[/w @NSKinsella]` Write clear definition of economic [posession] or catallactic [control] or juridical [property rights] ownership
-* `[/w @n1ckler]` [Multi-Hop Locks from Scritpless Scripts](https://github.com/apoelstra/scriptless-scripts/blob/master/md/multi-hop-locks.md)
-* `[/w @OmerShlomovits]` Threshold signatures in Lightning [Multiparty Schnorr](https://github.com/KZen-networks/multi-party-schnorr)
-
 
 ## Support
 
