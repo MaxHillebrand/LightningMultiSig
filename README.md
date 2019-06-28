@@ -2,13 +2,11 @@
 
 ## Abstract
 
-The universal axiom of scarcity is defined as the potential of conflict of control over a good. When Alice is utilizing a scarce good, Bob is excluded from using the same good at the same time but for a different task. Because of this fundamental rivalry over scarce goods, property rights emerge as a sound and logical structure to allocate resources throughout time. The binary opposite is a non-scarce good which is not restricted to individual control; it can be shared with whomever, without the need of sacrifice by the initial creator. Since non-scarce goods don't need to be allocated throughout time, property rights are neither necessary nor enforceable.
-
-In Bitcoin, an unspent transaction output can only be spent when a previously-committed script is computed as valid. Bitcoin script is exhaustive with several `opcodes` which can be constructed into smart contracts. The most basic script is a `pay-to-single public key hash [P2PKH]`, where the knowledge of one private belonging to the address, the intent to transfer bitcoins to particular set of outputs and integrity of said intent proven with a cryptographic signature returns valid, and thus enables the transfer of bitcoin. Only with the knowledge of a non-scarce piece of information of the private key can the property rights of a scarce bitcoin be proven and enforced. Scripts can be constructed with `OP_CHECKMULTISIG`, where a coin can only be spent with m-of-n valid signatures. The Schnorr signature scheme can aggregate individual public keys and signatures for a more efficient and secure multisig implementation. Since a `UTXO` can only be spent within a threshold agreement between independent individuals, they have non-simulated shared ownership of scarce libre sound money.
-
-The use cases of multi signatures are far reaching, including strengthening the property right defence of a single individual with several separated keys, shared ownership of funds between like-minded peers, escrow security for ensuring honest trades, or as a basis for advanced scripts like `paymentchannels` in the lightning network or atomic swaps. 
+This thesis praxeologically defines the universal axiom of scarcity as the attribute of exclusivity and rarity of a good. Humans act in order to remove uneasiness by allocating scarce resources throughout time. An individual can acquire the just property right in a scarce good by either homesteading or exchanging it. Yet abundant non-scarce goods without exclusivity do not justify the need for resource allocation through property rights, as they are in the realm of mind and cyberspace. Bitcoin applies cryptography in order to emerge the scarcity of bitcoin as libre sound money, and its scripting capability can define the property rights of non-simulated shared ownership between several individuals. This fundamental economic breakthrough can be applied in countless use cases to increase the security, efficiency and usability of libre sound money Bitcoin.
 
 ## Structure
+
+[Introduction](/Introduction.asciidoc)
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
@@ -59,6 +57,8 @@ The use cases of multi signatures are far reaching, including strengthening the 
 6. [2-of-3 Hot Wallet Security](/UseCase.asciidoc#2-of-3-hot-wallet-security)
 7. [3-of-5 Low Trust Joint Funds](/UseCase.asciidoc#3-of-5-lowtrust-joint-funds)
 8. [Transaction Output Commitments](/UseCase.asciidoc#transaction-output-commitments)
+
+[Conclusion](/Conclusion.asciidoc)
 
 ## License and Contribution
 
