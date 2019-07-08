@@ -10,9 +10,9 @@ This thesis praxeologically defines the universal axiom of scarcity as the attri
 
 ### PART I [On Scarcity](/Scarcity.asciidoc)
 
-1. [Human Action](/Scarceity.asciidoc#human-action)
-2. [Exclusivity of Scarce Goods](/Scarceity.asciidoc#exclusivity-of-scarce-goods)
-3. [Rarity of Scarce Goods](/Scarceity.asciidoc#rarity-of-scarce-goods)
+1. [Human Action](/Scarcity.asciidoc#human-action)
+2. [Exclusivity of Scarce Goods](/Scarcity.asciidoc#exclusivity-of-scarce-goods)
+3. [Rarity of Scarce Goods](/Scarcity.asciidoc#rarity-of-scarce-goods)
 4. [Liberty](/Scarcity.asciidoc#liberty)<br/>
    4.1 [Private property](/Scarcity.asciidoc#private-property)<br/>
    4.2 [Homesteading](/Scarcity.asciidoc#homesteading)<br/>
@@ -33,8 +33,8 @@ This thesis praxeologically defines the universal axiom of scarcity as the attri
 
 ### PART II [Shared Ownership](/SharedOwnership.asciidoc)
 
-1. [Basics of Bitcoin Script](/SharedOwnership.asciidoc/basics-of-bitcoin-script)<br/>
-   1.1 [Pay to Public Key Hash](SharedOwnership.asciidoc#pay-to-public-key-hash)<br/>
+1. [Basics of Bitcoin Script](/SharedOwnership.asciidoc#basics-of-bitcoin-script)<br/>
+   1.1 [Pay to Public Key Hash](/SharedOwnership.asciidoc#pay-to-public-key-hash)<br/>
    1.2 [Pay to Script Hash](/SharedOwnership.asciidoc#pay-to-script-hash)<br/>
    1.3 [Pay to Witness Public Key Hash](/SharedOwnership.asciidoc#pay-to-witness-public-key-hash)<br/>
    1.4 [Pay to Witness Script Hash](/SharedOwnership.asciidoc#pay-to-witness-script-hash)
